@@ -12,7 +12,7 @@
 */
 // Services Routes
 
-Route::POST('Home/AddService', 'ServicesController@Add');
+Route::GET('Home/AddService', 'ServicesController@Add');
 Route::POST('/Home/EditService', 'ServicesController@Edit');
 Route::GET('/Home/GetServices', 'ServicesController@Get');
 Route::GET('/Home/Service{id}', 'ServicesController@View');

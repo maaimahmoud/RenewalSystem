@@ -12,7 +12,7 @@
 
         <title>{{ config('app.name','Company') }}</title>
   </head>
-      <nav class="navbar navbar-light" style="background-color: #eef00d;">
+      <nav class="navbar navbar-light " style="background-color: #eef00d;">
               <!-- Navbar content -->
                 <h2>Renewal System</h2>
       </nav>
