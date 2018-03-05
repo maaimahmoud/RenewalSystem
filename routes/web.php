@@ -10,12 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Services Routes
 
-Route::POST('Home/AddService', 'ServicesController@Add');
-Route::POST('/Home/EditService', 'ServicesController@Edit');
-Route::GET('/Home/GetServices', 'ServicesController@Get');
-Route::GET('/Home/Service{id}', 'ServicesController@View');
 
 Route::get('/', function () {
    /*return ("reko is playing ");*/
@@ -24,3 +19,6 @@ Route::get('/', function () {
 
 
 Route::resource('clients', 'ClientController');
+
+
+Route::resource('services', 'ServiceController');
