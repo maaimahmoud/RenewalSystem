@@ -8,7 +8,19 @@
 @section('content')
 <div class="col-md-9 mt-4 ml-auto mr-auto">
 				<div class="card border-light" >
-				  <div class="card-header border-dark">ALL Services</div>
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs">
+					<li class="nav-item">
+					<a class="nav-link View" href="/Home/">ALLServices </a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link Edit" href="/Home/EditService{id}">Edit</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link Delete" href="/Home/Delete{id}">Delete</a>
+					</li>
+					</ul>
+				</div>
 				  {{--  start of foreaach  --}}
 				  <a  href="/Home/Service{id}">
 				  <div class="card-body-custom text-dark bg-grey-light-3 ml-2 " style=" text-decoration:none;">

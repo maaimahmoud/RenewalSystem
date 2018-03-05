@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', function () {
    /*return ("reko is playing ");*/
     return view('welcome');
