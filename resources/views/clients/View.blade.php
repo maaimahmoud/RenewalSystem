@@ -1,21 +1,43 @@
 @extends('layout')
+<style>
+.card-body-custom:nth-child(even){
+        background:#eee;
 
+    }
+</style>
 @section('content')
 
-<h1>Clients</h1>
-
 @if(count($clients)> 0)
-    <ul class="list-group">
+
+    <div class="col-md-9 mt-4 ml-auto mr-auto">
+                <div class="card border-light" >
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                    <a class="nav-link View" href="/Home/">ALL Clients </a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link Edit" href="/Home/EditClient{id}">Edit</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link Delete" href="/Home/DeleteClient{id}">Delete</a>
+                    </li>
+                    </ul>
+                </div>
         @foreach ($clients as $client)
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-            <div class=" w-100 justify-content-between">
-            <h4>{{$client->name}}</h4>
-            <h5>{{$client->email}}</h5>
-            </div>
+        <a href="/Home/GetClient{id}" >
+            <div class="card-body-custom mt-2 ">
+                <strong> <h4>{{$client->name}}</h4> </strong>
+                </div>  
+            <div> <h5>{{$client->email}}</h5></div>
         </a>
+    </div>
+</div>
+        
         @endforeach
     </ul>
-    
+
+                          
 @else
     <p>No Clients Found</p>
 @endif
