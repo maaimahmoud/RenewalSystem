@@ -49,7 +49,7 @@ class ClientController extends Controller
         $client->save();
 
         //redirect to clients page
-        return redirect('/clients');
+        return redirect('/');
 
     }
 
@@ -76,7 +76,17 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        //get the client with that id
+        $client = Client::find($id);
+
+        //get the current information of this client to display them
+        $name = $client->name;
+        $email = $client->email;
+        $phone_number = $client->phone_number;
+        $address = $client->address;
+
+        return view('clients.edit', compact('name', 'email', 'phone_number', 'address', 'client'));
+
     }
 
     /**
@@ -101,7 +111,7 @@ class ClientController extends Controller
         $client->save();
 
         //redirect to clients page
-        return redirect('/clients');
+        return redirect('/');
     }
 
     /**
