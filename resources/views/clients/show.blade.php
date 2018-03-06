@@ -15,10 +15,10 @@
                 <a class="nav-link View" href="/Home/Service{id}">View</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link Edit" href="/Home/EditService{id}">Edit</a>
+                <a class="nav-link Edit" href="{{route('clients.edit', $client->id)}}">Edit</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link Delete" href="/Home/Delete{id}">Delete</a>
+                <a class="nav-link Delete" data-toggle="modal" data-target="#exampleModalCenter">Delete</a>
               </li>
             </ul>
           </div>
@@ -32,6 +32,27 @@
           </div>
       </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this service?
+          </div>
+          <div class="modal-footer">
+            <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+            <a type="button" class="btn btn-secondary" href="{{url('/clients/delete/'.$client->id)}}">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
