@@ -6,16 +6,10 @@
 
 @section('content')
   <style type="text/css">
-        .sub-list{
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 10px;
-            padding: 10px;
-            overflow-y: auto;
-        }
-  </style>
 
+  </style>
   <div class="row full-height align-items-center">
+    <!--
           <div class="col-4 " style="max-width:25%;">
             <div class="list-group" id="list-tab" role="tablist">
               <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-service" role="tab" aria-controls="service">Service</a>
@@ -55,8 +49,8 @@
                     </div>
               </div>
       </div>
+    -->
     </div>
-
 
 
 @endsection

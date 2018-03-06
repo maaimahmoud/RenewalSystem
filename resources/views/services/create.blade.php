@@ -1,9 +1,5 @@
 @extends('layout')
 
-@section('title')
-    Services
-@endsection
-
 @section('content')
 <div class="mt-4" >
 <form>

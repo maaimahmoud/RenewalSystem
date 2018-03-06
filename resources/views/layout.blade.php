@@ -25,13 +25,23 @@
                 background-color: var(--main-color);
                 margin-top: 20px;
               }
-              #pageTitle{
-                position: absolute;
-                top: 20%;
-                left: 45%;
-                text-align: center;
-                font-weight: bold;
-                font-family: "Arvo","Times New Roman",serif;
+              .navbar-dropdowns{
+                margin-right: 5%;
+              }
+              .navbar-dropdowns div{
+                margin-right: 85px;
+              }
+              .navbar-dropdowns div a{
+                width:150%;
+                color:black;
+              }
+
+              .sub-list{
+                  display: grid;
+                  grid-template-columns: repeat(6, 1fr);
+                  grid-gap: 10px;
+                  padding: 10px;
+                  overflow-y: auto;
               }
 
         </style>
@@ -41,10 +51,40 @@
       <nav class="navbar navbar-light" style="height:90px">
               <!-- Navbar content -->
               <a href="/"><img src="/images/company-logo.png" alt="Company logo" style=" max-width:130px; position: absolute; top: 15px; left: 50px;"></a>
-              <h3 id="pageTitle">@yield('title')</h3>
+              <div class="row navbar-dropdowns">
+            <div class="dropdown show">
+            <a class="btn btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Service
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="/services">View All</a>
+
+            </div>
+          </div>
+          <div class="dropdown show">
+  <a class="btn btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Client
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="/clients">View All</a>
+  </div>
+</div>
+<div class="dropdown show">
+  <a class="btn btn-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Statistics
+  </a>
+</div>
+<div class="dropdown show">
+  <a class="btn btn-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Settings
+  </a>
+</div>
+</div>
       </nav>
 
-      <div class="container-fluid">
+      <div class="contain er-fluid">
             @yield('content')
       </div>
 
