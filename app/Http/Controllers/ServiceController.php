@@ -29,7 +29,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //just go to the add client page
+        //just go to the add service page
         return view('services.create');
     }
 
