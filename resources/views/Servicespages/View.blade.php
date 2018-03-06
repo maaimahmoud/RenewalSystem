@@ -2,18 +2,18 @@
 
 @section('content')
 <body>
-  <div class="title py-3 text-center ml-auto mr-auto col-md-6" text-center title=" Services Information">
+  <div class="title py-3 text-center ml-auto mr-auto col-md-6 " text-center title=" Services Information">
 <div class="card text-center "  >
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link View" href="#">View</a>
+        <a class="nav-link View" href="/Home/Service{id}">View</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link Update" href="#">Update</a>
+        <a class="nav-link Edit" href="/Home/EditService{id}">Edit</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link Delete" href="#">Delete</a>
+        <a class="nav-link Delete" href="/Home/Delete{id}">Delete</a>
       </li>
     </ul>
   </div>

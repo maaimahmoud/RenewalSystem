@@ -12,6 +12,7 @@
 */
 
 
+
 Route::get('/', function () {
    /*return ("reko is playing ");*/
     return view('welcome');
@@ -22,3 +23,4 @@ Route::resource('clients', 'ClientController');
 
 
 Route::resource('services', 'ServiceController');
+
