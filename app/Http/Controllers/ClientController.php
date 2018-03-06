@@ -27,7 +27,7 @@ class ClientController extends Controller
     public function create()
     {
         //just go to the add client page
-        return view('clients.add');
+        return view('clients.create');
     }
 
     /**

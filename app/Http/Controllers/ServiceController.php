@@ -19,7 +19,7 @@ class ServiceController extends Controller
         //get all services
         $services = Service::all();
         //show services in the page
-        return view('Servicespages.index')->with('services', $services);
+        return view('services.index')->with('services', $services);
     }
 
     /**
@@ -30,7 +30,7 @@ class ServiceController extends Controller
     public function create()
     {
         //just go to the add client page
-        return view('Servicespages.Add');
+        return view('services.create');
     }
 
     /**
@@ -68,7 +68,7 @@ class ServiceController extends Controller
         $service = Service::find($id);
 
         //show page of service's information
-        return view('Servicespages.View')->with('service', $service);
+        return view('services.show')->with('service', $service);
     }
 
     /**
