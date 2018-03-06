@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Service;
+use App\PaymentMethod;
+use App\ServiceCategories;
+use App\User;
 
 class ServiceController extends Controller
 {
@@ -29,8 +32,14 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        //get all payment methods to display
+        $payment_methods = PaymentMethod::all();
+
+        //get all categories to display
+        $categories = ServiceCategories::all();
+
         //just go to the add service page
-        return view('services.create');
+        return view('services.create', compact('payment_methods', 'categories'));
     }
 
     /**
@@ -46,14 +55,18 @@ class ServiceController extends Controller
         $service->title = $request->input('title');
         $service->description = $request->input('description');
         $service->cost = $request->input('cost');
-        $service->category_id = $request->input('category_id');
-        $service->payment_method_id = $request->input('payment_method_id');
+        //get category from its title
+        $category = ServiceCategories::where('title','=', $request->get('categories'))->get()->first();
+        $service->category_id = $category->id;
+        //get payment method from its title
+        $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
+        $service->payment_method_id = $method->id;
         
         //save service in database
         $service->save();
 
         //redirect to services page
-        return redirect('/services');
+        return redirect('/');
     }
 
     /**
@@ -79,7 +92,33 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        //get the required service to be edited
+        $service = Service::find($id);
+
+        //get the service's info to pass to the edit page
+        $title = $service->title;
+        $description = $service->description;
+        $cost = $service->cost;
+
+        //get id of payment method of this service
+        $pay_method = $service->payment_method_id;
+        //get title of payment method to display
+        $pay_method = PaymentMethod::where('id', $pay_method)->get()->first();
+
+        //get id of category of this service
+        $category_service = $service->category_id;
+        //get title of category to display
+        $category_service = ServiceCategories::where('id', $category_service)->get()->first();
+
+        //get all payment methods to display
+        $payment_methods = PaymentMethod::all();
+
+        //get all categories to display
+        $categories = ServiceCategories::all();
+
+        //go to the edit page
+        return view('services.edit', compact('service', 'title', 'description', 'cost', 'payment_methods', 'categories', 'pay_method', 'category_service'));
+        
     }
 
     /**
@@ -98,14 +137,18 @@ class ServiceController extends Controller
         $service->title = $request->input('title');
         $service->description = $request->input('description');
         $service->cost = $request->input('cost');
-        $service->category_id = $request->input('category_id');
-        $service->payment_method_id = $request->input('payment_method_id');
+        //get category from its title
+        $category = ServiceCategories::where('title','=', $request->get('categories'))->get()->first();
+        $service->category_id = $category->id;
+        //get payment method from its title
+        $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
+        $service->payment_method_id = $method->id;
 
         //save the service in database
         $service->save();
 
         //redirect to clients page
-        return redirect('/services');
+        return redirect('/');
     }
 
     /**
