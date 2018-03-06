@@ -18,10 +18,10 @@
     </ul>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Hena title</h5>
-    <p class="card-text">Description Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis cum explicabo similique nobis voluptatibus fugit iste tempora placeat, quasi, earum assumenda minus delectus, eveniet et doloribus quae repudiandae veniam.</p>
+    <h5 class="card-title">{{$service->title}}</h5>
+    <p class="card-text">{{$service->description}}</p>
     <p class = " col-md-5">
-      <span class="badge badge-pill badge-primary ">Cost LE / paymant_method</span>
+      <span class="badge badge-pill badge-primary ">{{$service->cost}} LE/ {{$service->payment_method->title}}</span>
     </p>
     <p  align="right">
     <button type="button-right" class="btn btn-outline-primary">Back</button></p>

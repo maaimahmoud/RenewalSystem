@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Service;
 
@@ -67,7 +68,7 @@ class ServiceController extends Controller
         $service = Service::find($id);
 
         //show page of service's information
-        return view('Servicespages.show')->with('service', $service);
+        return view('Servicespages.View')->with('service', $service);
     }
 
     /**
@@ -124,5 +125,5 @@ class ServiceController extends Controller
         //redirect to services' page
         return redirect('/services');
      }
-    }
+    
 }
