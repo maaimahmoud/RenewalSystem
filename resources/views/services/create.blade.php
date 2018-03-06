@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title')
+    Services
+@endsection
+
 @section('content')
 <div class="mt-4" >
 <form>
@@ -41,7 +45,7 @@
     </div>
   <button class="btn btn-primary col-md-2 ml-5" type="submit"  >Confirm</button>
    </div>
-  
+
 </form>
 </div>
 

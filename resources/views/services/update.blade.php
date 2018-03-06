@@ -41,7 +41,6 @@
     </div>
   <button class="btn btn-primary col-md-2 ml-5" type="submit"  >Confirm</button>
    </div>
-  
 </form>
 </div>
 

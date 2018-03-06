@@ -16,7 +16,7 @@
                 }
               .navbar{
                 background-color: var(--main-color);
-                margin-bottom: 20px;
+                margin-bottom: 55px;
               }
               .btn{
                 background-color: var(--main-color);
@@ -31,7 +31,7 @@
                 left: 45%;
                 text-align: center;
                 font-weight: bold;
-                font-family: "Lucida Console", Monaco, monospace;
+                font-family: "Arvo","Times New Roman",serif;
               }
 
         </style>
@@ -40,9 +40,9 @@
   </head>
       <nav class="navbar navbar-light" style="height:90px">
               <!-- Navbar content -->
+              <a href="/"><img src="/images/company-logo.png" alt="Company logo" style=" max-width:130px; position: absolute; top: 15px; left: 50px;"></a>
               <h3 id="pageTitle">@yield('title')</h3>
       </nav>
-      <a href="/"><img src="images/company-logo.png" alt="Company logo" style=" max-width:130px; position: absolute; top: 15px; left: 50px;"></a>
 
       <div class="container-fluid">
             @yield('content')
@@ -72,8 +72,6 @@
       $('#html5colorpicker').change(function() {
               console.log('hi i was called');
               var newcolor = $('#html5colorpicker').val();
-              //element.style.setProperty("--main-color", color);
-              //document.body.style.setProperty('var(--main-color)', #000000);//set
               document.body.style.setProperty("--main-color", newcolor);
         });
       });
