@@ -20,8 +20,8 @@ class CreateClientServicesTable extends Migration
             $table->foreign('client_id')->references('id')->on('clients')->onUpdate('cascade')->onDelete('cascade');
 
              //foreign key from table service
-            $table->integer('service_code')->unsigned()->nullable();
-            $table->foreign('service_code')->references('code')->on('services')->onUpdate('cascade')->onDelete('set null');
+            $table->integer('service_id')->unsigned()->nullable();
+            $table->foreign('service_id')->references('id')->on('services')->onUpdate('cascade')->onDelete('set null');
 
              //foreign key from table payment_method
             $table->integer('payment_method')->unsigned();
@@ -32,7 +32,7 @@ class CreateClientServicesTable extends Migration
              //specify the end time of the service and the the client can renew it
             $table->dateTime('end_time');
              //same client cannot have the same service twice
-            $table->primary('client_id','service_code');
+            $table->primary('client_id','service_id');
             $table->timestamps();
         });
     }
