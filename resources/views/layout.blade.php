@@ -59,7 +59,7 @@
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <a class="dropdown-item" href="/services">View All</a>
-
+              <a class="dropdown-item" href="/services/create">Add Service</a>
             </div>
           </div>
           <div class="dropdown show">
@@ -69,6 +69,7 @@
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <a class="dropdown-item" href="/clients">View All</a>
+    <a class="dropdown-item" href="/clients/create">Add Client</a>
   </div>
 </div>
 <div class="dropdown show">
