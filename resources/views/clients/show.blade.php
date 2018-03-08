@@ -27,6 +27,13 @@
             <h5>email: {{ $client->email }}</h5>
             <h5>Phone number: {{ $client->phone_number }}</h5>
             <h5>Address: {{ $client->address }}</h5>
+
+            @if (count($client->services)>0)
+              <h5>Services: {{ $client->services }}</h5>
+          @else
+              <h5>No current services</h5>
+          @endif
+
             <p align="right">
             <button type="button-right" class="btn btn-outline-primary">Back</button></p>
           </div>

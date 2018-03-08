@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Client;
+use App\Service;
 
 class ClientController extends Controller
 {
@@ -64,8 +65,10 @@ class ClientController extends Controller
         //get client from database
         $client = Client::find($id);
 
+        $services = Service::find($client->service_id);
+
         //show page of client's information
-        return view('clients.show')->with('client', $client);
+        return view('clients.show',compact('client','services'));
     }
 
     /**

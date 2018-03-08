@@ -31,3 +31,8 @@ Route::get('services/delete/{id}', 'ServiceController@destroy');
 Route::post('clients/update/{id}', 'ClientController@update');
 
 Route::get('clients/delete/{id}', 'ClientController@destroy');
+
+
+Route::get('/settings',function(){
+  return view('settings');
+});

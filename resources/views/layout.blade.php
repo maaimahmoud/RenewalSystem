@@ -11,13 +11,9 @@
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" >
 
         <style type="text/css">
-            :root {
+                :root {
                 --main-color: #bbbbbb;
                 }
-              .navbar{
-                background-color: var(--main-color);
-                margin-bottom: 55px;
-              }
               .btn{
                 background-color: var(--main-color);
               }
@@ -25,13 +21,13 @@
                 background-color: var(--main-color);
                 margin-top: 20px;
               }
-              .navbar-dropdowns{
+              .navbaar-dropdoowns{
                 margin-right: 5%;
               }
-              .navbar-dropdowns div{
+              .navbaar-dropdoowns div{
                 margin-right: 85px;
               }
-              .navbar-dropdowns div a{
+              .navbaar-dropdoowns div a{
                 width:150%;
                 color:black;
               }
@@ -44,47 +40,111 @@
                   overflow-y: auto;
               }
 
+              .navbaar {
+                background-color: var(--main-color);
+                margin-bottom: 80px;
+                overflow: hidden;
+                font-family: Arial, Helvetica, sans-serif;
+                height : 65px;
+            }
+
+            .navbaar a{
+                float: left;
+                font-size: 25px;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            .dropdoown {
+                float: left;
+                overflow: hidden;
+            }
+
+            .dropdoown .dropbtn {
+                font-size: 25px;
+                border: none;
+                outline: none;
+                color: black;
+                padding: 14px 16px;
+                background-color: inherit;
+                font-family: inherit;
+                margin: 0;
+            }
+
+            .navbaar a:hover, .dropdoown:hover .dropbtn {
+                background-color: red;
+            }
+
+            .dropdoown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+
+            .dropdoown-content a {
+                float: none;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+            .dropdoown-content a:hover {
+                background-color: #ddd;
+            }
+
+            .dropdoown:hover .dropdoown-content {
+                display: block;
+            }
+
+            .nav-content{
+              float:right;
+              margin-right: 50px;
+
+            }
+
         </style>
 
         <title>{{ config('app.name','Company') }}</title>
   </head>
-      <nav class="navbar navbar-light" style="height:90px">
-              <!-- Navbar content -->
-              <a href="/"><img src="/images/company-logo.png" alt="Company logo" style=" max-width:130px; position: absolute; top: 15px; left: 50px;"></a>
-              <div class="row navbar-dropdowns">
-            <div class="dropdown show">
-            <a class="btn btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Service
-            </a>
+  <div class="navbaar">
+    <a href="/"><img src="/images/company-logo.png" alt="Company logo" style=" max-width:130px; position: absolute; top: 15px; left: 50px;"></a>
+    <div class="nav-content ">
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="/services">View All</a>
-
-            </div>
+      <a href="/">Home</a>
+      <div class="dropdoown">
+          <button class="dropbtn">Clients
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdoown-content">
+              <a href="#">Add Client</a>
+              <a href="/clients">View All</a>
           </div>
-          <div class="dropdown show">
-  <a class="btn btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Client
-  </a>
+      </div>
 
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="/clients">View All</a>
-  </div>
-</div>
-<div class="dropdown show">
-  <a class="btn btn-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Statistics
-  </a>
-</div>
-<div class="dropdown show">
-  <a class="btn btn-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Settings
-  </a>
-</div>
-</div>
-      </nav>
+      <div class="dropdoown">
+          <button class="dropbtn">Service
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdoown-content">
+              <a href="#">Add Service</a>
+              <a href="/services">View All</a>
+          </div>
+      </div>
 
-      <div class="contain er-fluid">
+      <a href="#statistics">Statistics</a>
+
+      <a href="#/settings">Settings</a>
+    </div>
+</div>
+
+      <div class="contain er-fluid full-height">
             @yield('content')
       </div>
 
