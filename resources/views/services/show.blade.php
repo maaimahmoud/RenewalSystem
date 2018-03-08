@@ -21,7 +21,7 @@
       <span class="badge badge-pill badge-primary ">{{$service->cost}} LE/ {{$service->payment_method->title}}</span>
     </p>
     <p  align="right">
-    <button type="button-right" class="btn btn-outline-primary">Back</button></p>
+    <a href="/services"><button type="button-right" class="btn btn-outline-primary" >Back</button> </p>
   </div>
 </div>
 </div>

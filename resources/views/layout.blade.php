@@ -140,7 +140,7 @@
 
       <a href="#statistics">Statistics</a>
 
-      <a href="#/settings">Settings</a>
+      <a href="/settings">Settings</a>
     </div>
 </div>
 
