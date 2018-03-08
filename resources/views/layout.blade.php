@@ -123,7 +123,7 @@
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdoown-content">
-              <a href="#">Add Client</a>
+              <a href="/clients/create">Add Client</a>
               <a href="/clients">View All</a>
           </div>
       </div>
@@ -133,7 +133,7 @@
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdoown-content">
-              <a href="#">Add Service</a>
+              <a href="/services/create">Add Service</a>
               <a href="/services">View All</a>
           </div>
       </div>

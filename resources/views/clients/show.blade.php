@@ -45,13 +45,6 @@
     <div class="card-body-custom text-dark bg-grey-light-3">
     <h5 class="card-title"><strong>Address:</strong> {{ $client->address }}</h5>
     </div>
-    <div class="card-body-custom text-dark bg-grey-light-3">
-      @if (count($client->services)>0)
-        <h5>Services: {{ $client->services }}</h5>
-      @else
-          <h5>No current services</h5>
-      @endif
-    </div>
 
     </div>
   </div>
@@ -84,21 +77,25 @@
         <div class="card border-dark mb-3">
           <div class="card-header">My services</div>
     {{--  start of for each  --}}
-        <div class="row">
-  <div class="col-sm-5 ml-4 mr-5 mt-2">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">hena h7oot el name</h5>
-        <p class="card-text">Description Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum voluptate, nihil aut corporis obcaecati. Enim dicta a soluta ratione vitae repellat facere nostrum ea nisi sed! Est ad porro, suscipit?</p>
-        <a href="/services/" class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
-      </div>
-    </div>
-  </div>
-</div>
-{{-- end of foreach --}}
-            {{--@foreach( $services as $service)-- }}
+    @if (count($client->services)>0)
 
-                  {{--@ endforeach--}}
+    @foreach ($client->services as $service)
+      <div class="row">
+        <div class="col-sm-5 ml-4 mr-5 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ $service->title }}</h5>
+              <p class="card-text">{{ $service->description }}</p>
+              <a href="{{url('/services/'. $service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endforeach
+
+  @else
+      <h5>No current services</h5>
+  @endif
 
 </div>
 </div>
