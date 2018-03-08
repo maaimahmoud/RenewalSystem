@@ -8,8 +8,9 @@
   <style type="text/css">
 
   </style>
+  <!--
   <div class="row full-height align-items-center">
-    <!--
+
           <div class="col-4 " style="max-width:25%;">
             <div class="list-group" id="list-tab" role="tablist">
               <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-service" role="tab" aria-controls="service">Service</a>
@@ -50,6 +51,7 @@
               </div>
       </div>
     -->
+
     </div>
 
 

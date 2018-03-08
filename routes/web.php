@@ -25,8 +25,14 @@ Route::resource('services', 'ServiceController');
 
 Route::resource('paymentmethods', 'PaymentMethodController');
 
+Route::resource('servicescategories', 'ServiceCategoriesController');
+
 Route::get('services/delete/{id}', 'ServiceController@destroy');
 
 Route::get('clients/delete/{id}', 'ClientController@destroy');
 
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
+
+Route::get('/settings',function(){
+  return view('settings');
+});

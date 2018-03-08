@@ -10,4 +10,8 @@ class Service extends Model
     {
         return $this->belongsTo('App\PaymentMethod');
     }
+
+    public function clients(){
+      return $this->belongsToMany('App\Client');
+    }
 }
