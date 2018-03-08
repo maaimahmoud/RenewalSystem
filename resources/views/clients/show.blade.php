@@ -28,7 +28,7 @@
             <h5>Phone number: {{ $client->phone_number }}</h5>
             <h5>Address: {{ $client->address }}</h5>
             <p align="right">
-            <button type="button-right" class="btn btn-outline-primary">Back</button></p>
+            <a type="button-right" class="btn btn-outline-primary" href="{{url('/clients')}}">Back</a></p>
           </div>
       </div>
   </div>

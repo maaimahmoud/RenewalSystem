@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 use App\Service;
 use App\PaymentMethod;
@@ -62,8 +63,17 @@ class ServiceController extends Controller
         $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
         $service->payment_method_id = $method->id;
 
-        //save service in database
-        $service->save();
+        
+        try
+        {
+            //save service in database  
+            $service->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = "please check that the information is valid";
+        } 
+        
 
         //redirect to services page
         return redirect('/services');
@@ -144,8 +154,16 @@ class ServiceController extends Controller
         $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
         $service->payment_method_id = $method->id;
 
-        //save the service in database
-        $service->save();
+        try
+        {
+            //save the service in database
+            $service->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = "please check that the information is valid";
+        } 
+        
 
         //redirect to clients page
         return redirect('/services/'.$id);

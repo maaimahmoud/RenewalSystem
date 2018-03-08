@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Client;
 
 class ClientController extends Controller
@@ -16,6 +17,8 @@ class ClientController extends Controller
     {
         //show all clients
         $clients = Client::all();
+
+        //go to view all clients
         return view('clients.index')->with('clients', $clients);
     }
 
@@ -45,8 +48,16 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-        //save client in database
-        $client->save();
+        try
+        {
+             //save client in database
+            $client->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = "please check that the information is valid";
+        } 
+       
 
         //redirect to clients page
         return redirect('/clients');
@@ -85,6 +96,7 @@ class ClientController extends Controller
         $phone_number = $client->phone_number;
         $address = $client->address;
 
+        //go to the edit page
         return view('clients.edit', compact('name', 'email', 'phone_number', 'address', 'client'));
 
     }
@@ -107,8 +119,16 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-        //save client in database
-        $client->save();
+        try
+        {
+            //save client in database
+            $client->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = "please check that the information is valid";
+        } 
+        
 
         //redirect to clients page
         return redirect('/clients/'.$id);

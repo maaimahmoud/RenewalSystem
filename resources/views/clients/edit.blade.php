@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="mt-4" >
-<form method="POST" action="{{url('clients/update/'.$client->id)}}">
+<form method="POST" action="{{route('clients.update', $client->id)}}">
   @csrf
+  <input name="_method" type="hidden" value="PUT">
   <div class="form-group">
     <div class="col-md-4 mb-3">
       <label for="title">Name</label>

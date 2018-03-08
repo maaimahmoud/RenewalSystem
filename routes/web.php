@@ -23,11 +23,10 @@ Route::resource('clients', 'ClientController');
 
 Route::resource('services', 'ServiceController');
 
-
-Route::post('services/update/{id}', 'ServiceController@update');
+Route::resource('paymentmethods', 'PaymentMethodController');
 
 Route::get('services/delete/{id}', 'ServiceController@destroy');
 
-Route::post('clients/update/{id}', 'ClientController@update');
-
 Route::get('clients/delete/{id}', 'ClientController@destroy');
+
+Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
