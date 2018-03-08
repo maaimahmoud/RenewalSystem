@@ -50,5 +50,10 @@ class TriggerEmails extends Command
         $user->email=$random = Str::random(20);
         $user->password='hady';
         $user->save();
+        
+        $users_to_mail = DB::table('users')
+                ->whereDate('created_at', '2016-12-31')
+                ->get();
+        
     }
 }

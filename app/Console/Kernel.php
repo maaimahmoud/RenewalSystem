@@ -5,6 +5,9 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use App\Client;
+use Illuminate\Support\Str;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -26,6 +29,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('TriggerEmails:checkmails')->everyMinute();
+        
+        $schedule->call(function () {
+            $client=new Client;
+            $client->name='hamada';
+            $client->email=$random = Str::random(20);
+            $client->phone_number= rand();
+            $client->address='hady';
+            $client->save();
+            // DB::table('recent_users')->delete();
+        })->everyMinute();
     }
 
     /**
@@ -35,8 +48,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        // $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }
