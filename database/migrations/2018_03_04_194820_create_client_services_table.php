@@ -15,7 +15,9 @@ class CreateClientServicesTable extends Migration
     {
       //Table to relate clients with their services and specify payment method
            Schema::create('client_services', function (Blueprint $table) {
-             //foreign key from table client
+            //primary key of client service table
+            $table->increments('id');
+            //foreign key from table client
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')->onUpdate('cascade')->onDelete('cascade');
 
@@ -32,7 +34,7 @@ class CreateClientServicesTable extends Migration
              //specify the end time of the service and the the client can renew it
             $table->dateTime('end_time');
              //same client cannot have the same service twice
-            $table->primary('client_id','service_id');
+            // $table->primary('client_id','service_id');
             $table->timestamps();
         });
     }
