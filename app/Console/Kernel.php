@@ -4,6 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\User;
+use Illuminate\Support\Str;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +27,18 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+
+        $schedule->call(function () {
+            $user=new User;
+            $user->name='hamada';
+            $user->email=$random = Str::random(20);
+            $user->password='hasdy';
+            $user->save();
+
+            // $output = new Symfony\Component\Console\Output\ConsoleOutput();
+            // $output->writeln("<info>Error message</info>");
+
+        })->daily();
     }
 
     /**
