@@ -10,7 +10,7 @@
         <span class="badge badge-pill badge-success">Number of services : 3</span>
         <div align="right">
 	
-       <a><button type="button" class="btn btn-outline-success"  data-product_id="{{ $category->id }}" data-product_name="{{ $category->title}}"data-toggle="modal" data-target="#EditModalCenter">Edit</button></a>
+       <a><button type="button" class="btn btn-outline-success" data-product_id="{{ $category->id }}" data-product_name="{{ $category->title}}"data-toggle="modal" data-target="#EditModalCenter{{$category->id}}">Edit</button></a>
 
        <a><button type="button" class="btn btn-outline-success" data-product_id="{{ $category->id }}" data-product_name="{{ $category->title}}" data-toggle="modal" data-target="#DeleteModalCenter">Delete</button></a>
 
@@ -18,7 +18,7 @@
       </div>
     </div>
  
-
+@foreach ($categories as $category)
       <div class="modal fade" id="DeleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -39,8 +39,9 @@
         </div>
 </div>
 </div>
-
-<div class="modal fade" id="EditModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+@endforeach
+@foreach ($categories as $category) 
+<div class="modal fade" id="EditModalCenter{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -52,7 +53,7 @@
           <div class="modal-body">
           	  <div class="col-md-4 mb-3">
       <label for="title">title</label>
-    	<input type="text" class="form-control is-valid" name="name" placeholder="Name" value="{{  $category->title}}"  required>
+    	<input type="text" class="form-control is-valid" name="name" placeholder="Name" value="{{ ($category->title)}}"  required>
       <div class="invalid-feedback">)
 		Duplicate Title
       </div>
@@ -66,6 +67,7 @@
         </div>
     </div>
       </div>
+      @endforeach
 </div>
 	@endforeach
 </div>	
