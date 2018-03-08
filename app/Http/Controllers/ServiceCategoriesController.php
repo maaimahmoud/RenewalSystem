@@ -16,7 +16,7 @@ class ServiceCategoriesController extends Controller
     {
         //
           $categories = ServiceCategories::all();
-          return $categories;
+          return view ('/servicescategories.show')->with('categories',$categories);
     }
 
     /**
@@ -82,6 +82,12 @@ class ServiceCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $category = servicescategories::find($id);
+
+        //remove client from database
+        $category->delete();
+
+        //redirect to clients page
+        return redirect('/servicescategories');
     }
 }

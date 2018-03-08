@@ -63,7 +63,6 @@ class ClientController extends Controller
     {
         //get client from database
         $client = Client::find($id);
-
         //show page of client's information
         return view('clients.show')->with('client', $client);
     }

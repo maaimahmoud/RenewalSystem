@@ -24,6 +24,8 @@ Route::resource('clients', 'ClientController');
 Route::resource('services', 'ServiceController');
 
 
+Route::resource('servicescategories', 'ServiceCategoriesController');
+
 Route::post('services/update/{id}', 'ServiceController@update');
 
 Route::get('services/delete/{id}', 'ServiceController@destroy');
