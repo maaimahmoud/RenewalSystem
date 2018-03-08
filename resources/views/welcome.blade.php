@@ -1,95 +1,56 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layout')
 
-        <title>Laravel</title>
+@section('title')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+@endsection
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+@section('content')
+  <style type="text/css">
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+  </style>
+  <div class="row full-height align-items-center">
+    <!--
+          <div class="col-4 " style="max-width:25%;">
+            <div class="list-group" id="list-tab" role="tablist">
+              <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-service" role="tab" aria-controls="service">Service</a>
+              <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-client" role="tab" aria-controls="client">Client</a>
+              <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-statistics" role="tab" aria-controls="statistics">Statistics</a>
+              <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
             </div>
-        </div>
-    </body>
-</html>
+          </div>
+         <div class="col-8">
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show" id="list-service" role="tabpanel" aria-labelledby="list-service-list">
+                    <div class="btn-group-vertical pre-scrollable full-height sub-list">
+                      <div class="card align-items-center">
+                        <div class="card-block text-center">
+                          <h4 class="card-title">Service title</h4>
+                          <h6 class="card-subtitle mb-2 text-muted">Category: 1</h6>
+                          <h6 class="card-subtitle mb-2 text-muted">Number of Clients: 5</h6>
+                          <a href="#" class="card-link">View Service</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="tab-pane fade" id="list-client" role="tabpanel" aria-labelledby="list-client-list">
+                      <div class="btn-group-vertical pre-scrollable full-height sub-list">
+                          <a class="btn btn-primary btn-lg">Add Client</a>
+                          <a class="btn btn-primary btn-lg">View All Clients</a>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-statistics" role="tabpanel" aria-labelledby="list-statistics-list">
+
+                    </div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                          <div class="w3-col l4 m12" style="text-align:center;">
+                                <h3>Pick a Color:</h3>
+                                <input type="color" id="html5colorpicker" value="#bbbbbb" style="width:30%;">
+                          </div>
+                    </div>
+              </div>
+      </div>
+    -->
+    </div>
+
+
+@endsection

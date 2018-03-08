@@ -20,9 +20,9 @@ class CreateClientsTable extends Migration
             //client's name (required)
             $table->string('name')->nullable(false);
             //client's email (required) and two clients cannot have the same email
-            $table->string('email')->nullable(false);
+            $table->string('email')->nullable(false)->unique();
             //client's phone number (required) and two clients cannot have the same phone number
-            $table->smallInteger('phone_number')->unique();
+            $table->Integer('phone_number')->unique();
             //client's adress
             $table->string('address')->nullable();
 

@@ -11,6 +11,23 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::resource('clients', 'ClientController');
+
+
+Route::resource('services', 'ServiceController');
+
+
+Route::post('services/update/{id}', 'ServiceController@update');
+
+Route::get('services/delete/{id}', 'ServiceController@destroy');
+
+Route::post('clients/update/{id}', 'ClientController@update');
+
+Route::get('clients/delete/{id}', 'ClientController@destroy');

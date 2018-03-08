@@ -16,7 +16,7 @@ class CreateServicesTable extends Migration
       //Table to record Services' information and cost
         Schema::create('services', function (Blueprint $table) {
             //service primary key
-            $table->increments('code');
+            $table->increments('id');
             //service title (required)
             $table->string('title')->nullable(false)->unique();
 
