@@ -1,19 +1,15 @@
 @extends('layout')
 <style>
-
   .card-body-custom{
     padding:.75rem 1.25rem;
   }
   .card-body-custom:nth-child(odd){
     background:#eee;
   }
-
   .label img {
     max-width: 70px;
     margin-right: 20px;
   }
-
-
 </style>
 @section('content')
 
@@ -22,9 +18,9 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
+              <li class="nav-item">
       <a class="nav-link profile" href="{{route('clients.show', ['id' => $client->id])}}">Profile</a>
     </li>
-      <li class="nav-item">
       <a class="nav-link Edit" href="{{route('clients.edit', ['id' => $client->id])}}">Edit</a>
       </li>
     </li>
@@ -55,42 +51,6 @@
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-<<<<<<< HEAD
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Are you sure you want to delete this client?
-          </div>
-          <div class="modal-footer">
-            <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-            <a type="button" class="btn btn-secondary" href="{{url('/clients/delete/'.$client->id)}}">Delete</a>
-          </div>
-        </div>
-
-</div>
-</div>
-    </div>
-<div>
-      <div class="row">
-      <div class="col-sm-12">
-        <div class="card border-dark mb-3">
-          <div class="card-header">My services</div>
-    {{--  start of for each  --}}
-    @if (count($client->services)>0)
-
-    @foreach ($client->services as $service)
-      <div class="row">
-        <div class="col-sm-5 ml-4 mr-5 mt-2">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ $service->title }}</h5>
-              <p class="card-text">{{ $service->description }}</p>
-              <a href="{{url('/services/'. $service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
-=======
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -103,7 +63,6 @@
             <div class="modal-footer">
               <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
               <a type="button" class="btn btn-secondary" href="{{url('/clients/delete/'.$client->id)}}">Delete</a>
->>>>>>> d5e172661704f46883ee522284c07591725e73f8
             </div>
         </div>
       </div>
