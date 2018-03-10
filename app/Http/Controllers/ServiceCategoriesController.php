@@ -13,7 +13,7 @@ class ServiceCategoriesController extends Controller
     {
         //
           $categories = ServiceCategories::all();
-          return view ('/servicescategories.show')->with('categories',$categories);
+          return view ('servicescategories.show')->with('categories',$categories);
     }
     /**
      * Show the form for creating a new resource.
@@ -22,7 +22,7 @@ class ServiceCategoriesController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
     /**
      * Store a newly created resource in storage.
@@ -32,7 +32,24 @@ class ServiceCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          //create new servicescategories
+        $servicescategory= new ServiceCategories;
+
+        //store the information from the input  
+        $servicescategory->title = $request->input('title');
+
+        try
+        {
+            //save the servicescategories in the data base
+            $servicescategory->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = "please check that the information is valid";
+        } 
+     
+        //redirect to the page of servicescategories
+         return redirect('/servicescategories');
     }
     /**
      * Display the specified resource.
@@ -42,7 +59,7 @@ class ServiceCategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+         //
     }
     /**
      * Show the form for editing the specified resource.
@@ -63,7 +80,22 @@ class ServiceCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //get the specific categoryservices
+        $servicescategory= new ServiceCategories;
+
+        //store the information from the input  
+        $servicescategory->title = $request->input('title');
+        try
+        {
+            //save the servicescategories in the data base
+            $servicescategory->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = "please check that the information is valid";
+        } 
+        //redirect to the page of servicescategories
+         return redirect('/servicescategories');
     }
     /**
      * Remove the specified resource from storage.
@@ -73,12 +105,10 @@ class ServiceCategoriesController extends Controller
      */
     public function destroy($id)
     {
-         $category = servicescategories::find($id);
+         $category = ServiceCategories::find($id);
 
-        //remove client from database
+        //remove servicescategory from database
         $category->delete();
-
-        //redirect to clients page
-        return redirect('/servicescategories');
+     return redirect('/servicescategories');
     }
 }

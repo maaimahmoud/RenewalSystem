@@ -22,10 +22,11 @@
 <div class="card"  >
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
+    
       <li class="nav-item">
-              <li class="nav-item">
       <a class="nav-link profile" href="{{route('clients.show', ['id' => $client->id])}}">profile</a>
     </li>
+      <li class="nav-item">
       <a class="nav-link Edit" href="{{route('clients.edit', ['id' => $client->id])}}">Edit</a>
       </li>
       <li class="nav-item">
@@ -60,7 +61,7 @@
             </button>
           </div>
           <div class="modal-body">
-            Are you sure you want to delete this service?
+            Are you sure you want to delete this client?
           </div>
           <div class="modal-footer">
             <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
