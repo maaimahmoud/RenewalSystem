@@ -13,9 +13,9 @@ class AddRequiredMoneyToClientService extends Migration
      */
     public function up()
     {
-        //add column to save required money of each service 
+        //add column to save required money of each service
         Schema::table('client_services', function (Blueprint $table) {
-            $table->Integer('required_money')->nullable(false)->unsigned();
+            $table->Integer('required_money')->nullable(false)->unsigned()->default(0);
         });
 
     }
@@ -27,7 +27,7 @@ class AddRequiredMoneyToClientService extends Migration
      */
     public function down()
     {
-        //delete column from the table 
+        //delete column from the table
         Schema::table('client_services', function (Blueprint $table) {
             $table->dropColumn('required_money');
         });

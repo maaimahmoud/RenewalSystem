@@ -20,12 +20,22 @@ Route::get('/', function () {
 
 Route::resource('clients', 'ClientController');
 
-
 Route::resource('services', 'ServiceController');
 
 Route::resource('paymentmethods', 'PaymentMethodController');
 
 Route::resource('servicescategories', 'ServiceCategoriesController');
+//////////////////////////////////
+//Service to Client Routes
+
+Route::get('/clients/{id}/requestaddservice','ClientController@requestaddservice')->name('clients.requestaddservice');
+
+Route::put('/clients/{id}/addservice','ClientController@addservice')->name('clients.addservice');
+
+//Delete Service from client
+Route::get('/clients/{id}/deleteservice/{service_id}', 'ClientController@deleteservice')->name('clients.deleteservice');
+//////////////////////////////////
+
 
 Route::get('services/delete/{id}', 'ServiceController@destroy');
 

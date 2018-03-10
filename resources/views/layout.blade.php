@@ -21,16 +21,6 @@
                 background-color: var(--main-color);
                 margin-top: 20px;
               }
-              .navbaar-dropdoowns{
-                margin-right: 5%;
-              }
-              .navbaar-dropdoowns div{
-                margin-right: 85px;
-              }
-              .navbaar-dropdoowns div a{
-                width:150%;
-                color:black;
-              }
 
               .sub-list{
                   display: grid;
@@ -45,16 +35,17 @@
                 margin-bottom: 80px;
                 overflow: hidden;
                 font-family: Arial, Helvetica, sans-serif;
-                height : 65px;
+                height : 63px;
             }
 
             .navbaar a{
                 float: left;
-                font-size: 25px;
+                font-size: 23px;
                 color: black;
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
+                cursor: pointer;
             }
 
             .dropdoown {
@@ -63,7 +54,7 @@
             }
 
             .dropdoown .dropbtn {
-                font-size: 25px;
+                font-size: 23px;
                 border: none;
                 outline: none;
                 color: black;
@@ -73,7 +64,7 @@
                 margin: 0;
             }
 
-            .navbaar a:hover, .dropdoown:hover .dropbtn {
+            .nav-content a:hover, .dropdoown:hover .dropbtn {
                 background-color: red;
             }
 
@@ -109,6 +100,15 @@
 
             }
 
+            .searchbar{
+              position: absolute;
+              top:65px;
+              right:0;
+              max-width: 30%;
+              margin-right: 45px;
+              border-color: var(--main-color);
+            }
+
         </style>
 
         <title>{{ config('app.name','Company') }}</title>
@@ -141,10 +141,18 @@
       <a href="#statistics">Statistics</a>
 
       <a href="/settings">Settings</a>
+
+      <a data-toggle="collapse" data-target=".search-input"> Search </a>
+
     </div>
 </div>
+        <div class="container collapse search-input searchbar">
+          <form class="row" id="demo-2">
+            <input type="text" name="search" class="search form-control" placeholder="Search">
+          </form>
+        </div>
 
-      <div class="contain er-fluid full-height">
+      <div class="contain er-fluid full-height ">
             @yield('content')
       </div>
 
@@ -159,21 +167,30 @@
       <script src="{{ asset('js/bootstrap.min.js') }}" > </script>
       <script>
       $(".full-height").css({
-              "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $("nav").innerHeight()
+              "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $(".navbaar").innerHeight()
           });
           $(window).on('resize', function() {
               $(".full-height").css({
-                "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $("nav").innerHeight()
+                "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $(".navbaar").innerHeight()
           });
       });
 
       $(document).ready(function () {
-      //your code here
-      $('#html5colorpicker').change(function() {
-              console.log('hi i was called');
-              var newcolor = $('#html5colorpicker').val();
-              document.body.style.setProperty("--main-color", newcolor);
-        });
+          $('#colorpicker').change(function() {
+                  var newcolor = $('#colorpicker').val();
+                  document.body.style.setProperty("--main-color", newcolor);
+            });
+
+          $('#servicecategories').change(function(){
+              $('#services option').hide();
+
+              var val=$('#servicecategories').val();
+
+              var div=$('#'+val+' option');
+
+              div.clone(true).appendTo("#services");
+
+          });
       });
       </script>
 </html>
