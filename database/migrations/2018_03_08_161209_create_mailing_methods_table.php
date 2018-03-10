@@ -15,7 +15,7 @@ class CreateMailingMethodsTable extends Migration
     {
         Schema::create('mailing_methods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->nullable(false)->unique();
+            $table->string('title')->nullable(false);
             $table->Integer('days')->nullable(false)->unique()->unsigned();
             $table->timestamps();
         });

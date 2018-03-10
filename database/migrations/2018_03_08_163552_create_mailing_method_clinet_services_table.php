@@ -22,7 +22,8 @@ class CreateMailingMethodClinetServicesTable extends Migration
             //foreign key from table service
             $table->integer('client_services_id')->unsigned()->nullable();
             $table->foreign('client_services_id')->references('id')->on('client_services')->onUpdate('cascade')->onDelete('cascade');
- 
+            
+            $table->timestamps();
         });
     }
 
