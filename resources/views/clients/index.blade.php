@@ -10,7 +10,7 @@
         <div class="card align-items-center">
           <div class="card-block text-center">
             <h4 class="card-title">{{ $value{'name'} }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">Number of Services: 5</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Number of Services: {{ count($value{'services'}) }}</h6>
           </div>
         </div>
       </a>
