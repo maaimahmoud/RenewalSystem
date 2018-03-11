@@ -52,11 +52,12 @@
                 <!--Body-->
                 <div class="modal-body mb-0">
             <form action="{{url('/servicescategories/edit/'.$category->id)}}" method="POST">
-              {{  csrf_field() }} 
+            @csrf
+            {{ method_field('PUT') }}
                       <div class="md-form form-sm" >
                           <i class="fa fa-tag prefix"></i>
                            <label for="form21">Title</label>
-                          <input type="text" class="form-control" name="Title"  value={{ $category->title}} required>
+                          <input type="text" class="form-control" name="title"  value={{ $category->title}} required>
                       </div>
                       <div class="text-center mt-1-half">
                           <button type ="submit" class="btn btn-secondary " ><i class="fa fa-send ml-1"></i>Edit</button>

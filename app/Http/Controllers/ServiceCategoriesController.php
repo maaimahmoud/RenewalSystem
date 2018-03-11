@@ -22,7 +22,8 @@ class ServiceCategoriesController extends Controller
      */
     public function create()
     {
-       //
+       // 
+    	return view('servicescategories.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -49,7 +50,7 @@ class ServiceCategoriesController extends Controller
         } 
      
         //redirect to the page of servicescategories
-         return redirect('/servicescategories');
+         return redirect('/');
     }
     /**
      * Display the specified resource.
@@ -81,7 +82,7 @@ class ServiceCategoriesController extends Controller
     public function update(Request $request, $id)
     {
         //get the specific categoryservices
-        $servicescategory= new ServiceCategories;
+        $servicescategory= ServiceCategories::find($id);
 
         //store the information from the input  
         $servicescategory->title = $request->input('title');

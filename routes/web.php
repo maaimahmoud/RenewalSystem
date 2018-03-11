@@ -43,9 +43,13 @@ Route::get('clients/delete/{id}', 'ClientController@destroy');
 
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
+
+// Services Categories routes 
+Route::POST('servicescategories/create', 'ServiceCategoriesController@store');
+
 Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destroy');
 
-Route::post('servicescategories/edit/{id}', 'ServiceCategoriesController@update');
+Route::PUT('servicescategories/edit/{id}', 'ServiceCategoriesController@update');
 
 Route::get('/settings',function(){
   return view('settings');

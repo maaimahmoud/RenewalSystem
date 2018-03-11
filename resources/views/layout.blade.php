@@ -134,7 +134,19 @@
           </button>
           <div class="dropdoown-content">
               <a href="/services/create">Add Service</a>
-              <a href="/services">View All</a>
+              <a href="/services">View All Services</a>
+              <a data-toggle="modal" data-target="#modalservicecategoryForm">Add category</a>
+              <a href="/servicescategories">View All Categories</a>
+          </div>
+      </div>
+
+       <div class="dropdoown">
+          <button class="dropbtn">PaymentMethod
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdoown-content">
+              <a href="/paymentmethods/create">Add Paymentmethod</a>
+              <a href="/paymentmethods">View All</a>
           </div>
       </div>
 
@@ -161,6 +173,45 @@
               © 2018 Copyright: <a href="#"> Renewal System </a>
           </div>
       </div>
+
+      <div class="modal fade" id="modalservicecategoryForm" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog cascading-modal" role="document">
+
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header primary-color white-text">
+                <h4 class="title">
+                    <i class="fa fa-pencil"></i> Add Category</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+               <form action="{{url('/servicescategories/create')}}" method="POST">
+            @csrf
+              {{ method_field('POST') }}
+                <!-- Material input name -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <label for ="modalservicecategoryForm">Title</label>
+                    <input type="text" name="title"  id="modalservicecategoryForminput" class="form-control form-control-sm" required>
+                </div>
+                <div class="text-center mt-4 mb-2">
+                  <button type ="submit" class="btn btn-secondary " ><i class="fa fa-send ml-1"></i>Add</button>
+                          <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+               
+    
 
       <script src="{{ asset('js/jquery-3.3.1.min.js') }}" > </script>
       <script src="{{ asset('js/popper.min.js') }}" > </script>
