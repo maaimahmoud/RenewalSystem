@@ -28,17 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('TriggerEmails:checkmails')->everyMinute();
-        
-        $schedule->call(function () {
-            $client=new Client;
-            $client->name='hamada';
-            $client->email=$random = Str::random(20);
-            $client->phone_number= rand();
-            $client->address='hady';
-            $client->save();
-            // DB::table('recent_users')->delete();
-        })->everyMinute();
+        $schedule->command('TriggerEmails:checkmails')->daily();        
     }
 
     /**
