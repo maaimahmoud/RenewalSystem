@@ -16,13 +16,15 @@ class CreateMailingMethodClinetServicesTable extends Migration
         //table to relate every service provided to a client with the mailing time he want before payment
         Schema::create('mailing_method_clinet_services', function (Blueprint $table) {
             //foreign keys from mailing methods, client sercices table
-            $table->Integer('mailing_methods_id')->unsigned()->nullable();
-            $table->foreign('mailing_methods_id')->references('id')->on('mailing_methods')->onUpdate('cascade')->onDelete('restrict');
-
+            $table->Integer('days_to_mail')->unsigned()->nullable();
+            
             //foreign key from table service
-            $table->integer('client_services_id')->unsigned()->nullable();
+            $table->Integer('client_services_id')->unsigned()->nullable();
             $table->foreign('client_services_id')->references('id')->on('client_services')->onUpdate('cascade')->onDelete('cascade');
             
+            $table->Integer('required_days_to_pay')->unsigned()->nullable();
+            $table->dateTime('last_paid_date');
+
             $table->timestamps();
         });
     }
