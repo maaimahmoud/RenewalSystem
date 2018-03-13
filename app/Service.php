@@ -14,4 +14,6 @@ class Service extends Model
     public function clients(){
       return $this->belongsToMany('App\Client', 'client_services');
     }
+
+
 }

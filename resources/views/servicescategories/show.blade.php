@@ -3,11 +3,11 @@
 @if (count($categories)>0)
 <div class="row">
 	@foreach ($categories as $category)
-    <div class="col-sm-4 ml-4 mr-5 mt-3">
+    <div class="col-sm-3 ml-4 mr-5 mt-3">
   <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ $category->title}}</h5>
-        <span class="badge badge-pill badge-success">Number of services : 3</span>
+        <span class="badge badge-pill badge-success">Number of services : 2</span>
         <p align="right">
          <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModalCenter{{ $category->id }}">Edit</a>
           <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModalCenter{{ $category->id }}">Delete</a>
@@ -41,13 +41,13 @@
 @endforeach
 @foreach ($categories as $category) 
            <div class="modal fade" id="editModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span> </button>
-            <!--Content-->
+            <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header light-blue darken-3 white-text">
-                    <h4 class="title"><i class="fa fa-pencil"></i> Edit Form</h4>
+              <div class="modal-header light-blue darken-3 white-text">
+                <h5 class="modal-title" id="editModalLongTitle">Editing category</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
                 </div>
                 <!--Body-->
                 <div class="modal-body mb-0">
