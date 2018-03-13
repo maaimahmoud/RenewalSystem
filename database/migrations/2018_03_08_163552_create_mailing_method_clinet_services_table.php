@@ -22,7 +22,7 @@ class CreateMailingMethodClinetServicesTable extends Migration
             $table->Integer('client_services_id')->unsigned()->nullable();
             $table->foreign('client_services_id')->references('id')->on('client_services')->onUpdate('cascade')->onDelete('cascade');
             
-            $table->Integer('required_days_to_pay')->unsigned()->nullable();
+            $table->Integer('required_months_to_pay')->unsigned()->nullable();
             $table->dateTime('last_paid_date');
 
             $table->timestamps();

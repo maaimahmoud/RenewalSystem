@@ -20,7 +20,7 @@ class CreatePaymentMethodsTable extends Migration
             //payment method title (annual etc.) (required)
             $table->string('title')->nullable(false)->unique();
             //number of days until due date comes and then client has to pay the cost (required)
-            $table->Integer('days')->nullable(false)->unique()->unsigned();
+            $table->Integer('months')->nullable(false)->unique()->unsigned();
             
             $table->timestamps();
         });
