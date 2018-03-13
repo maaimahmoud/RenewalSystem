@@ -17,10 +17,9 @@ class PaymentMethodController extends Controller
     public function index()
     {
         //retrieve all payment methods 
-        $payment_methods = PaymentMethod::all();
-
+        $paymentmethods = PaymentMethod::all();
         //show them in the page
-        return view('paymentmethods.index')->with('payment_methods', $payment_methods);
+        return view('paymentmethods.show')->with('paymentmethods', $paymentmethods);
     }
 
     /**
@@ -30,8 +29,7 @@ class PaymentMethodController extends Controller
      */
     public function create()
     {
-        //just go to create payment method page
-        return view('paymentmethods.create');
+        //
     }
 
     /**
@@ -72,11 +70,7 @@ class PaymentMethodController extends Controller
      */
     public function show($id)
     {
-        //get a specific payment method with id
-        $payment_method = PaymentMethod::find($id);
-
-        //show the view of the payment method
-        return view('paymentmethods.show')->with('payment_method', $payment_method);
+        //
     }
 
     /**
@@ -87,11 +81,7 @@ class PaymentMethodController extends Controller
      */
     public function edit($id)
     {
-        //get the payment method with a specific id
-        $payment_method = PaymentMethod::find($id);
-
-        //go to the edit payment method page
-        return view('paymentmethods.edit')->with('payment_method', $payment_method);
+        //
     }
 
     /**
@@ -120,8 +110,8 @@ class PaymentMethodController extends Controller
             $message = "please check that the information is valid";
         }
 
-        //return to the show page of this payment mehod
-        return view('paymentmethods.show')->with('payment_method', $payment_method);
+         //redirect to the page of servicescategories
+         return redirect('/paymentmethods');
     }
 
     /**

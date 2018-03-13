@@ -21,7 +21,7 @@ class ServiceController extends Controller
     public function index()
     {
         //get all services
-        $services = Service::all();
+        $services = Service::orderBy('title')->paginate(30);
         //show services in the page
         return view('services.index')->with('services', $services);
     }

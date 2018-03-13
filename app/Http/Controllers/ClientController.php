@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Input;
+
 use App\Client;
 use App\Service;
 use App\PaymentMethod;
 use App\ServiceCategories;
 use App\ClientService;
 use App\MailingMethodClientServices;
+
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientController extends Controller
 {
@@ -21,10 +25,13 @@ class ClientController extends Controller
     public function index()
     {
         //show all clients
-        $clients = Client::all();
+        $clients = Client::orderBy('name')->paginate(24);
+
+        //get all services
+        $services = Service::orderBy('title')->get();
 
         //go to view all clients
-        return view('clients.index')->with('clients', $clients);
+        return view('clients.index', compact('clients','services'));
     }
 
     /**
@@ -219,4 +226,32 @@ class ClientController extends Controller
       $relation=ClientService::find(array($client_id,$service_id));
       echo $relation;
     }
+
+
+    public function getClientsFromService($id)
+    {
+        //get service from id
+        $service = Service::find($id);
+
+        //get all clients who takes this service
+        $items = $service->clients;
+
+        //get page from input
+        $page = Input::get('page', 1);
+
+        //set number of items in a single page
+        $perPage = 24;
+
+        //create the clients paginator
+        $clients = new LengthAwarePaginator(
+            $items->forPage($page, $perPage), $items->count(), $perPage, $page
+        );
+
+        //get all services
+        $services = Service::orderBy('title')->get();
+
+        //go to view all filtered clients
+        return view('clients.index', compact('clients','services'));
+    }
+
 }
