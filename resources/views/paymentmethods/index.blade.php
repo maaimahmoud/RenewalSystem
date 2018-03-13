@@ -10,7 +10,7 @@
         <div class="card align-items-center">
           <div class="card-block text-center">
             <h4 class="card-title">{{ $payment_method{'title'} }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{ $payment_method->days." days"}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ $payment_method->months." months"}}</h6>
           </div>
         </div>
       </a>

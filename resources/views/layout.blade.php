@@ -35,12 +35,12 @@
                 margin-bottom: 80px;
                 overflow: hidden;
                 font-family: Arial, Helvetica, sans-serif;
-                height : 63px;
+                height : 59px;
             }
 
             .navbaar a{
                 float: left;
-                font-size: 23px;
+                font-size: 20px;
                 color: black;
                 text-align: center;
                 padding: 14px 16px;
@@ -54,7 +54,7 @@
             }
 
             .dropdoown .dropbtn {
-                font-size: 23px;
+                font-size: 20px;
                 border: none;
                 outline: none;
                 color: black;
@@ -212,7 +212,7 @@
     </div>
     <!--/Modal: Contact form-->
 </div>
-     
+
         <div class="modal fade" id="modalpaymentmethodForm" tabindex="-1" role="dialog" aria-labelledby="modalpaymentmethodForm" aria-hidden="true">
     <!--Modal: Contact form-->
     <div class="modal-dialog cascading-modal" role="document">
@@ -249,11 +249,11 @@
                           <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
                 </div>
               </form>
-            </div> 
+            </div>
          </div>
     </div>
- </div>         
-    
+ </div>
+
 
       <script src="{{ asset('js/jquery-3.3.1.min.js') }}" > </script>
       <script src="{{ asset('js/popper.min.js') }}" > </script>
@@ -301,11 +301,9 @@
             else {
                   var filledReminders=0;
                   for (var i = 1; i <= value; i++) {
-                    //console.log($('#mailremind'+i).val());
                     if($('#mailremind'+i).val() != "")
                         filledReminders ++;
                   }
-                  //console.log(filledReminders);
 
                   if (filledReminders != value){
                     alert("Please fill existing Reminders before adding another one");
@@ -352,6 +350,25 @@
                               alert("Please choose at least one mail reminder");
                               valid= false;
                             }
+
+                        var value=$('#numberofreminders').val();
+                        var duplicate = false;
+                          for (var i = 1; i <= value; i++) {
+                            for (var j = i+1; j <= value; j++) {
+                              if ($('#mailremind'+i).val() == $('#mailremind'+j).val()){
+                                    duplicate=true;
+                                    $('#mailremind'+j).val("");
+                                  }
+                            }
+                          }
+
+
+
+                            if (duplicate){
+                              alert("Please fill existing Reminders with distinct days");
+                              valid=false;
+                            }
+
                           if (!valid)
                             return false;
 

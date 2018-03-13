@@ -7,7 +7,7 @@
   <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ $payment->title}}</h5>
-         <h5 class="card-title">{{ $payment->days}} days </h5>
+         <h5 class="card-title">{{ $payment->months}} months </h5>
         <p align="right">
          <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModalCenter{{ $payment->id }}">Edit</a>
           <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModalCenter{{ $payment->id }}">Delete</a>
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
- 
+
 @foreach ($paymentmethods as $payment)
      <div class="modal fade" id="deleteModalCenter{{ $payment->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -37,9 +37,9 @@
 
 </div>
 </div>
- 
+
 @endforeach
-@foreach ($paymentmethods as $payment) 
+@foreach ($paymentmethods as $payment)
            <div class="modal fade" id="editModalCenter{{ $payment->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -48,7 +48,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-                   
+
                 </div>
                 <!--Body-->
                 <div class="modal-body mb-0">
@@ -78,8 +78,8 @@
       @endforeach
 
   @endforeach
-</div>  
-  
+</div>
+
 @else
 <div class="alert alert-danger" role="alert"> there is no PaymentMethods </div>
 @endif
@@ -88,14 +88,3 @@
 
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-

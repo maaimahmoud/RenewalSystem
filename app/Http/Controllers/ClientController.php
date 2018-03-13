@@ -15,6 +15,7 @@ use App\MailingMethodClientServices;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 class ClientController extends Controller
 {
     /**
@@ -26,10 +27,8 @@ class ClientController extends Controller
     {
         //show all clients
         $clients = Client::orderBy('name')->paginate(24);
-
         //get all services
         $services = Service::orderBy('title')->get();
-
         //go to view all clients
         return view('clients.index', compact('clients','services'));
     }
@@ -209,12 +208,15 @@ class ClientController extends Controller
 
       for ($i=1; $i <= $reminders ; $i++) {
         # code...
-        $new=new MailingMethodClientServices;
-        $new->client_services_id=$data->id;
-        $input='mailreminder'.$i;
-        $new->days_to_mail=$request->input($input);
-        $new->last_paid_date=date('Y-m-d H:i:s');;
-        $new->save();
+        if ($request->input('mailreminder'.$i) != "") {
+              # code...
+            $new=new MailingMethodClientServices;
+            $new->client_services_id=$data->id;
+            $input='mailreminder'.$i;
+            $new->days_to_mail=$request->input($input);
+            $new->last_paid_date=date('Y-m-d H:i:s');
+            $new->save();
+          }
       }
 
       //redirect to client's info page
@@ -227,31 +229,23 @@ class ClientController extends Controller
       echo $relation;
     }
 
-
     public function getClientsFromService($id)
     {
         //get service from id
         $service = Service::find($id);
-
         //get all clients who takes this service
         $items = $service->clients;
-
         //get page from input
         $page = Input::get('page', 1);
-
         //set number of items in a single page
         $perPage = 24;
-
         //create the clients paginator
         $clients = new LengthAwarePaginator(
             $items->forPage($page, $perPage), $items->count(), $perPage, $page
         );
-
         //get all services
         $services = Service::orderBy('title')->get();
-
         //go to view all filtered clients
         return view('clients.index', compact('clients','services'));
     }
-
 }
