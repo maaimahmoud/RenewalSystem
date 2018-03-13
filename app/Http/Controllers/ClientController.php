@@ -9,6 +9,7 @@ use App\Service;
 use App\PaymentMethod;
 use App\ServiceCategories;
 use App\ClientService;
+use App\MailingMethodClientServices;
 
 class ClientController extends Controller
 {
@@ -185,6 +186,9 @@ class ClientController extends Controller
       //End time of service as every service has a life time
       $data->end_time=$request->input('end_date');
 
+      //echo $data;
+
+      $reminders=$request->input('numberofreminders');
       try
       {
           //save new relation in database
@@ -193,6 +197,17 @@ class ClientController extends Controller
       catch (QueryException $e)
       {
           $message = "please check that the information is valid";
+      }
+      //echo $data;
+
+      for ($i=1; $i <= $reminders ; $i++) {
+        # code...
+        $new=new MailingMethodClientServices;
+        $new->client_services_id=$data->id;
+        $input='mailreminder'.$i;
+        $new->days_to_mail=$request->input($input);
+        $new->last_paid_date=date('Y-m-d H:i:s');;
+        $new->save();
       }
 
       //redirect to client's info page

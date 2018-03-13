@@ -30,7 +30,7 @@
 
    	<div class="col-md-6 mb-3">
             <label for="cost">Cost</label>
-            <input type="number" class="form-control is-valid" name="cost" placeholder="Cost">
+            <input type="number" class="form-control is-valid" name="cost" placeholder="Cost" min="1">
               <div class="invalid-feedback">)
       		          Money must be positive number
             </div>
