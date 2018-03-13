@@ -79,10 +79,8 @@ class ClientController extends Controller
         //get client from database
         $client = Client::find($id);
 
-        $services = $client->services;
-
         //show page of client's information
-        return view('clients.show',compact('client','services'));
+        return view('clients.show',compact('client'));
     }
 
     /**

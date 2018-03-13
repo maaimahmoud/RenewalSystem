@@ -141,11 +141,11 @@
       </div>
 
        <div class="dropdoown">
-          <button class="dropbtn">PaymentMethod
+          <button class="dropbtn">Payment method
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdoown-content">
-              <a href="/paymentmethods/create">Add Paymentmethod</a>
+              <a href="/paymentmethods/create">Add Payment method</a>
               <a href="/paymentmethods">View All</a>
           </div>
       </div>
@@ -210,8 +210,8 @@
     </div>
     <!--/Modal: Contact form-->
 </div>
-               
-    
+
+
 
       <script src="{{ asset('js/jquery-3.3.1.min.js') }}" > </script>
       <script src="{{ asset('js/popper.min.js') }}" > </script>
@@ -233,7 +233,13 @@
             });
 
           $('#servicecategories').change(function(){
-              $('#services option').hide();
+              $('#services option').remove();
+
+              var o = new Option(" ", "0");
+              /// jquerify the DOM object 'o' so we can use the html method
+              $(o).html(" ");
+              $("#services").append(o);
+
 
               var val=$('#servicecategories').val();
 
