@@ -54,3 +54,7 @@ Route::PUT('servicescategories/edit/{id}', 'ServiceCategoriesController@update')
 Route::get('/settings',function(){
   return view('settings');
 });
+
+Route::get('clients/service/{id}', 'ClientController@getClientsFromService');
+
+Route::post('search/client', 'SearchController@searchClient');

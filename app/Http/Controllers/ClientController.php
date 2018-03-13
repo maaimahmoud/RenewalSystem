@@ -22,8 +22,11 @@ class ClientController extends Controller
         //show all clients
         $clients = Client::all();
 
+        //get all services
+        $services = Service::all();
+
         //go to view all clients
-        return view('clients.index')->with('clients', $clients);
+        return view('clients.index', compact('clients','services'));
     }
 
     /**
@@ -206,4 +209,21 @@ class ClientController extends Controller
       $relation=ClientService::find(array($client_id,$service_id));
       echo $relation;
     }
+
+
+    public function getClientsFromService($id)
+    {
+        //get service from id
+        $service = Service::find($id);
+
+        //get all clients who takes this service
+        $clients = $service->clients;
+
+        //get all services
+        $services = Service::all();
+
+        //go to view all filtered clients
+        return view('clients.index', compact('clients','services'));
+    }
+
 }
