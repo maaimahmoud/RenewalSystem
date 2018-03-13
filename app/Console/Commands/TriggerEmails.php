@@ -58,8 +58,8 @@ class TriggerEmails extends Command
     {
         return DB::select('SELECT client_services_id
                             FROM mailing_method_clinet_services
-                            WHERE required_days_to_pay > DATEDIFF(CURTIME(),last_paid_date) 
-                            AND required_days_to_pay - DATEDIFF(CURTIME(),last_paid_date) = days_to_mail;');
+                            WHERE  DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH) > curdate()
+                            AND DATEDIFF( DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH), curdate() ) = days_to_mail;');
 
     }
 
@@ -69,7 +69,7 @@ class TriggerEmails extends Command
                 ->whereIn('id', $ids)
                 ->join('clients', 'client_services.client_id', '=', 'clients.id')
                 ->join('services', 'client_services.service_id', '=', 'services.id')
-                ->select('clients.name as client_name', 'clients.email','clients.phone_number','client_services.balance','client_services.requierd_money','services.title as service_name')
+                ->select('clients.name as client_name', 'clients.email','clients.phone_number','client_services.balance','client_services.requierd_money','services.title as service_name','services.email_template')
                 ->get();
 
     }
@@ -80,7 +80,7 @@ class TriggerEmails extends Command
 
         foreach ($mails_info as $mail_info){
             Mail::send('mail', $mail_info, function($message) {
-                $message->to($mail_info['email'], $mail_info['client_name'])
+                $message->to("abdokaseb@gmail.com", $mail_info['client_name'])
                         ->subject($mail_info['service_name']);
                 $message->from('systemrenewal@gmail.com','Renewal System');//->later($when);
                 });
