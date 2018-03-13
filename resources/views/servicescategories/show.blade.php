@@ -7,7 +7,7 @@
   <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ $category->title}}</h5>
-        <span class="badge badge-pill badge-success">Number of services : 2</span>
+      <span class="badge badge-pill badge-success">Number of services : {{ count($category->services) }}</span>
         <p align="right">
          <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModalCenter{{ $category->id }}">Edit</a>
           <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModalCenter{{ $category->id }}">Delete</a>

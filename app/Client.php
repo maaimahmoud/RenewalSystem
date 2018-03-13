@@ -19,7 +19,8 @@ class Client extends Model
             $query->where(function ($query) use ($keyword) {
                 $query->where("name", "LIKE","%$keyword%")
                     ->orWhere("email", "LIKE", "%$keyword%")
-                    ->orWhere("address", "LIKE", "%$keyword%");
+                    ->orWhere("address", "LIKE", "%$keyword%")
+                    ->orWhere("phone_number", "LIKE",  "%$keyword%");
             });
         }
         return $query;

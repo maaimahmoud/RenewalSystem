@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Input;
+
 use App\Client;
 use App\Service;
 use App\PaymentMethod;
 use App\ServiceCategories;
 use App\ClientService;
+
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientController extends Controller
 {
@@ -20,10 +24,10 @@ class ClientController extends Controller
     public function index()
     {
         //show all clients
-        $clients = Client::all();
+        $clients = Client::orderBy('name')->paginate(24);
 
         //get all services
-        $services = Service::all();
+        $services = Service::orderBy('title')->get();
 
         //go to view all clients
         return view('clients.index', compact('clients','services'));
@@ -215,10 +219,21 @@ class ClientController extends Controller
         $service = Service::find($id);
 
         //get all clients who takes this service
-        $clients = $service->clients;
+        $items = $service->clients;
+
+        //get page from input
+        $page = Input::get('page', 1);
+
+        //set number of items in a single page
+        $perPage = 24;
+
+        //create the clients paginator
+        $clients = new LengthAwarePaginator(
+            $items->forPage($page, $perPage), $items->count(), $perPage, $page
+        );
 
         //get all services
-        $services = Service::all();
+        $services = Service::orderBy('title')->get();
 
         //go to view all filtered clients
         return view('clients.index', compact('clients','services'));

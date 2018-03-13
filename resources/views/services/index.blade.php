@@ -9,13 +9,13 @@
         <div class="card align-items-center">
           <div class="card-block text-center">
             <h4 class="card-title">{{ $value{'title'} }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">Category: {{ $value{'category_id'} }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Category: {{ $value->service_categories->title }}</h6>
           </div>
         </div>
       </a>
       @endforeach
 </div>
-
+{{$services->links()}}
 @else
     <p>No Services Found</p>
 @endif

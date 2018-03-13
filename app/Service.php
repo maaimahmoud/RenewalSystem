@@ -15,5 +15,9 @@ class Service extends Model
       return $this->belongsToMany('App\Client', 'client_services');
     }
 
+    public function service_categories()
+    {
+        return $this->belongsTo('App\ServiceCategories', 'category_id');
+    }
 
 }
