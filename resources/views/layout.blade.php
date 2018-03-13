@@ -141,11 +141,11 @@
       </div>
 
        <div class="dropdoown">
-          <button class="dropbtn">PaymentMethod
+          <button class="dropbtn">Payment method
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdoown-content">
-              <a data-toggle="modal" data-target="#modalpaymentmethodForm">Add Paymentmethod</a>
+              <a data-toggle="modal" data-target="#modalpaymentmethodForm">Add Payment method</a>
               <a href="/paymentmethods">View All</a>
           </div>
       </div>
@@ -211,6 +211,7 @@
     </div>
     <!--/Modal: Contact form-->
 </div>
+<<<<<<< HEAD
      
         <div class="modal fade" id="modalpaymentmethodForm" tabindex="-1" role="dialog" aria-labelledby="modalpaymentmethodForm" aria-hidden="true">
     <!--Modal: Contact form-->
@@ -253,6 +254,10 @@
     </div>
  </div>         
     
+=======
+
+
+>>>>>>> 68e7f93443dc508ece7702cfda4193dc71f0fa75
 
       <script src="{{ asset('js/jquery-3.3.1.min.js') }}" > </script>
       <script src="{{ asset('js/popper.min.js') }}" > </script>
@@ -274,7 +279,13 @@
             });
 
           $('#servicecategories').change(function(){
-              $('#services option').hide();
+              $('#services option').remove();
+
+              var o = new Option(" ", "0");
+              /// jquerify the DOM object 'o' so we can use the html method
+              $(o).html(" ");
+              $("#services").append(o);
+
 
               var val=$('#servicecategories').val();
 

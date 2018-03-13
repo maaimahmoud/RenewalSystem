@@ -22,7 +22,7 @@
           <div class="col-md-6 mb-3">
                   <label for="service_id">Services</label>
                        <select class="custom-select" value="Open this select menu" name="service" id="services" required>
-                        <option id=""> </option>
+                        <option value="0"> </option>
 
                         @foreach ($servicecategories as $servicecategory)
                           <div class="'category'+<?php echo $servicecategory->id; ?>">
@@ -64,7 +64,7 @@
 </form>
 </div>
 
-<div style="visibility: hidden; ">
+<div style="display:none; ">
 
   @foreach ($servicecategories as $servicecategory)
     <div id="<?php echo $servicecategory->id; ?>">
