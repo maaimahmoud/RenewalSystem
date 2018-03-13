@@ -23,7 +23,6 @@ class ServiceCategoriesController extends Controller
     public function create()
     {
        // 
-    	return view('servicescategories.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -50,7 +49,7 @@ class ServiceCategoriesController extends Controller
         } 
      
         //redirect to the page of servicescategories
-         return redirect('/');
+         return redirect('/servicescategories');
     }
     /**
      * Display the specified resource.
