@@ -20,12 +20,18 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //get all services
-        $services = Service::orderBy('title')->paginate(30);
+        try
+        {
+            //get all services
+            $services = Service::orderBy('title')->paginate(30);
 
-        //get all categories to display for filtering
-        $categories = ServiceCategories::all();
-
+            //get all categories to display for filtering
+            $categories = ServiceCategories::orderBy('title')->get();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection with database';
+        }
         //show services in the page
         return view('services.index', compact('services', 'categories'));
     }
@@ -37,12 +43,18 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //get all payment methods to display
-        $payment_methods = PaymentMethod::all();
+        try
+        {
+            //get all payment methods to display
+            $payment_methods = PaymentMethod::orderBy('title')->get();
 
-        //get all categories to display
-        $categories = ServiceCategories::all();
-
+            //get all categories to display
+            $categories = ServiceCategories::orderBy('title')->get();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection with database';
+        }
         //just go to the add service page
         return view('services.create', compact('payment_methods', 'categories'));
     }
@@ -60,13 +72,20 @@ class ServiceController extends Controller
         $service->title = $request->input('title');
         $service->description = $request->input('description');
         $service->cost = $request->input('cost');
-        //get category from its title
-        $category = ServiceCategories::where('title','=', $request->get('categories'))->get()->first();
-        $service->category_id = $category->id;
-        //get payment method from its title
-        $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
-        $service->payment_method_id = $method->id;
-
+        
+        try
+        {
+            //get category from its title
+            $category = ServiceCategories::where('title','=', $request->get('categories'))->get()->first();
+            $service->category_id = $category->id;
+            //get payment method from its title
+            $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
+            $service->payment_method_id = $method->id;
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+        }
         
         try
         {
@@ -91,8 +110,15 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //get service from database
-        $service = Service::find($id);
+        try
+        {
+            //get service from database
+            $service = Service::find($id);
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+        }
 
         //show page of service's information
         return view('services.show')->with('service', $service);
@@ -106,29 +132,43 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //get the required service to be edited
-        $service = Service::find($id);
+        try
+        {
+            //get the required service to be edited
+            $service = Service::find($id);
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+        }
 
         //get the service's info to pass to the edit page
         $title = $service->title;
         $description = $service->description;
         $cost = $service->cost;
 
-        //get id of payment method of this service
-        $pay_method = $service->payment_method_id;
-        //get title of payment method to display
-        $pay_method = PaymentMethod::where('id', $pay_method)->get()->first();
+        try
+        {
+            //get id of payment method of this service
+            $pay_method = $service->payment_method_id;
+            //get title of payment method to display
+            $pay_method = PaymentMethod::where('id', $pay_method)->get()->first();
 
-        //get id of category of this service
-        $category_service = $service->category_id;
-        //get title of category to display
-        $category_service = ServiceCategories::where('id', $category_service)->get()->first();
+            //get id of category of this service
+            $category_service = $service->category_id;
+            //get title of category to display
+            $category_service = ServiceCategories::where('id', $category_service)->get()->first();
 
-        //get all payment methods to display
-        $payment_methods = PaymentMethod::all();
+            //get all payment methods to display
+            $payment_methods = PaymentMethod::orderBy('title')->get();
 
-        //get all categories to display
-        $categories = ServiceCategories::all();
+            //get all categories to display
+            $categories = ServiceCategories::orderBy('title')->get();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+        }
 
         //go to the edit page
         return view('services.edit', compact('service', 'title', 'description', 'cost', 'payment_methods', 'categories', 'pay_method', 'category_service'));
@@ -144,19 +184,25 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //get a specific service to edit
-        $service = Service::find($id);
-
-        //edit the services' information from inputs
-        $service->title = $request->input('title');
-        $service->description = $request->input('description');
-        $service->cost = $request->input('cost');
-        //get category from its title
-        $category = ServiceCategories::where('title','=', $request->get('categories'))->get()->first();
-        $service->category_id = $category->id;
-        //get payment method from its title
-        $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
-        $service->payment_method_id = $method->id;
+        try
+        {
+            //get a specific service to edit
+            $service = Service::find($id); 
+            //edit the services' information from inputs
+            $service->title = $request->input('title');
+            $service->description = $request->input('description');
+            $service->cost = $request->input('cost');
+            //get category from its title
+            $category = ServiceCategories::where('title','=', $request->get('categories'))->get()->first();
+            $service->category_id = $category->id;
+            //get payment method from its title
+            $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
+            $service->payment_method_id = $method->id;
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+        }
 
         try
         {
@@ -181,11 +227,18 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //get service to be removed
-        $service = Service::find($id);
+        try
+        {
+            //get service to be removed
+            $service = Service::find($id);
 
-        //remove service from database
-        $service->delete();
+            //remove service from database
+            $service->delete();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+        }
 
         //redirect to services' page
         return redirect('/services');

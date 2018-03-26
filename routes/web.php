@@ -14,7 +14,7 @@
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.app');
 });
 
 
@@ -70,3 +70,7 @@ Route::get('filter/service/{id}', 'FilterController@filterServicesByCategories')
 Route::post('search/client', 'SearchController@searchClient');
 
 Route::post('search/service', 'SearchController@searchService');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
