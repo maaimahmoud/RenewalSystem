@@ -159,7 +159,7 @@
     </div>
 </div>
         <div class="container collapse search-input searchbar">
-        <form class="row" id="demo-2" method="POST" action="{{url('/search/client')}}">
+        <form class="row" id="demo-2" method="POST" action="{{url('/search/service')}}">
             {{ csrf_field() }}
             <input type="text" name="search" class="search form-control" placeholder="Search">
           </form>

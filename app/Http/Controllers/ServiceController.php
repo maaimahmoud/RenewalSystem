@@ -22,8 +22,12 @@ class ServiceController extends Controller
     {
         //get all services
         $services = Service::orderBy('title')->paginate(30);
+
+        //get all categories to display for filtering
+        $categories = ServiceCategories::all();
+
         //show services in the page
-        return view('services.index')->with('services', $services);
+        return view('services.index', compact('services', 'categories'));
     }
 
     /**

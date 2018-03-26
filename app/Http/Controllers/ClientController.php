@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 
 use App\Client;
 use App\Service;
@@ -13,11 +14,11 @@ use App\ServiceCategories;
 use App\ClientService;
 use App\MailingMethodClientServices;
 
-use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class ClientController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +28,13 @@ class ClientController extends Controller
     {
         //show all clients
         $clients = Client::orderBy('name')->paginate(24);
+
+        //set retrieved clients to our clients variable
+        $this->clients = $clients;
+
         //get all services
         $services = Service::orderBy('title')->get();
+
         //go to view all clients
         return view('clients.index', compact('clients','services'));
     }
@@ -177,6 +183,7 @@ class ClientController extends Controller
     }
 
     public function addservice(Request $request,$id){
+
       //first find Client info as it goes back to clients.show page to display his info
       $client=Client::find($id);
       //and also client services to display
@@ -223,29 +230,12 @@ class ClientController extends Controller
       return redirect()->route('clients.show',['id' => $client->id]);
     }
 
+    //
     public function deleteservice($id,$service_id){
       $client_id=$id;
       $relation=ClientService::find(array($client_id,$service_id));
       echo $relation;
     }
 
-    public function getClientsFromService($id)
-    {
-        //get service from id
-        $service = Service::find($id);
-        //get all clients who takes this service
-        $items = $service->clients;
-        //get page from input
-        $page = Input::get('page', 1);
-        //set number of items in a single page
-        $perPage = 24;
-        //create the clients paginator
-        $clients = new LengthAwarePaginator(
-            $items->forPage($page, $perPage), $items->count(), $perPage, $page
-        );
-        //get all services
-        $services = Service::orderBy('title')->get();
-        //go to view all filtered clients
-        return view('clients.index', compact('clients','services'));
-    }
+    
 }

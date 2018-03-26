@@ -10,7 +10,7 @@
     </button>
     <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
       @foreach ($services as $service)
-    <a class="dropdown-item" href="{{url('clients/service/'.$service->id)}}">{{$service->title}}</a>
+    <a class="dropdown-item" href="{{url('filter/client/'.$service->id)}}">{{$service->title}}</a>
       @endforeach
     </div>
   </div>

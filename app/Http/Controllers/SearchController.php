@@ -21,4 +21,16 @@ class SearchController extends Controller
         //go to view all clients
         return view('clients.index', compact('clients', 'services'));
     }
+
+
+    //
+    public function searchService(Request $request)
+    {
+        //get all clients who are related to the keyword
+        $services = Service::SearchByKeyword($request->input('search'))->paginate();
+        
+        //go to view all clients
+        return view('services.index')->with('services', $services);
+    }
+    
 }

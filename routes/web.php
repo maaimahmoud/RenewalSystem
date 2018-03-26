@@ -63,6 +63,10 @@ Route::get('/settings',function(){
   return view('settings');
 });
 
-Route::get('clients/service/{id}', 'ClientController@getClientsFromService');
+Route::get('filter/client/{id}', 'FilterController@filterClientsByServices');
+
+Route::get('filter/service/{id}', 'FilterController@filterServicesByCategories');
 
 Route::post('search/client', 'SearchController@searchClient');
+
+Route::post('search/service', 'SearchController@searchService');
