@@ -40,6 +40,67 @@
                         
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Clients <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/clients/create">
+                                        Add Client
+                                    </a>
+
+                                    <a class="dropdown-item" href="/clients">
+                                        View All
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Services <span class="caret"></span>
+                                    </a>
+    
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/services/create">
+                                            Add Service
+                                        </a>
+    
+                                        <a class="dropdown-item" href="/services">
+                                            View All Services
+                                        </a>
+
+                                        <a class="dropdown-item" href="/clients">
+                                            Add Category
+                                        </a>
+
+                                        <a class="dropdown-item" href="/servicescategories">
+                                            View All Categories
+                                        </a>
+
+                                    </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Payment Methods <span class="caret"></span>
+                                    </a>
+    
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/clients/create">
+                                            Add Payment Method
+                                        </a>
+    
+                                        <a class="dropdown-item" href="/paymentmethods">
+                                            View All
+                                        </a>
+                                    </div>
+                            </li>
+
+                            <li><a class="nav-link" href="#">Statistics</a></li>
+                            <li><a class="nav-link" href="/settings">Settings</a></li>
+                            <li><a class="nav-link" href="/settings" data-toggle="collapse" data-target=".search-input">Search</a></li>
+                        
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -61,6 +122,12 @@
             </div>
         </nav>
 
+        <div class="container collapse search-input searchbar">
+                <form class="row" id="demo-2" method="POST" action="{{url('/search/service')}}">
+                    {{ csrf_field() }}
+                    <input type="text" name="search" class="search form-control" placeholder="Search">
+                  </form>
+                </div>
         <main class="py-4">
             @yield('content')
         </main>
