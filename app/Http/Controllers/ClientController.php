@@ -70,19 +70,14 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-        try
-        {
+
              //save client in database
             $client->save();
-        }
-        catch (QueryException $e)
-        {
-            $message = "please check that the information is valid";
-        }
+
 
 
         //redirect to clients page
-        return redirect('/clients');
+        return redirect('/clients/'.$client->id);
 
     }
 

@@ -87,19 +87,15 @@ class ServiceController extends Controller
             $message = 'problem with connection to database';
         }
         
-        try
-        {
+
             //save service in database  
             $service->save();
-        }
-        catch (QueryException $e)
-        {
-            $message = "please check that the information is valid";
-        } 
+
+
         
 
         //redirect to services page
-        return redirect('/services');
+        return redirect('/services/'.$service->id);
     }
 
     /**
@@ -216,7 +212,7 @@ class ServiceController extends Controller
         
 
         //redirect to clients page
-        return redirect('/services/'.$id);
+        return redirect('/services/'.$service->id);
     }
 
     /**

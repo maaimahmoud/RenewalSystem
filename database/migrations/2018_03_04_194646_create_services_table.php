@@ -34,7 +34,7 @@ class CreateServicesTable extends Migration
             //Short description of the service and what it provides to the client
             $table->mediumText('description')->nullable(false);
 
-            $table->longText('email_template');
+            $table->longText('email_template')->nullable(true);
 
             $table->timestamps();
         });
