@@ -172,8 +172,15 @@ class ClientController extends Controller
       $paymentmethods = PaymentMethod::All();
       //if client wants to add a service to a particular category
       $servicecategories=ServiceCategories::All();
+      //intialize variables to distinguish between editing and adding service
+      //Get current paymentmethod
+      $current_payment_method=0;
+      //Get current end_date
+      $current_end_time=0;
+      //Get current mailing method
+      $current_mailing_methods=0;
       //Go to the input page with provided lists
-      return view('clients.addservice',compact('client','services','paymentmethods','servicecategories'));
+      return view('clients.addservice',compact('client','services','paymentmethods','servicecategories','$current_payment_method','$current_end_time','$current_mailing_methods'));
     }
 
     public function addservice(Request $request,$id){
@@ -225,8 +232,17 @@ class ClientController extends Controller
 
     public function deleteservice($id,$service_id){
       $client_id=$id;
-      $relation=ClientService::find(array($client_id,$service_id));
+      echo $id;
+      echo $service_id;
+      $relation=ClientService::where('client_id','=',$client_id)->where('service_id','=',$service_id)->get();
       echo $relation;
+      try {
+        $clientservice=ClientService::find($relation{id});
+        $clientservice->delete();
+      } catch (\Exception $e) {
+        echo $e;
+      }
+
     }
 
     public function getClientsFromService($id)
@@ -247,5 +263,28 @@ class ClientController extends Controller
         $services = Service::orderBy('title')->get();
         //go to view all filtered clients
         return view('clients.index', compact('clients','services'));
+    }
+
+    public function requesteditservice($client_id,$service_id){
+      //Prepare all data needed to edit service
+      $client=Client::find($client_id);
+      //Get the service information
+      $services=Service::find($service_id);
+      //Get the category for service
+      $servicecategories=ServiceCategories::find($services->category_id);
+      //Get All payment methods from database if the client wants to change his current payment method
+      $paymentmethods = PaymentMethod::All();
+      ///////////////////////////////
+      //Get relation
+      $relation=ClientService::where('client_id','=',$client_id)->where('service_id','=',$service_id)->get();
+      //Get current paymentmethod
+      $current_payment_method=PaymentMethod::find($relation{payment_method});
+      //Get current end_date
+      $current_end_time=$relation->end_time;
+      //Get current mailing method
+      $current_mailing_methods=$relation->mailingmethods;
+      //Go to the input page with provided lists
+      return view('clients.addservice',compact('client','services','paymentmethods','servicecategories','$current_payment_method','$current_end_time','$current_mailing_methods'));
+
     }
 }

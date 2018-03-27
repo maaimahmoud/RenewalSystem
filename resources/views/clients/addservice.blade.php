@@ -5,7 +5,12 @@
   <form method="POST" id="addservicetoclientform" action="{{route('clients.addservice', ['id' => $client->id])}}">
     @csrf
     <input name="_method" type="hidden" value="PUT">
+
+    <h2 style="text-align: center;">Adding new service to {{ $client->name }}</h2>
+    <br> <br>
+
     <div class="form-group col-md-6 mb-3">
+
 
           <label for="category_id">Service Category</label>
 

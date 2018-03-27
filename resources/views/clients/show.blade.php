@@ -83,7 +83,8 @@
                                 <h5 class="card-title">{{ $service->title }}</h5>
                                 <p class="card-text">{{ $service->description }}</p>
                                 <a href="{{url('/services/'. $service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
-                                <a href="{{url('/clients/'. $client{'id'}.' /deleteservice/'.$service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Delete service</a>
+                                <a href="{{url('/clients/'. $client{'id'}.'/requesteditservice/'.$service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Edit service</a>
+                                <a href="{{url('/clients/'. $client{'id'}.'/deleteservice/'.$service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Delete service</a>
                               </div>
                             </div>
                           </div>

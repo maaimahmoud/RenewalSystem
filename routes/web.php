@@ -30,8 +30,11 @@ Route::resource('servicescategories', 'ServiceCategoriesController');
 
 Route::get('/clients/{id}/requestaddservice','ClientController@requestaddservice')->name('clients.requestaddservice');
 
-Route::put('/clients/{id}/addservice','ClientController@addservice')->name('clients.addservice');
+Route::get('/clients/{client_id}/requesteditservice/{service_id}','ClientController@requesteditservice')->name('clients.requesteditservice');
 
+Route::put('/clients/{id}/addservice','ClientController@addservice')->name('clients.addservice');
+//Edit service added to client
+Route::get('/clients/{id}/editservice/{service_id}', 'ClientController@editservice')->name('clients.editservice');
 //Delete Service from client
 Route::get('/clients/{id}/deleteservice/{service_id}', 'ClientController@deleteservice')->name('clients.deleteservice');
 //////////////////////////////////
@@ -44,7 +47,7 @@ Route::get('clients/delete/{id}', 'ClientController@destroy');
 //Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 
-// Services Categories routes 
+// Services Categories routes
 Route::POST('servicescategories/create', 'ServiceCategoriesController@store');
 
 Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destroy');
@@ -52,7 +55,7 @@ Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destro
 Route::PUT('servicescategories/edit/{id}', 'ServiceCategoriesController@update');
 
 
-// Payment Methods routes 
+// Payment Methods routes
 Route::POST('paymentmethods/create', 'PaymentMethodController@store');
 
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
