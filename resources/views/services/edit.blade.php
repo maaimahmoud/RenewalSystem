@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="mt-4" >
@@ -20,7 +20,7 @@
    <div class="col-md-6 mb-3">
       <label for="category_id">Category</label>
      <select class="custom-select" value ="Open this select menu" name="categories" required>
-    		
+
      <option selected="selected">{{$category_service->title}}</option>
       @foreach ($categories as $category)
      <option>{{$category->title}}</option>
@@ -48,7 +48,7 @@
     </div>
   <button class="btn btn-primary col-md-2 ml-5" type="submit"  >Confirm</button>
    </div>
-  
+
 </form>
 </div>
 

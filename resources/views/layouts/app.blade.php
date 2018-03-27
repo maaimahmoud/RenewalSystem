@@ -12,6 +12,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+    .sub-list{
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 10px;
+        padding: 10px;
+        overflow-y: auto;
+    }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -36,8 +45,8 @@
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
-                        @else   
-                        
+                        @else
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Clients <span class="caret"></span>
@@ -58,12 +67,12 @@
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Services <span class="caret"></span>
                                     </a>
-    
+
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/services/create">
                                             Add Service
                                         </a>
-    
+
                                         <a class="dropdown-item" href="/services">
                                             View All Services
                                         </a>
@@ -83,12 +92,12 @@
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Payment Methods <span class="caret"></span>
                                     </a>
-    
+
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/clients/create">
                                             Add Payment Method
                                         </a>
-    
+
                                         <a class="dropdown-item" href="/paymentmethods">
                                             View All
                                         </a>
@@ -98,7 +107,7 @@
                             <li><a class="nav-link" href="#">Statistics</a></li>
                             <li><a class="nav-link" href="/settings">Settings</a></li>
                             <li><a class="nav-link" href="/settings" data-toggle="collapse" data-target=".search-input">Search</a></li>
-                        
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -128,12 +137,22 @@
                     <input type="text" name="search" class="search form-control" placeholder="Search">
                   </form>
                 </div>
-        <main class="py-4">
+        <main class="py-4 contain er-fluid full-height">
             @yield('content')
         </main>
+
+        <div class="footer-copyright py-3 text-center">
+            <div class="container-fluid">
+                © 2018 Copyright: <a href="#"> Renewal System </a>
+            </div>
+        </div>
+
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <script src="{{ asset('js/layout.js') }}"></script>
+
 </body>
 </html>

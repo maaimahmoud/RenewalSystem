@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 <style>
 .card-body-custom:nth-child(even){
         background:#eee;
@@ -28,16 +28,16 @@
         <a href="/clients/{id}" >
             <div class="card-body-custom mt-2 " style="text-decoration:none">
                 <strong> <h4>{{$client->name}}</h4> </strong>
-                </div>  
+                </div>
             <div> <h5>{{$client->email}}</h5></div>
         </a>
     </div>
 </div>
-        
+
         @endforeach
     </ul>
 
-                          
+
 @else
     <p>No Clients Found</p>
 @endif

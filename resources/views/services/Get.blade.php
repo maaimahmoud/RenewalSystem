@@ -1,4 +1,4 @@
-@extends ('layout')
+@extends('layouts.app')
 <style>
 .card-body-custom:nth-child(even){
 		background:#eee;
@@ -31,7 +31,7 @@
 				    <p align="right">
 				    <span class="badge badge-pill badge-primary"> no of clients take this Services +Clients</span></p>
 				  </div>
-				</a>  
+				</a>
 				 {{-- end of foreaach --}}
 				</div>
 

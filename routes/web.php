@@ -28,12 +28,7 @@ Route::resource('servicescategories', 'ServiceCategoriesController');
 //////////////////////////////////
 //Service to Client Routes
 
-Route::get('/clients/{id}/requestaddservice','ClientController@requestaddservice')->name('clients.requestaddservice');
-
-Route::put('/clients/{id}/addservice','ClientController@addservice')->name('clients.addservice');
-
-//Delete Service from client
-Route::get('/clients/{id}/deleteservice/{service_id}', 'ClientController@deleteservice')->name('clients.deleteservice');
+Route::resource('clients.service', 'ClientServiceController');
 //////////////////////////////////
 
 
@@ -41,10 +36,12 @@ Route::get('services/delete/{id}', 'ServiceController@destroy');
 
 Route::get('clients/delete/{id}', 'ClientController@destroy');
 
+Route::get('clients/{client}/service/{service}/delete', 'ClientServiceController@destroy')->name('client.service.delete');
+
 //Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 
-// Services Categories routes 
+// Services Categories routes
 Route::POST('servicescategories/create', 'ServiceCategoriesController@store');
 
 Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destroy');
@@ -52,7 +49,7 @@ Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destro
 Route::PUT('servicescategories/edit/{id}', 'ServiceCategoriesController@update');
 
 
-// Payment Methods routes 
+// Payment Methods routes
 Route::POST('paymentmethods/create', 'PaymentMethodController@store');
 
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
