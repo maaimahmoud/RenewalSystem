@@ -1,7 +1,12 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+
 use App\ServiceCategories;
+
+
 class ServiceCategoriesController extends Controller
 {
     /**
@@ -105,10 +110,19 @@ class ServiceCategoriesController extends Controller
      */
     public function destroy($id)
     {
-         $category = ServiceCategories::find($id);
+        try
+        {
+            //find category with the specific id
+            $category = ServiceCategories::find($id);
 
-        //remove servicescategory from database
-        $category->delete();
-     return redirect('/servicescategories');
+            //remove servicescategory from database
+            $category->delete();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'Category cannot be deleted as their are services associated with it';
+        }
+        
+        return redirect('/servicescategories');
     }
 }

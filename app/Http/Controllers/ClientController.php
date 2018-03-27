@@ -63,6 +63,13 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:clients',
+            'phone_number' => 'required|unique:clients|regex:/(01)[0-9]{9}/'
+        ]);
+
         //store clients info from inputs
         $client = new Client;
         $client->name = $request->input('name');
@@ -70,11 +77,15 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-
-             //save client in database
+        try
+        {
+            //save client in database
             $client->save();
-
-
+        }
+        catch (QueryException $e)
+        {
+            $message = 'check the information please';
+        }   
 
         //redirect to clients page
         return redirect('/clients/'.$client->id);
@@ -89,9 +100,15 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //get client from database
-        $client = Client::find($id);
-
+        try
+        {
+            //get client from database
+            $client = Client::find($id);
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
         //show page of client's information
         return view('clients.show',compact('client'));
     }
@@ -134,6 +151,13 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:clients',
+            'phone_number' => 'required|unique:clients|regex:/(01)[0-9]{9}/'
+        ]);
+
         try
         {
             //get a specific client to edit
