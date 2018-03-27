@@ -1,4 +1,5 @@
-@extends('layout')
+@extends('layouts.app')
+
 @section('content')
 @if (count($categories)>0)
 <div class="row">
@@ -15,7 +16,7 @@
       </div>
     </div>
   </div>
- 
+
 @foreach ($categories as $category)
      <div class="modal fade" id="deleteModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -37,9 +38,9 @@
 
 </div>
 </div>
- 
+
 @endforeach
-@foreach ($categories as $category) 
+@foreach ($categories as $category)
            <div class="modal fade" id="editModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -72,8 +73,8 @@
       @endforeach
 
 	@endforeach
-</div>	
-  
+</div>
+
 @else
 <div class="alert alert-danger" role="alert"> there is no categories </div>
 @endif
@@ -82,14 +83,3 @@
 
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-

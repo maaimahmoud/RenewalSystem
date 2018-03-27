@@ -28,21 +28,15 @@ Route::resource('servicescategories', 'ServiceCategoriesController');
 //////////////////////////////////
 //Service to Client Routes
 
-Route::get('/clients/{id}/requestaddservice','ClientController@requestaddservice')->name('clients.requestaddservice');
-
-Route::get('/clients/{client_id}/requesteditservice/{service_id}','ClientController@requesteditservice')->name('clients.requesteditservice');
-
-Route::put('/clients/{id}/addservice','ClientController@addservice')->name('clients.addservice');
-//Edit service added to client
-Route::get('/clients/{id}/editservice/{service_id}', 'ClientController@editservice')->name('clients.editservice');
-//Delete Service from client
-Route::get('/clients/{id}/deleteservice/{service_id}', 'ClientController@deleteservice')->name('clients.deleteservice');
+Route::resource('clients.service', 'ClientServiceController');
 //////////////////////////////////
 
 
 Route::get('services/delete/{id}', 'ServiceController@destroy');
 
 Route::get('clients/delete/{id}', 'ClientController@destroy');
+
+Route::get('clients/{client}/service/{service}/delete', 'ClientServiceController@destroy')->name('client.service.delete');
 
 //Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 

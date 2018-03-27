@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 <style>
   .card-body-custom{
     padding:.75rem 1.25rem;
@@ -24,7 +24,7 @@
       <a class="nav-link Edit" href="{{route('clients.edit', ['id' => $client->id])}}">Edit</a>
       </li>
     </li>
-      <a class="nav-link Edit" href="{{route('clients.requestaddservice', ['id' => $client->id])}}">Add Service</a>
+      <a class="nav-link" href="{{route('clients.service.create', ['client' => $client->id])}}">Add Service</a>
       </li>
       <li class="nav-item">
         <a class="nav-link Delete " data-toggle="modal" data-target="#exampleModalCenter">Delete</a>
@@ -81,10 +81,17 @@
                             <div class="card">
                               <div class="card-body">
                                 <h5 class="card-title">{{ $service->title }}</h5>
-                                <p class="card-text">{{ $service->description }}</p>
-                                <a href="{{url('/services/'. $service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
-                                <a href="{{url('/clients/'. $client{'id'}.'/requesteditservice/'.$service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Edit service</a>
-                                <a href="{{url('/clients/'. $client{'id'}.'/deleteservice/'.$service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Delete service</a>
+                                @foreach ($client->relation as $ind=>$relation)
+                                  @if ($relation{'service_id'} == $service{'id'})
+                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
+                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Edit service</a>
+                                    <a href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}" class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Stop service</a>
+                                      @php
+                                        unset($client->relation[$ind]);
+                                        break;
+                                      @endphp
+                                  @endif
+                                @endforeach
                               </div>
                             </div>
                           </div>

@@ -1,5 +1,4 @@
-
-extends('layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="mt-4" >
@@ -25,7 +24,7 @@ extends('layout')
     </div>
   <button class="btn btn-primary col-md-2 ml-5" type="submit"  >Confirm</button>
    </div>
-  
+
 </form>
 </div>
 
