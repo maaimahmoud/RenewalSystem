@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 
 use App\Client;
 use App\Service;
@@ -13,11 +14,11 @@ use App\ServiceCategories;
 use App\ClientService;
 use App\MailingMethodClientServices;
 
-use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class ClientController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -25,10 +26,20 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //show all clients
-        $clients = Client::orderBy('name')->paginate(24);
-        //get all services
-        $services = Service::orderBy('title')->get();
+        try
+        {
+            //show all clients
+            $clients = Client::orderBy('name')->paginate(24);
+
+            //get all services
+            $services = Service::orderBy('title')->get();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
+
+
         //go to view all clients
         return view('clients.index', compact('clients','services'));
     }
@@ -59,19 +70,14 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-        try
-        {
+
              //save client in database
             $client->save();
-        }
-        catch (QueryException $e)
-        {
-            $message = "please check that the information is valid";
-        }
+
 
 
         //redirect to clients page
-        return redirect('/clients');
+        return redirect('/clients/'.$client->id);
 
     }
 
@@ -98,8 +104,15 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //get the client with that id
-        $client = Client::find($id);
+        try
+        {
+            //get the client with that id
+            $client = Client::find($id);
+        }
+        catch (QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
 
         //get the current information of this client to display them
         $name = $client->name;
@@ -121,8 +134,15 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //get a specific client to edit
-        $client = Client::find($id);
+        try
+        {
+            //get a specific client to edit
+            $client = Client::find($id);
+        }
+        catch (QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
 
         //edit the clients information from inputs
         $client->name = $request->input('name');
@@ -153,37 +173,54 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //get client to be removed
-        $client = Client::find($id);
+        try
+        {
+            //get client to be removed
+            $client = Client::find($id);
 
-        //remove client from database
-        $client->delete();
+            //remove client from database
+            $client->delete();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+        }
 
         //redirect to clients page
         return redirect('/clients');
     }
 
-    public function requestaddservice($id){
-      //Prepare all data needed to add service
-      $client=Client::find($id);
-      //Get All Services from database to add one of them to client
-      $services = Service::All();
-      //Get All payment methods from database to add one of them to client
-      $paymentmethods = PaymentMethod::All();
-      //if client wants to add a service to a particular category
-      $servicecategories=ServiceCategories::All();
-      //intialize variables to distinguish between editing and adding service
-      //Get current paymentmethod
-      $current_payment_method=0;
-      //Get current end_date
-      $current_end_time=0;
-      //Get current mailing method
-      $current_mailing_methods=0;
+    public function requestaddservice($id)
+    {
+      try
+      {
+        //Prepare all data needed to add service
+        $client=Client::find($id);
+        //Get All Services from database to add one of them to client
+        $services = Service::All();
+        //Get All payment methods from database to add one of them to client
+        $paymentmethods = PaymentMethod::All();
+        //if client wants to add a service to a particular category
+        $servicecategories=ServiceCategories::All();
+        //intialize variables to distinguish between editing and adding service
+        //Get current paymentmethod
+        $current_payment_method=0;
+        //Get current end_date
+        $current_end_time=0;
+        //Get current mailing method
+        $current_mailing_methods=0;
+      }
+      catch (QueryException $e)
+      {
+          $message = 'problem with connecting to database';
+      }
       //Go to the input page with provided lists
       return view('clients.addservice',compact('client','services','paymentmethods','servicecategories','$current_payment_method','$current_end_time','$current_mailing_methods'));
     }
 
-    public function addservice(Request $request,$id){
+    public function addservice(Request $request,$id)
+    {
+
       //first find Client info as it goes back to clients.show page to display his info
       $client=Client::find($id);
       //and also client services to display
@@ -230,6 +267,7 @@ class ClientController extends Controller
       return redirect()->route('clients.show',['id' => $client->id]);
     }
 
+    //
     public function deleteservice($id,$service_id){
       $client_id=$id;
       echo $id;

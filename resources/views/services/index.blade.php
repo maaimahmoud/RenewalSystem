@@ -1,6 +1,21 @@
 @extends('layout')
 
 @section('content')
+
+<div class="row">
+  <div class="col-md-10"></div>
+  <div class="dropdown col-md-2">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter by categories
+      </button>
+      <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+        @foreach ($categories as $category)
+      <a class="dropdown-item" href="{{url('filter/service/'.$category->id)}}">{{$category->title}}</a>
+        @endforeach
+      </div>
+    </div>
+  </div>
+
   @if (@isset($services))
 
 <div class="btn-group-vertical pre-scrollable full-height sub-list">
