@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 <style>
   .card-body-custom{
     padding:.75rem 1.25rem;
@@ -24,7 +25,7 @@
       <a class="nav-link Edit" href="{{route('clients.edit', ['id' => $client->id])}}">Edit</a>
       </li>
     </li>
-      <a class="nav-link" href="{{route('clients.service.create', ['client' => $client->id])}}">Add Service</a>
+      <a class="nav-link" href="{{route('clients.service.create', ['clients' => $client->id])}}">Add Service</a>
       </li>
       <li class="nav-item">
         <a class="nav-link Delete " data-toggle="modal" data-target="#exampleModalCenter">Delete</a>
