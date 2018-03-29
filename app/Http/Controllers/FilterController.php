@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Database\QueryException;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 use App\Service;
 use App\ServiceCategories;
@@ -14,6 +15,10 @@ use App\ServiceCategories;
 
 class FilterController extends Controller
 {
+    /*
+    *This function takes service from user and returns all clients using this service
+    *
+    */
     public function filterClientsByServices($id)
     {
         try
@@ -31,7 +36,9 @@ class FilterController extends Controller
             $perPage = 24;
 
             //create the clients paginator
-            $clients = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page);
+            $clients = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+                'path' => Paginator::resolveCurrentPath()
+            ]);
 
             //get all services
             $services = Service::orderBy('title')->get();
@@ -45,6 +52,12 @@ class FilterController extends Controller
         return view('clients.index', compact('clients','services'));
     }
 
+
+    /*
+    * This function takes category from user and returns all services from this category
+    *
+    *
+    */
     public function filterServicesByCategories($id)
     {
         try
@@ -62,7 +75,9 @@ class FilterController extends Controller
             $perPage = 24;
 
             //create the clients paginator
-            $services = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page);
+            $services = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+                'path' => Paginator::resolveCurrentPath()
+            ]);
 
             //get all categories for filtering
             $categories = ServiceCategories::orderBy('title')->get();

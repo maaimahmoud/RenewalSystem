@@ -24,7 +24,6 @@
               @foreach ($categories as $category)
              <option>{{$category->title}}</option>
               @endforeach
-              <option> <a href="/Home/AddCategory" > Add new Category</a></option>
             </select>
    	</div>
 
@@ -42,7 +41,6 @@
       @foreach ($payment_methods as $payment_method)
         <option>{{$payment_method->title}}</option>
       @endforeach
-      <option> <a href="/Home/AddPaymentMethod" > Add new PaymentMethod</a></option>
     </select>
  	</div>
     </div>
