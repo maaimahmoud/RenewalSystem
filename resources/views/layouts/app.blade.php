@@ -20,6 +20,9 @@
         padding: 10px;
         overflow-y: auto;
     }
+    #searchbutton{
+      display: none;
+    }
     </style>
 </head>
 <body>
@@ -88,25 +91,10 @@
                                     </div>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Payment Methods <span class="caret"></span>
-                                    </a>
-
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/clients/create">
-                                            Add Payment Method
-                                        </a>
-
-                                        <a class="dropdown-item" href="/paymentmethods">
-                                            View All
-                                        </a>
-                                    </div>
-                            </li>
+                            <li><a class="nav-link" href="/paymentmethods">Payment Methods</a></li>
 
                             <li><a class="nav-link" href="#">Statistics</a></li>
-                            <li><a class="nav-link" href="/settings">Settings</a></li>
-                            <li><a class="nav-link" href="/settings" data-toggle="collapse" data-target=".search-input">Search</a></li>
+                            <li><a class="nav-link" href="#" data-toggle="collapse" data-target=".search-input" id="searchbutton">Search</a></li>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -132,7 +120,7 @@
         </nav>
 
         <div class="container collapse search-input searchbar">
-                <form class="row" id="demo-2" method="POST" action="{{url('/search/service')}}">
+                <form class="row" id="searchform" method="POST" action="{{url('/search/service')}}">
                     {{ csrf_field() }}
                     <input type="text" name="search" class="search form-control" placeholder="Search">
                   </form>

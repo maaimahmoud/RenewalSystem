@@ -2,6 +2,13 @@
 
 @section('content')
 
+  <script type="text/javascript">
+    window.onload = function(){
+      $("#searchbutton").css("display", "block");
+      $('#searchform').attr('action', '{{url('/search/service')}}');
+    };
+ </script>
+
 <div class="row">
   <div class="col-md-10"></div>
   <div class="dropdown col-md-2">

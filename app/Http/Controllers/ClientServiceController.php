@@ -116,8 +116,11 @@ class ClientServiceController extends Controller
    */
   public function show($clients,$service)
   {
-        $service=ClientService::find($service);
-        return view('clients.services.show',compact('service'));
+        $relation=ClientService::find($service);
+        $client=Client::find($clients);
+        $service=Service::find($relation->service_id);
+        $payment_method=PaymentMethod::find($relation->payment_method);
+        return view('clients.services.show',compact('relation','client','service','payment_method'));
 
   }
 

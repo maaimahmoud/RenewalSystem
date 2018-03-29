@@ -56,10 +56,6 @@ Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 Route::PUT('paymentmethods/edit/{id}', 'PaymentMethodController@update');
 
-Route::get('/settings',function(){
-  return view('settings');
-});
-
 Route::get('filter/client/{id}', 'FilterController@filterClientsByServices');
 
 Route::get('filter/service/{id}', 'FilterController@filterServicesByCategories');
