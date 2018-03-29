@@ -31,7 +31,7 @@
       </a>
       @endforeach
 </div>
-{{$services->links()}}
+{{$services->appends(Request::only('search'))->links()}}
 @else
     <p>No Services Found</p>
 @endif

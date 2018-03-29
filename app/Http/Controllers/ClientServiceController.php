@@ -225,8 +225,8 @@ class ClientServiceController extends Controller
    */
   public function destroy($clients,$service)
   {
-    echo "Hiiiiii";
-      try {
+      try 
+      {
         $clientservice=ClientService::find($service);
         $clientservice->end_time=date('Y-m-d H:i:s');
         $clientservice->save();

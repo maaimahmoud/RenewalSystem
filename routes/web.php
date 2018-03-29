@@ -64,9 +64,9 @@ Route::get('filter/client/{id}', 'FilterController@filterClientsByServices');
 
 Route::get('filter/service/{id}', 'FilterController@filterServicesByCategories');
 
-Route::post('search/client', 'SearchController@searchClient');
+Route::get('search/client', 'SearchController@searchClient');
 
-Route::post('search/service', 'SearchController@searchService');
+Route::get('search/service', 'SearchController@searchService');
 
 Auth::routes();
 

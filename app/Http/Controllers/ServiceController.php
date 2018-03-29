@@ -104,6 +104,10 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'please check that the information are valid';
+
+            $myerrors = array($message);
+
+            return redirect('/services/create')->withErrors($myerrors);
         }   
 
         //redirect to services page
@@ -150,11 +154,6 @@ class ServiceController extends Controller
             $message = 'problem with connection to database';
         }
 
-        //get the service's info to pass to the edit page
-        $title = $service->title;
-        $description = $service->description;
-        $cost = $service->cost;
-
         try
         {
             //get id of payment method of this service
@@ -179,8 +178,7 @@ class ServiceController extends Controller
         }
 
         //go to the edit page
-        return view('services.edit', compact('service', 'title', 'description', 'cost', 'payment_methods', 'categories', 'pay_method', 'category_service'));
-
+        return view('services.edit', compact('service', 'payment_methods', 'categories', 'pay_method', 'category_service'));
     }
 
     /**
@@ -228,9 +226,10 @@ class ServiceController extends Controller
         }
         catch (QueryException $e)
         {
-            $message = "please check that the information is valid";
-        } 
-        
+            $message = "please check that the information is valid and the title of the service is unique";
+            $myerrors = array($message);
+            return redirect('/services/'.$id.'/edit')->withErrors($myerrors);
+        }
 
         //redirect to clients page
         return redirect('/services/'.$service->id);
@@ -255,6 +254,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/services/'.$id)->withErrors($myerrors);
         }
 
         //redirect to services' page

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 use App\Client;
 use App\Service;
@@ -66,6 +67,7 @@ class ClientController extends Controller
             'phone_number' => 'required|unique:clients|numeric'
         ]);
 
+
         //store clients info from inputs
         $client = new Client;
         $client->name = $request->input('name');
@@ -81,11 +83,14 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'check the information please';
-        }   
+
+            $myerrors = array($message);
+
+            return view('clients.create')->withErrors($myerrors);
+        }
 
         //redirect to clients page
         return redirect('/clients/'.$client->id);
-
     }
 
     /**
@@ -132,15 +137,8 @@ class ClientController extends Controller
             $message = 'cannot connect to database';
         }
 
-        //get the current information of this client to display them
-        $name = $client->name;
-        $email = $client->email;
-        $phone_number = $client->phone_number;
-        $address = $client->address;
-
         //go to the edit page
-        return view('clients.edit', compact('name', 'email', 'phone_number', 'address', 'client'));
-
+        return view('clients.edit')->with('client', $client);
     }
 
     /**
@@ -183,8 +181,9 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid";
+            $myerrors = array($message);
+            return view('clients.edit')->with('client', $client)->withErrors($myerrors);
         }
-
 
         //redirect to clients page
         return redirect('/clients/'.$id);
@@ -209,6 +208,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/clients/'.$id)->withErrors($myerrors);
         }
 
         //redirect to clients page

@@ -62,6 +62,8 @@ class ServiceCategoriesController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid";
+            $myerrors = array($message);
+            return redirect('/servicescategories')->withErrors($myerrors);
         } 
      
         //redirect to the page of servicescategories
@@ -113,7 +115,9 @@ class ServiceCategoriesController extends Controller
         }
         catch (QueryException $e)
         {
-            $message = "please check that the information is valid";
+            $message = "please check that the information is valid and that the title of the category is unique";
+            $myerrors = array($message);
+            return redirect('/servicescategories')->withErrors($myerrors);
         } 
         //redirect to the page of servicescategories
          return redirect('/servicescategories');
@@ -136,7 +140,9 @@ class ServiceCategoriesController extends Controller
         }
         catch (QueryException $e)
         {
-            $message = 'Category cannot be deleted as their are services associated with it';
+            $message = 'Category cannot be deleted as there are services associated with it';
+            $myerrors = array($message);
+            return redirect('/servicescategories')->withErrors($myerrors);
         }
         
         return redirect('/servicescategories');

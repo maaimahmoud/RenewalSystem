@@ -132,8 +132,7 @@
         </nav>
 
         <div class="container collapse search-input searchbar">
-                <form class="row" id="demo-2" method="POST" action="{{url('/search/service')}}">
-                    {{ csrf_field() }}
+                <form class="row" id="demo-2" method="get" action="{{url('/search/client')}}">
                     <input type="text" name="search" class="search form-control" placeholder="Search">
                   </form>
                 </div>

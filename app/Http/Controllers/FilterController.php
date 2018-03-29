@@ -39,9 +39,8 @@ class FilterController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
-        }
-        
-        
+        } 
+  
         //go to view all filtered clients
         return view('clients.index', compact('clients','services'));
     }

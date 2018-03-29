@@ -16,8 +16,16 @@ class PaymentMethodController extends Controller
      */
     public function index()
     {
-        //retrieve all payment methods 
-        $paymentmethods = PaymentMethod::all();
+        try
+        {
+            //retrieve all payment methods 
+            $paymentmethods = PaymentMethod::orderBy('title')->get();
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
+        
         //show them in the page
         return view('paymentmethods.show')->with('paymentmethods', $paymentmethods);
     }
@@ -60,6 +68,8 @@ class PaymentMethodController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid";
+            $myerrors = array($message);
+            return redirect('/paymentmethods')->withErrors($myerrors);
         } 
         
 
@@ -118,7 +128,9 @@ class PaymentMethodController extends Controller
         }
         catch (QueryException $e)
         {
-            $message = "please check that the information is valid";
+            $message = "please check that the information is valid and that the title of payment method is unique";
+            $myerrors = array($message);
+            return redirect('/paymentmethods')->withErrors($myerrors);
         }
 
          //redirect to the page of servicescategories
@@ -133,11 +145,20 @@ class PaymentMethodController extends Controller
      */
     public function destroy($id)
     {
-        //get the specific payment method
-        $payment_method = PaymentMethod::find($id);
+        try
+        {
+            //get the specific payment method
+            $payment_method = PaymentMethod::find($id);
 
-        //remove the payment method
-        $payment_method->delete();
+            //remove the payment method
+            $payment_method->delete();
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot delete this payment method now';
+            $myerrors = array($message);
+            return redirect('/paymentmethods')->withErrors($myerrors);
+        }    
 
         //return to payment mehtods page
         return redirect('/paymentmethods');

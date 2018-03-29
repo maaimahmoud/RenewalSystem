@@ -32,7 +32,7 @@
       </a>
       @endforeach
 </div>
-{{$clients->links()}}
+{{$clients->appends(Request::only('search'))->links()}}
 @else
     <p>No Clients Found</p>
 @endif
