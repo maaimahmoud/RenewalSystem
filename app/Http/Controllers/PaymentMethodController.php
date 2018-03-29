@@ -40,6 +40,11 @@ class PaymentMethodController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'title' => 'required|unique:payment_methods'
+        ]);
+
         //create new payment method
         $payment_method = new PaymentMethod;
 
@@ -93,6 +98,12 @@ class PaymentMethodController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+
         //get the specific payment method
         $payment_method = PaymentMethod::find($id);
 

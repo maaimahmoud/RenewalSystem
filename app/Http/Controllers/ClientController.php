@@ -63,7 +63,7 @@ class ClientController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:clients',
-            'phone_number' => 'required|unique:clients|regex:/(01)[0-9]{9}/'
+            'phone_number' => 'required|unique:clients|numeric'
         ]);
 
         //store clients info from inputs
@@ -155,8 +155,8 @@ class ClientController extends Controller
 
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email|unique:clients',
-            'phone_number' => 'required|unique:clients|regex:/(01)[0-9]{9}/'
+            'email' => 'required|email',
+            'phone_number' => 'required|numeric'
         ]);
 
         try
@@ -213,26 +213,6 @@ class ClientController extends Controller
 
         //redirect to clients page
         return redirect('/clients');
-    }
-
-    public function getClientsFromService($id)
-    {
-        //get service from id
-        $service = Service::find($id);
-        //get all clients who takes this service
-        $items = $service->clients;
-        //get page from input
-        $page = Input::get('page', 1);
-        //set number of items in a single page
-        $perPage = 24;
-        //create the clients paginator
-        $clients = new LengthAwarePaginator(
-            $items->forPage($page, $perPage), $items->count(), $perPage, $page
-        );
-        //get all services
-        $services = Service::orderBy('title')->get();
-        //go to view all filtered clients
-        return view('clients.index', compact('clients','services'));
     }
 
 }

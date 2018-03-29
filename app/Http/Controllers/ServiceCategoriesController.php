@@ -16,9 +16,16 @@ class ServiceCategoriesController extends Controller
      */
     public function index()
     {
-        //
-          $categories = ServiceCategories::all();
-          return view ('servicescategories.show')->with('categories',$categories);
+        try
+        {
+            $categories = ServiceCategories::orderBy('title')->get();
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
+          
+        return view ('servicescategories.show')->with('categories',$categories);
     }
     /**
      * Show the form for creating a new resource.
@@ -37,7 +44,11 @@ class ServiceCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-          //create new servicescategories
+        $this->validate($request, [
+            'title' => 'required|unique:service_categories'
+        ]);
+
+        //create new servicescategories
         $servicescategory= new ServiceCategories;
 
         //store the information from the input  
@@ -85,6 +96,11 @@ class ServiceCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+
         //get the specific categoryservices
         $servicescategory= ServiceCategories::find($id);
 

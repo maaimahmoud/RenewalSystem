@@ -69,7 +69,7 @@ class ServiceController extends Controller
     {
 
         $this->validate($request, [
-            'title' => 'required',
+            'title' => 'required|unique:services',
             'description' => 'required',
             'cost' => 'required|numeric',
             'categories' => 'required',
