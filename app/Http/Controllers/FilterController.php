@@ -57,6 +57,8 @@ class FilterController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         } 
   
         //go to view all filtered clients
@@ -96,6 +98,8 @@ class FilterController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
         
 

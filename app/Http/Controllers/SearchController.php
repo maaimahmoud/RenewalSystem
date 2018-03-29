@@ -22,6 +22,8 @@ class SearchController extends Controller
         $this->middleware('auth');
     }
     //
+
+    
     public function searchClient()
     {
         //get the search key
@@ -38,6 +40,8 @@ class SearchController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
            
         //go to view all clients
@@ -62,6 +66,8 @@ class SearchController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }    
         //go to view all clients
         return view('services.index', compact('services', 'categories'));

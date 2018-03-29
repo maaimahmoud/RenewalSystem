@@ -59,6 +59,8 @@ class ClientServiceController extends Controller
     catch (QueryException $e)
     {
         $message = 'problem with connecting to database';
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
     }
     //Go to the input page with provided lists
 
@@ -168,7 +170,8 @@ class ClientServiceController extends Controller
       catch (QueryException $e)
       {
         $message = 'cannot connect to database';
-        echo $e;
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
       }
       //Go to the input page with provided lists
       return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
@@ -192,6 +195,8 @@ class ClientServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         //edit the clients information from inputs
@@ -246,8 +251,9 @@ class ClientServiceController extends Controller
       }
       catch (QueryException $e)
       {
-        echo $e;
           $message = 'problem with connection to database';
+          $myerrors = array($message);
+          return redirect('/home')->withErrors($myerrors);
       }
 
       //redirect to clients page

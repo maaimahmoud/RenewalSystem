@@ -43,6 +43,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
 
@@ -118,6 +120,8 @@ class ClientController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         $relation=ClientService::where('client_id','=',$id)->get();
@@ -144,6 +148,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         //go to the edit page
@@ -174,6 +180,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         //edit the clients information from inputs
@@ -195,7 +203,7 @@ class ClientController extends Controller
         }
 
         //redirect to clients page
-        return redirect('/clients/'.$id);
+        return redirect('/clients/'.$id)->with('success', 'information was edited successfully');
     }
 
     /**
@@ -222,7 +230,7 @@ class ClientController extends Controller
         }
 
         //redirect to clients page
-        return redirect('/clients');
+        return redirect('/clients')->with('success', 'Client was removed from system successfully');
     }
 
 }
