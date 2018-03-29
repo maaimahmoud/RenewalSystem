@@ -116,11 +116,13 @@ class ClientServiceController extends Controller
    */
   public function show($clients,$service)
   {
-        $relation=ClientService::find($service);
-        $client=Client::find($clients);
-        $service=Service::find($relation->service_id);
-        $payment_method=PaymentMethod::find($relation->payment_method);
-        return view('clients.services.show',compact('relation','client','service','payment_method'));
+        //Get all information about relation in order to show the relation
+        $relation=ClientService::find($service); //Get relation info by its id
+        $client=Client::find($clients); // Get Client's info for which service is provided to
+        $service=Service::find($relation->service_id); // Get Service info to show when user click on it
+        $payment_method=PaymentMethod::find($relation->payment_method); // Get payment method info for this Relation
+        $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $relation->id)->get();
+        return view('clients.services.show',compact('relation','client','service','payment_method','mailing_methods'));
 
   }
 
@@ -158,7 +160,6 @@ class ClientServiceController extends Controller
       catch (QueryException $e)
       {
         $message = 'cannot connect to database';
-        echo $e;
       }
       //Go to the input page with provided lists
       return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
@@ -228,7 +229,7 @@ class ClientServiceController extends Controller
    */
   public function destroy($clients,$service)
   {
-      try 
+      try
       {
         $clientservice=ClientService::find($service);
         $clientservice->end_time=date('Y-m-d H:i:s');
