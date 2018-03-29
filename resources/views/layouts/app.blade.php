@@ -80,10 +80,6 @@
                                             View All Services
                                         </a>
 
-                                        <a class="dropdown-item" href="/clients">
-                                            Add Category
-                                        </a>
-
                                         <a class="dropdown-item" href="/servicescategories">
                                             View All Categories
                                         </a>
