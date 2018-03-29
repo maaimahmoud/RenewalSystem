@@ -89,14 +89,14 @@
                                 <h5 class="card-title">{{ $service->title }}</h5>
                                 <p class="card-text text-center">{{ $service->description }}</p>
                                 <div align="right">
-                                <a href="{{url('/services/'. $service{'id'})}}") class="btn btn-outline-primary"mr-3"><i class="fa fa-clone left"></i> View service</a>
-                                <a href="{{url('/clients/'. $client{'id'}.' /deleteservice/'.$service{'id'})}}") class="btn btn-outline-primary mr-3"><i class="fa fa-clone right"></i> Delete service</a>
-                              </div>
+                           
+                            
                                 @foreach ($client->relation as $ind=>$relation)
                                   @if ($relation{'service_id'} == $service{'id'})
-                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
-                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Edit service</a>
-                                    <a href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}" class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Stop service</a>
+                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'})}}") class="btn btn-outline-primary mr-3"><i class="fa fa-clone left"></i> View service</a>
+                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}") class="btn btn-outline-primary mr-3"><i class="fa fa-clone right"></i> Edit service</a>
+                                    <a href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}" class="btn btn-outline-primary mr-3"><i class="fa fa-clone right"></i> Stop service</a>
+                                      </div>
                                       @php
                                         unset($client->relation[$ind]);
                                         break;
