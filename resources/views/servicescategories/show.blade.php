@@ -25,9 +25,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>s
   @endforeach
-</div>
+
 @foreach ($categories as $category)
      <div class="modal fade" id="deleteModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -47,7 +47,7 @@
           </div>
         </div>
 
-</div>
+    </div>
 </div>
 @endforeach
 @foreach ($categories as $category)
@@ -82,8 +82,7 @@
         </div>
     </div>
       @endforeach
-
-</div>	
+	
  <div class="modal fade" id="addmodalservicescategory" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
     <!--Modal: Contact form-->
     <div class="modal-dialog cascading-modal" role="document">
@@ -101,7 +100,7 @@
             </div>
             <!--Body-->
             <div class="modal-body">
-               <form action="{{url('/servicescategories/create')}}" method="POST">
+               <form action="{{route('servicescategories.store')}}" method="POST">
             @csrf
               {{ method_field('POST') }}
                 <!-- Material input name -->
@@ -126,6 +125,5 @@
 @else
 	<div class="alert alert-danger" role="alert"> there is no categories </div>
 @endif
-
-
+</div>
 @endsection
