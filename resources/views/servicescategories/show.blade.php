@@ -1,21 +1,28 @@
 @extends('layouts.app')
+<style>
 
+ .card2{
+    border-style: solid;
+    border-width: thin;
+    border-color: #2196F3;
+  }
+  </style>
 @section('content')
-
-	<a data-toggle="modal" data-target="#modalservicecategoryForm">Add category</a>
-	
+<div align ="right">
+ <a type="button" data-toggle="modal" data-target="#addmodalservicescategory" class="btn btn-outline-primary col-md-2 ml-5" >Add New</a>
+  </div>
 @if (count($categories)>0)
 <div class="row">
 	@foreach ($categories as $category)
     <div class="col-sm-3 ml-4 mr-5 mt-3">
-  <div class="card">
+  <div class="card2">
       <div class="card-body">
         <h5 class="card-title">{{ $category->title}}</h5>
-      <span class="badge badge-pill badge-success">Number of services : {{ count($category->services) }}</span>
-        <p align="right">
-         <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModalCenter{{ $category->id }}">Edit</a>
-          <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModalCenter{{ $category->id }}">Delete</a>
-        </p>
+      <span class="badge badge-pill badge-primary mb-3">Number of services : {{ count($category->services) }}</span>
+        <div align="right">
+         <a type="button" class="btn btn-outline-primary"  data-toggle="modal" data-target="#editModalCenter{{ $category->id }}">Edit</a>
+          <a type="button" class="btn btn-outline-primary"  data-toggle="modal" data-target="#deleteModalCenter{{ $category->id }}">Delete</a>
+        </div>
       </div>
     </div>
   </div>
@@ -34,8 +41,8 @@
             Are you sure you want to delete this category?
           </div>
           <div class="modal-footer">
-            <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-            <a type="button" class="btn btn-secondary" href="{{url('/servicescategories/delete/'.$category->id)}}">Delete</a>
+            <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
+            <a type="button" class="btn btn-outline-primary"  href="{{url('/servicescategories/delete/'.$category->id)}}">Delete</a>
           </div>
         </div>
 
@@ -55,7 +62,8 @@
                 </div>
                 <!--Body-->
                 <div class="modal-body mb-0">
-            <form action="{{url('/servicescategories/edit/'.$category->id)}}" method="POST">
+            
+        <form method="POST" action="{{route('servicescategories.update', $category->id)}}">
             @csrf
             {{ method_field('PUT') }}
                       <div class="md-form form-sm" >
@@ -64,8 +72,8 @@
                           <input type="text" class="form-control" name="title"  value="{{ $category->title}}" required>
                       </div>
                       <div class="text-center mt-1-half">
-                          <button type ="submit" class="btn btn-secondary " ><i class="fa fa-send ml-1"></i>Edit</button>
-                          <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                          <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Edit</button>
+                          <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
                       </div>
                     </form>
                 </div>
@@ -76,49 +84,49 @@
       @endforeach
 
 	@endforeach
+</div>	
+ <div class="modal fade" id="addmodalservicescategory" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog cascading-modal" role="document">
+
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header primary-color white-text">
+                <h4 class="title">
+                    <i class="fa fa-pencil"></i> Add Category</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+               <form action="{{url('/servicescategories/create')}}" method="POST">
+            @csrf
+              {{ method_field('POST') }}
+                <!-- Material input name -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <label for ="modalservicecategoryForm">Title</label>
+                    <input type="text" name="title"  id="modalservicecategoryForminput" class="form-control form-control-sm" required>
+                </div>
+                <div class="text-center mt-4 mb-2">
+                  <button type ="submit" class="btn btn-outline-primary" ><i class="fa fa-send ml-1"></i>Add</button>
+                          <a type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</a>
+                </div>
+              </form>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
 </div>
+
 
 @else
 	<div class="alert alert-danger" role="alert"> there is no categories </div>
 @endif
-
-
-<div class="modal fade" id="modalservicecategoryForm" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
-		<!--Modal: Contact form-->
-		<div class="modal-dialog cascading-modal" role="document">
-
-			<!--Content-->
-			<div class="modal-content">
-
-					<!--Header-->
-					<div class="modal-header primary-color white-text">
-							<h4 class="title">
-									<i class="fa fa-pencil"></i> Add Category</h4>
-							<button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">×</span>
-							</button>
-					</div>
-					<!--Body-->
-					<div class="modal-body">
-						 <form action="{{url('/servicescategories/create')}}" method="POST">
-							@csrf
-								{{ method_field('POST') }}
-									<!-- Material input name -->
-									<div class="md-form form-sm">
-											<i class="fa fa-envelope prefix"></i>
-											<label for ="modalservicecategoryForm">Title</label>
-											<input type="text" name="title"  id="modalservicecategoryForminput" class="form-control form-control-sm" required>
-									</div>
-									<div class="text-center mt-4 mb-2">
-										<button type ="submit" class="btn btn-secondary " ><i class="fa fa-send ml-1"></i>Add</button>
-														<a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-									</div>
-							</form>
-					</div>
-			</div>
-			<!--/.Content-->
-		</div>
-</div>
 
 
 @endsection

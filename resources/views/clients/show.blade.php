@@ -11,6 +11,11 @@
     max-width: 70px;
     margin-right: 20px;
   }
+  .card2{
+    border-style: solid;
+    border-width: thin;
+    border-color: #2196F3;
+  }
 </style>
 @section('content')
 
@@ -76,17 +81,22 @@
                 <div class="card-header">{{ $client->name }} 's services</div>
                   {{--  start of for each  --}}
                   @if (count($client->services)>0)
+                   <div class="row">
                       @foreach ($client->services as $service)
-                        <div class="row">
-                          <div class="col-sm-5 ml-4 mr-5 mt-2">
-                            <div class="card">
-                              <div class="card-body">
+                          <div class="col-sm-5 ml-4 mr-4 mt-2 mb-2">
+                            <div class="card2">
+                              <div class="card-body" > 
                                 <h5 class="card-title">{{ $service->title }}</h5>
+                                <p class="card-text text-center">{{ $service->description }}</p>
+                                <div align="right">
+                           
+                            
                                 @foreach ($client->relation as $ind=>$relation)
                                   @if ($relation{'service_id'} == $service{'id'})
-                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
-                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Edit service</a>
-                                    <a href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}" class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Stop service</a>
+                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'})}}") class="btn btn-outline-primary mr-3"><i class="fa fa-clone left"></i> View service</a>
+                                    <a href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}") class="btn btn-outline-primary mr-3"><i class="fa fa-clone right"></i> Edit service</a>
+                                    <a href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}" class="btn btn-outline-primary mr-3"><i class="fa fa-clone right"></i> Stop service</a>
+                                      </div>
                                       @php
                                         unset($client->relation[$ind]);
                                         break;
@@ -96,9 +106,8 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-
                       @endforeach
+                        </div>
                   @else
                       <h5>No current services</h5>
                   @endif
