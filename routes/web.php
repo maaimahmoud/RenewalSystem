@@ -28,12 +28,7 @@ Route::resource('servicescategories', 'ServiceCategoriesController');
 //////////////////////////////////
 //Service to Client Routes
 
-Route::get('/clients/{id}/requestaddservice','ClientController@requestaddservice')->name('clients.requestaddservice');
-
-Route::put('/clients/{id}/addservice','ClientController@addservice')->name('clients.addservice');
-
-//Delete Service from client
-Route::get('/clients/{id}/deleteservice/{service_id}', 'ClientController@deleteservice')->name('clients.deleteservice');
+Route::resource('clients.service', 'ClientServiceController');
 //////////////////////////////////
 
 
@@ -41,7 +36,10 @@ Route::get('services/delete/{id}', 'ServiceController@destroy');
 
 Route::get('clients/delete/{id}', 'ClientController@destroy');
 
+Route::get('clients/{client}/service/{service}/delete', 'ClientServiceController@destroy')->name('client.service.delete');
+
 //Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
+
 
 
 // Services Categories routes 
@@ -54,13 +52,14 @@ Route::get('/settings',function(){
   return view('settings');
 });
 
+
 Route::get('filter/client/{id}', 'FilterController@filterClientsByServices');
 
 Route::get('filter/service/{id}', 'FilterController@filterServicesByCategories');
 
-Route::post('search/client', 'SearchController@searchClient');
+Route::get('search/client', 'SearchController@searchClient');
 
-Route::post('search/service', 'SearchController@searchService');
+Route::get('search/service', 'SearchController@searchService');
 
 Auth::routes();
 

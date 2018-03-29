@@ -1,13 +1,20 @@
-@extends('layout')
+
+@extends('layouts.app')
 <style >
  .card2{
     border-style: solid;
     border-width: thin;
     border-color: #2196F3;
-
   }
   </style>
 @section('content')
+
+  <script type="text/javascript">
+    window.onload = function(){
+      $("#searchbutton").css("display", "block");
+      $('#searchform').attr('action', '{{url('/search/service')}}');
+    };
+ </script>
 
 <div class="row">
   <div class="col-md-10"></div>
@@ -15,9 +22,10 @@
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Filter by categories
       </button>
-      <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+      <div id="myDropdown" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
         @foreach ($categories as $category)
-      <a class="dropdown-item" href="{{url('filter/service/'.$category->id)}}">{{$category->title}}</a>
+          <a class="dropdown-item" href="{{url('filter/service/'.$category->id)}}">{{$category->title}}</a>
         @endforeach
       </div>
     </div>
@@ -39,9 +47,27 @@
       </a>
       @endforeach
 </div>
-{{$services->links()}}
+{{$services->appends(Request::only('search'))->links()}}
 @else
     <p>No Services Found</p>
 @endif
 
 @endsection
+
+
+<script>
+    function filterFunction() {
+        var input, filter, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByClassName("dropdown-item");
+        for (i = 0; i < a.length; i++) {
+            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+</script>

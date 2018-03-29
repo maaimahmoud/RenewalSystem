@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 <style>
 
  .card2{
@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
- 
+
 @foreach ($categories as $category)
      <div class="modal fade" id="deleteModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -48,9 +48,9 @@
 
 </div>
 </div>
- 
+
 @endforeach
-@foreach ($categories as $category) 
+@foreach ($categories as $category)
            <div class="modal fade" id="editModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -69,7 +69,7 @@
                       <div class="md-form form-sm" >
                           <i class="fa fa-tag prefix"></i>
                            <label for="form21">Title</label>
-                          <input type="text" class="form-control" name="title"  value={{ $category->title}} required>
+                          <input type="text" class="form-control" name="title"  value="{{ $category->title}}" required>
                       </div>
                       <div class="text-center mt-1-half">
                           <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Edit</button>
@@ -102,7 +102,7 @@
             </div>
             <!--Body-->
             <div class="modal-body">
-               <form action="{{url('/servicescategories')}}" method="POST">
+               <form action="{{url('/servicescategories/create')}}" method="POST">
             @csrf
               {{ method_field('POST') }}
                 <!-- Material input name -->
@@ -122,23 +122,11 @@
     </div>
     <!--/Modal: Contact form-->
 </div>
-  
+
+
 @else
-<div class="alert alert-danger" role="alert"> there is no categories </div>
+	<div class="alert alert-danger" role="alert"> there is no categories </div>
 @endif
 
 
-
-
 @endsection
-
-
-
-
-
-
-
-
-
-
-

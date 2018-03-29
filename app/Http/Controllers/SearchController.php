@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Input;
 
 use App\Client;
 use App\Service;
@@ -12,12 +13,15 @@ use App\ServiceCategories;
 class SearchController extends Controller
 {
     //
-    public function searchClient(Request $request)
+    public function searchClient()
     {
+        //get the search key
+        $key = Input::get('search');
+
         try
         {
             //get all clients who are related to the keyword
-            $clients = Client::SearchByKeyword($request->input('search'))->paginate();
+            $clients = Client::SearchByKeyword($key)->paginate(24);
 
             //get all services to be viewd
             $services = Service::orderBy('title')->get();
@@ -33,12 +37,15 @@ class SearchController extends Controller
 
 
     //
-    public function searchService(Request $request)
+    public function searchService()
     {
+        //get the search key
+        $key = Input::get('search');
+
         try
         {
             //get all clients who are related to the keyword
-            $services = Service::SearchByKeyword($request->input('search'))->paginate();
+            $services = Service::SearchByKeyword($key)->paginate(30);
 
             //get all categories to be shown for filtering
             $categories = ServiceCategories::orderBy('title')->get();

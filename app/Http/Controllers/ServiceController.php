@@ -67,6 +67,15 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'title' => 'required|unique:services',
+            'description' => 'required',
+            'cost' => 'required|numeric',
+            'categories' => 'required',
+            'payment_methods' => 'required'
+        ]);
+
         //store service's info from inputs
         $service = new Service;
         $service->title = $request->input('title');
@@ -87,12 +96,19 @@ class ServiceController extends Controller
             $message = 'problem with connection to database';
         }
         
-
+        try
+        {
             //save service in database  
             $service->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'please check that the information are valid';
 
+            $myerrors = array($message);
 
-        
+            return redirect('/services/create')->withErrors($myerrors);
+        }   
 
         //redirect to services page
         return redirect('/services/'.$service->id);
@@ -138,11 +154,6 @@ class ServiceController extends Controller
             $message = 'problem with connection to database';
         }
 
-        //get the service's info to pass to the edit page
-        $title = $service->title;
-        $description = $service->description;
-        $cost = $service->cost;
-
         try
         {
             //get id of payment method of this service
@@ -167,8 +178,7 @@ class ServiceController extends Controller
         }
 
         //go to the edit page
-        return view('services.edit', compact('service', 'title', 'description', 'cost', 'payment_methods', 'categories', 'pay_method', 'category_service'));
-
+        return view('services.edit', compact('service', 'payment_methods', 'categories', 'pay_method', 'category_service'));
     }
 
     /**
@@ -180,6 +190,15 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'cost' => 'required|numeric',
+            'categories' => 'required',
+            'payment_methods' => 'required'
+        ]);
+        
         try
         {
             //get a specific service to edit
@@ -207,9 +226,10 @@ class ServiceController extends Controller
         }
         catch (QueryException $e)
         {
-            $message = "please check that the information is valid";
-        } 
-        
+            $message = "please check that the information is valid and the title of the service is unique";
+            $myerrors = array($message);
+            return redirect('/services/'.$id.'/edit')->withErrors($myerrors);
+        }
 
         //redirect to clients page
         return redirect('/services/'.$service->id);
@@ -234,10 +254,12 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/services/'.$id)->withErrors($myerrors);
         }
 
         //redirect to services' page
         return redirect('/services');
-     }
+    }
 
 }

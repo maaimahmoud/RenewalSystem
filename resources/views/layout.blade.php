@@ -286,6 +286,9 @@
 
                           if (!valid)
                             return false;
+                            else {
+                              console.log("tmaaam");
+                            }
 
                 });
       });
