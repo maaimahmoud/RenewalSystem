@@ -15,6 +15,17 @@ use App\ServiceCategories;
 
 class FilterController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /*
     *This function takes service from user and returns all clients using this service
     *

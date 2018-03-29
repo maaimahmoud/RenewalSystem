@@ -9,6 +9,17 @@ use App\PaymentMethod;
 
 class PaymentMethodController extends Controller
 {
+    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -155,7 +166,7 @@ class PaymentMethodController extends Controller
         }
         catch(QueryException $e)
         {
-            $message = 'cannot delete this payment method now';
+            $message = 'cannot delete this payment method as it is currently in use';
             $myerrors = array($message);
             return redirect('/paymentmethods')->withErrors($myerrors);
         }    
