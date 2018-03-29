@@ -59,6 +59,13 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:clients',
+            'phone_number' => 'required|unique:clients|numeric'
+        ]);
+
         //store clients info from inputs
         $client = new Client;
         $client->name = $request->input('name');
@@ -66,9 +73,15 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-
-         //save client in database
-        $client->save();
+        try
+        {
+            //save client in database
+            $client->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'check the information please';
+        }   
 
         //redirect to clients page
         return redirect('/clients/'.$client->id);
@@ -83,9 +96,15 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //get client data from database
-        $client = Client::find($id);
-        $arr=array();
+        try
+        {
+            //get client from database
+            $client = Client::find($id);
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
 
         $relation=ClientService::where('client_id','=',$id)->get();
 
@@ -133,6 +152,13 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone_number' => 'required|numeric'
+        ]);
+
         try
         {
             //get a specific client to edit
@@ -187,26 +213,6 @@ class ClientController extends Controller
 
         //redirect to clients page
         return redirect('/clients');
-    }
-
-    public function getClientsFromService($id)
-    {
-        //get service from id
-        $service = Service::find($id);
-        //get all clients who takes this service
-        $items = $service->clients;
-        //get page from input
-        $page = Input::get('page', 1);
-        //set number of items in a single page
-        $perPage = 24;
-        //create the clients paginator
-        $clients = new LengthAwarePaginator(
-            $items->forPage($page, $perPage), $items->count(), $perPage, $page
-        );
-        //get all services
-        $services = Service::orderBy('title')->get();
-        //go to view all filtered clients
-        return view('clients.index', compact('clients','services'));
     }
 
 }

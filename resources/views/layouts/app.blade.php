@@ -138,6 +138,7 @@
                   </form>
                 </div>
         <main class="py-4 contain er-fluid full-height">
+            @include('messages')
             @yield('content')
         </main>
 

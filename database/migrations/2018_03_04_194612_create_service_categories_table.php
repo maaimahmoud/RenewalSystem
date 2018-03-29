@@ -18,7 +18,7 @@ class CreateServiceCategoriesTable extends Migration
             //category primary key
             $table->increments('id');
             //category title (required)
-            $table->string('title')->nullable(false);
+            $table->string('title')->nullable(false)->unique();
             
             $table->timestamps();
         });

@@ -67,6 +67,15 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'title' => 'required|unique:services',
+            'description' => 'required',
+            'cost' => 'required|numeric',
+            'categories' => 'required',
+            'payment_methods' => 'required'
+        ]);
+
         //store service's info from inputs
         $service = new Service;
         $service->title = $request->input('title');
@@ -87,12 +96,15 @@ class ServiceController extends Controller
             $message = 'problem with connection to database';
         }
         
-
+        try
+        {
             //save service in database  
             $service->save();
-
-
-        
+        }
+        catch (QueryException $e)
+        {
+            $message = 'please check that the information are valid';
+        }   
 
         //redirect to services page
         return redirect('/services/'.$service->id);
@@ -180,6 +192,15 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'cost' => 'required|numeric',
+            'categories' => 'required',
+            'payment_methods' => 'required'
+        ]);
+        
         try
         {
             //get a specific service to edit
@@ -238,6 +259,6 @@ class ServiceController extends Controller
 
         //redirect to services' page
         return redirect('/services');
-     }
+    }
 
 }

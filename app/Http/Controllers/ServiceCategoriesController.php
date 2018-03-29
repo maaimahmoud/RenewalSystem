@@ -1,7 +1,12 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+
 use App\ServiceCategories;
+
+
 class ServiceCategoriesController extends Controller
 {
     /**
@@ -11,9 +16,16 @@ class ServiceCategoriesController extends Controller
      */
     public function index()
     {
-        //
-          $categories = ServiceCategories::all();
-          return view ('servicescategories.show')->with('categories',$categories);
+        try
+        {
+            $categories = ServiceCategories::orderBy('title')->get();
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+        }
+          
+        return view ('servicescategories.show')->with('categories',$categories);
     }
     /**
      * Show the form for creating a new resource.
@@ -32,7 +44,11 @@ class ServiceCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-          //create new servicescategories
+        $this->validate($request, [
+            'title' => 'required|unique:service_categories'
+        ]);
+
+        //create new servicescategories
         $servicescategory= new ServiceCategories;
 
         //store the information from the input  
@@ -80,6 +96,11 @@ class ServiceCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+
         //get the specific categoryservices
         $servicescategory= ServiceCategories::find($id);
 
@@ -105,10 +126,19 @@ class ServiceCategoriesController extends Controller
      */
     public function destroy($id)
     {
-         $category = ServiceCategories::find($id);
+        try
+        {
+            //find category with the specific id
+            $category = ServiceCategories::find($id);
 
-        //remove servicescategory from database
-        $category->delete();
-     return redirect('/servicescategories');
+            //remove servicescategory from database
+            $category->delete();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'Category cannot be deleted as their are services associated with it';
+        }
+        
+        return redirect('/servicescategories');
     }
 }
