@@ -13,6 +13,17 @@ use App\User;
 
 class ServiceController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -31,6 +42,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
         //show services in the page
         return view('services.index', compact('services', 'categories'));
@@ -54,6 +67,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
         //just go to the add service page
         return view('services.create', compact('payment_methods', 'categories'));
@@ -94,6 +109,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
         
         try
@@ -130,6 +147,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         //show page of service's information
@@ -152,6 +171,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         try
@@ -175,6 +196,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         //go to the edit page
@@ -217,6 +240,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         try
@@ -232,7 +257,7 @@ class ServiceController extends Controller
         }
 
         //redirect to clients page
-        return redirect('/services/'.$service->id);
+        return redirect('/services/'.$service->id)->with('success', 'information was edited successfully');
     }
 
     /**
@@ -259,7 +284,7 @@ class ServiceController extends Controller
         }
 
         //redirect to services' page
-        return redirect('/services');
+        return redirect('/services')->with('success', 'Service was removed successfully');
     }
 
 }

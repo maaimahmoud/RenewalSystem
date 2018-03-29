@@ -1,7 +1,7 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="mt-4" >
+  <h2 style="text-align: center;">Editing <a href="{{route('clients.show',['id'=>$client->id])}}"> {{ $client->name }}</a> Information</h2>
 <form method="POST" action="{{route('clients.update', $client->id)}}">
   @csrf
   <input name="_method" type="hidden" value="PUT">

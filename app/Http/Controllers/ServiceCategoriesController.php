@@ -9,6 +9,16 @@ use App\ServiceCategories;
 
 class ServiceCategoriesController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +33,8 @@ class ServiceCategoriesController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
           
         return view ('servicescategories.show')->with('categories',$categories);
@@ -67,7 +79,7 @@ class ServiceCategoriesController extends Controller
         } 
      
         //redirect to the page of servicescategories
-         return redirect('/servicescategories');
+         return redirect('/servicescategories')->with('success', $servicescategory->title.'was added successfully as a category');
     }
     /**
      * Display the specified resource.
@@ -120,7 +132,7 @@ class ServiceCategoriesController extends Controller
             return redirect('/servicescategories')->withErrors($myerrors);
         } 
         //redirect to the page of servicescategories
-         return redirect('/servicescategories');
+         return redirect('/servicescategories')->with('success', 'information was edited successfully');
     }
     /**
      * Remove the specified resource from storage.
@@ -145,6 +157,6 @@ class ServiceCategoriesController extends Controller
             return redirect('/servicescategories')->withErrors($myerrors);
         }
         
-        return redirect('/servicescategories');
+        return redirect('/servicescategories')->with('success', 'Category was removed successfully');
     }
 }

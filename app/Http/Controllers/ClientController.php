@@ -15,6 +15,15 @@ use App\ClientService;
 
 class ClientController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -34,6 +43,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
 
@@ -109,9 +120,11 @@ class ClientController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
-        $relation=ClientService::where('client_id','=',$id)->get();
+        $relation=ClientService::where('client_id','=',$id)->orderBy('end_time','desc')->join('services','services.id','=','client_services.service_id')->get();
 
         $client->relation=$relation;
 
@@ -135,6 +148,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         //go to the edit page
@@ -165,6 +180,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
 
         //edit the clients information from inputs
@@ -186,7 +203,7 @@ class ClientController extends Controller
         }
 
         //redirect to clients page
-        return redirect('/clients/'.$id);
+        return redirect('/clients/'.$id)->with('success', 'information was edited successfully');
     }
 
     /**
@@ -213,7 +230,7 @@ class ClientController extends Controller
         }
 
         //redirect to clients page
-        return redirect('/clients');
+        return redirect('/clients')->with('success', 'Client was removed from system successfully');
     }
 
 }

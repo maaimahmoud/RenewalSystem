@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 
   <script type="text/javascript">
@@ -33,7 +32,7 @@
     @if (!isset($current_service) )
       <form method="POST" id="addservicetoclientform" action="{{route('clients.service.store', ['clients' => $client->id])}}">
         @csrf
-      <h2 style="text-align: center;">Adding new service to {{ $client->name }}</h2>
+      <h2 style="text-align: center;">Adding new service to <a href="{{route('clients.show',['id'=>$client->id])}}"> {{ $client->name }}</a></h2>
       @else
         <form method="POST" id="editservicetoclientform" action="{{ route('clients.service.update',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">
           @csrf

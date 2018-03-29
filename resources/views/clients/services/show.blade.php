@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 <style>
 .card-body-custom{
   padding:.75rem 1.25rem;

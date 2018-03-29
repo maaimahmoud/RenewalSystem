@@ -12,7 +12,18 @@ use App\ServiceCategories;
 
 class SearchController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     //
+
+    
     public function searchClient()
     {
         //get the search key
@@ -29,6 +40,8 @@ class SearchController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
            
         //go to view all clients
@@ -53,6 +66,8 @@ class SearchController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }    
         //go to view all clients
         return view('services.index', compact('services', 'categories'));

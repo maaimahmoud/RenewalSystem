@@ -9,6 +9,17 @@ use App\PaymentMethod;
 
 class PaymentMethodController extends Controller
 {
+    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +35,8 @@ class PaymentMethodController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
         }
         
         //show them in the page
@@ -74,7 +87,7 @@ class PaymentMethodController extends Controller
         
 
         //redirect to the page of payment methods
-        return redirect('/paymentmethods');
+        return redirect('/paymentmethods')->with('success', $payment_method->title.'was added successfully as a payment method');
     }
 
     /**
@@ -114,8 +127,18 @@ class PaymentMethodController extends Controller
             'title' => 'required'
         ]);
 
-        //get the specific payment method
-        $payment_method = PaymentMethod::find($id);
+        try
+        {
+            //get the specific payment method
+            $payment_method = PaymentMethod::find($id);
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+            //get the specific payment method
+            $payment_method = PaymentMethod::find($id);
+        }
+        
 
         //update the info from the input request
         $payment_method->title = $request->input('title');
@@ -134,7 +157,7 @@ class PaymentMethodController extends Controller
         }
 
          //redirect to the page of servicescategories
-         return redirect('/paymentmethods');
+         return redirect('/paymentmethods')->with('success', 'information was edited successfully');
     }
 
     /**
@@ -155,12 +178,12 @@ class PaymentMethodController extends Controller
         }
         catch(QueryException $e)
         {
-            $message = 'cannot delete this payment method now';
+            $message = 'cannot delete this payment method as it is currently in use';
             $myerrors = array($message);
             return redirect('/paymentmethods')->withErrors($myerrors);
         }    
 
         //return to payment mehtods page
-        return redirect('/paymentmethods');
+        return redirect('/paymentmethods')->with('success', 'payment method was removed successfully');
     }
 }
