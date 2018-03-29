@@ -45,19 +45,10 @@ Route::get('clients/delete/{id}', 'ClientController@destroy');
 
 
 // Services Categories routes 
-Route::POST('servicescategories/create', 'ServiceCategoriesController@store');
-
 Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destroy');
 
-Route::PUT('servicescategories/edit/{id}', 'ServiceCategoriesController@update');
-
-
 // Payment Methods routes 
-Route::POST('paymentmethods/create', 'PaymentMethodController@store');
-
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
-
-Route::PUT('paymentmethods/edit/{id}', 'PaymentMethodController@update');
 
 Route::get('/settings',function(){
   return view('settings');

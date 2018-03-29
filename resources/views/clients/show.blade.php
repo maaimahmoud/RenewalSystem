@@ -10,6 +10,11 @@
     max-width: 70px;
     margin-right: 20px;
   }
+  .card2{
+    border-style: solid;
+    border-width: thin;
+    border-color: #2196F3;
+  }
 </style>
 @section('content')
 
@@ -75,21 +80,22 @@
                 <div class="card-header">{{ $client->name }} 's services</div>
                   {{--  start of for each  --}}
                   @if (count($client->services)>0)
+                   <div class="row">
                       @foreach ($client->services as $service)
-                        <div class="row">
-                          <div class="col-sm-5 ml-4 mr-5 mt-2">
-                            <div class="card">
-                              <div class="card-body">
+                          <div class="col-sm-5 ml-4 mr-4 mt-2 mb-2">
+                            <div class="card2">
+                              <div class="card-body" > 
                                 <h5 class="card-title">{{ $service->title }}</h5>
-                                <p class="card-text">{{ $service->description }}</p>
-                                <a href="{{url('/services/'. $service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone left"></i> View service</a>
-                                <a href="{{url('/clients/'. $client{'id'}.' /deleteservice/'.$service{'id'})}}") class="btn btn-success btn-rounded"><i class="fa fa-clone right"></i> Delete service</a>
+                                <p class="card-text text-center">{{ $service->description }}</p>
+                                <div align="right">
+                                <a href="{{url('/services/'. $service{'id'})}}") class="btn btn-outline-primary"mr-3"><i class="fa fa-clone left"></i> View service</a>
+                                <a href="{{url('/clients/'. $client{'id'}.' /deleteservice/'.$service{'id'})}}") class="btn btn-outline-primary mr-3"><i class="fa fa-clone right"></i> Delete service</a>
+                              </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-
                       @endforeach
+                        </div>
                   @else
                       <h5>No current services</h5>
                   @endif

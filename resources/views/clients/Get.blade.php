@@ -1,9 +1,12 @@
 @extends('layout')
 <style>
 .card-body-custom:nth-child(even){
-        background:#eee;
-
-    }
+        background:#eee
+ }
+ .card 
+ {
+    text-decoration-style: none;
+ }
 </style>
 @section('content')
 
@@ -26,10 +29,12 @@
                 </div>
         @foreach ($clients as $client)
         <a href="/clients/{id}" >
-            <div class="card-body-custom mt-2 " style="text-decoration:none">
+            <div class="col-sm-5 ml-4 mr-4 mt-2 mb-2 " >
+            <div class="card">
                 <strong> <h4>{{$client->name}}</h4> </strong>
-                </div>  
             <div> <h5>{{$client->email}}</h5></div>
+        </div>
+    </div>
         </a>
     </div>
 </div>

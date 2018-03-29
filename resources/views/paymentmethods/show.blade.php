@@ -1,16 +1,28 @@
 @extends('layout')
+<style>
+
+ .card2{
+    border-style: solid;
+    border-width: thin;
+    border-color: #2196F3;
+  }
+  </style>
 @section('content')
-@if (count($paymentmethods)>0)
-<div class="row">
+
+<div align ="right">
+ <a type="button" data-toggle="modal" data-target="#addmodalpaymentmethod" class="btn btn-outline-primary col-md-2 ml-5" >Add New</a>
+  </div>
+  @if (count($paymentmethods)>0)
+<div class="row"> 
 @foreach ($paymentmethods as $payment)
     <div class="col-sm-3 ml-4 mr-5 mt-3">
-  <div class="card">
+  <div class="card2">
       <div class="card-body">
         <h5 class="card-title">{{ $payment->title}}</h5>
-         <h5 class="card-title">{{ $payment->months}} months </h5>
+         <span class="badge badge-pill badge-primary mb-3">{{ $payment->days}} days </span>
         <p align="right">
-         <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModalCenter{{ $payment->id }}">Edit</a>
-          <a type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModalCenter{{ $payment->id }}">Delete</a>
+         <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#editModalCenter{{ $payment->id }}">Edit</a>
+          <a type="button" class ="btn btn-outline-primary" data-toggle="modal" data-target="#deleteModalCenter{{ $payment->id }}">Delete</a>
         </p>
       </div>
     </div>
@@ -30,8 +42,8 @@
             Are you sure you want to delete this payment Method ?
           </div>
           <div class="modal-footer">
-            <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-            <a type="button" class="btn btn-secondary" href="{{url('/paymentmethods/delete/'.$payment->id)}}">Delete</a>
+            <a type="button" class= "btn-outline-primary" data-dismiss="modal">Cancel</a>
+            <a type="button" class="btn btn-outline-primary" href="{{url('/paymentmethods/delete/'.$payment->id)}}">Delete</a>
           </div>
         </div>
 
@@ -52,7 +64,7 @@
                 </div>
                 <!--Body-->
                 <div class="modal-body mb-0">
-            <form action="{{url('/paymentmethods/edit/'.$payment->id)}}" method="POST">
+        <form method="POST" action="{{route('paymentmethods.update', $payment->id)}}">
             @csrf
             {{ method_field('PUT') }}
                       <div class="md-form form-sm" >
@@ -66,8 +78,8 @@
                           <input type="number" class="form-control" name="days"  value={{ $payment->days}} required>
                       </div>
                       <div class="text-center mt-1-half">
-                          <button type ="submit" class="btn btn-secondary " ><i class="fa fa-send ml-1"></i>Edit</button>
-                          <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                          <button type ="submit" class="btn btn-outline-primary" ><i class="fa fa-send ml-1"></i>Edit</button>
+                          <a type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</a>
                       </div>
                     </form>
                 </div>
@@ -79,6 +91,48 @@
 
   @endforeach
 </div>
+
+   <div class="modal fade" id="addmodalpaymentmethod" tabindex="-1" role="dialog" aria-labelledby="modalpaymentmethodForm" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog cascading-modal" role="document">
+
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header primary-color white-text">
+                <h4 class="title">
+                    <i class="fa fa-pencil"></i> Add Paymentmethod</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+               <form action="{{url('/paymentmethods')}}" method="POST">
+            @csrf
+              {{ method_field('POST') }}
+                <!-- Material input name -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <label for ="modalservicecategoryForm">Title</label>
+                    <input type="text" name="title"  id="modalpaymentmethodinput" class="form-control form-control-sm" required>
+                </div>
+                 <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <label for ="modalservicecategoryForm"> Number of days</label>
+                    <input type="number" name="days"  id="modalpaymentmethodinput" class="form-control form-control-sm" required>
+                </div>
+                <div class="text-center mt-4 mb-2">
+                  <button type ="submit" class="btn btn-secondary " ><i class="fa fa-send ml-1"></i>Add</button>
+                          <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                </div>
+              </form>
+            </div>
+         </div>
+    </div>
+ </div>
+
 
 @else
 <div class="alert alert-danger" role="alert"> there is no PaymentMethods </div>
