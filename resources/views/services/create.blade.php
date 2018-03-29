@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="mt-4" >
 <form method="POST" action="{{route('services.store')}}">

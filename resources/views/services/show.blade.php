@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 
   <div class="title py-3 text-center ml-auto mr-auto col-md-6 " text-center title=" Services Information">

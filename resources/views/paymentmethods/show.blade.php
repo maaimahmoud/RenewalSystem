@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 <style>
 
@@ -91,8 +90,4 @@
                     </div>
                 </div>
             @endforeach
-    
-
-
-   
 @endsection
