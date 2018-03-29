@@ -56,9 +56,9 @@ class PaymentMethodController extends Controller
         //create new payment method
         $payment_method = new PaymentMethod;
 
-        //store the information from the input  
+        //store the information from the input
         $payment_method->title = $request->input('title');
-        $payment_method->days = $request->input('days');
+        $payment_method->months = $request->input('months');
 
         try
         {
@@ -119,7 +119,7 @@ class PaymentMethodController extends Controller
 
         //update the info from the input request
         $payment_method->title = $request->input('title');
-        $payment_method->days = $request->input('days');
+        $payment_method->months = $request->input('months');
 
         try
         {

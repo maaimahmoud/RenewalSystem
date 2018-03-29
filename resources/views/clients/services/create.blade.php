@@ -54,9 +54,6 @@
                     @endforeach
                 <option> <a href="/servicecategories/AddCategory" > Add new Category</a></option>
               </select>
-<!--
-<3 :D
--->
           <label for="service_id">Services</label>
                <select class="custom-select" value="Open this select menu" name="service" id="services" required>
                     <option value="0"> </option>
