@@ -26,7 +26,8 @@
       </div>
     </div>
   </div>
-
+  @endforeach
+</div>
 @foreach ($categories as $category)
      <div class="modal fade" id="deleteModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -48,7 +49,6 @@
 
 </div>
 </div>
-
 @endforeach
 @foreach ($categories as $category)
            <div class="modal fade" id="editModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -83,7 +83,6 @@
     </div>
       @endforeach
 
-	@endforeach
 </div>	
  <div class="modal fade" id="addmodalservicescategory" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
     <!--Modal: Contact form-->
