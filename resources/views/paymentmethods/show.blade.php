@@ -1,23 +1,26 @@
 @extends('layouts.app')
-
+<style>
+ .card2{
+    border-style: solid;
+    border-width: thin;
+    border-color: #2196F3;
+  }
+  </style>
 
 @section('content')
 
   <div class="row">
-          <div class="col-sm-3 ml-4 mr-5 mt-3 addpaymentcard">
-            <a data-toggle="modal" data-target="#addmodalpaymentmethod">
-              <div class="card mb-3" style="height: 100%;">
-                  <div class="card-body">
-                    <h5 class="card-title nav-link">+ Add new Payment Method</h5>
-                     <span class="badge badge-pill badge-primary mb-3"></span>
-                  </div>
-              </div>
-            </a>
+         <div class="col-sm-3 ml-4 mr-5 mt-3">
+    <div class="card2" style="height: 23%;">
+        <div class="card-body">
+          <h5 class="nav-link" data-toggle="modal" data-target="#addmodalpaymentmethod">+ Add new paymentmethod</h5>
         </div>
+      </div>
+  </div>
         @if (count($paymentmethods)>0)
             @foreach ($paymentmethods as $payment)
                 <div class="col-sm-3 ml-4 mr-5 mt-3">
-                  <div class="card">
+                  <div class="card2">
                       <div class="card-body">
                           <h5 class="card-title">{{ $payment->title}}</h5>
                           <span class="badge badge-pill badge-primary mb-3">{{ $payment->months}} months </span>
@@ -29,8 +32,12 @@
                     </div>
                   </div>
             @endforeach
-  </div>
-            @foreach ($paymentmethods as $payment)
+        @else
+    <div class="alert alert-danger" role="alert"> there is no PaymentMethods </div>
+  @endif
+</div>
+@endsection
+    @foreach ($paymentmethods as $payment)
                  <div class="modal fade" id="deleteModalCenter{{ $payment->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -86,10 +93,7 @@
             @endforeach
 
 
- @else
-     </div>
-    <div class="alert alert-danger" role="alert"> there is no PaymentMethods </div>
-@endif
+
     <div class="modal fade" id="addmodalpaymentmethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -122,4 +126,4 @@
         </div>
       </div>
     </div>
-@endsection
+

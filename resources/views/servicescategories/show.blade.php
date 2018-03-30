@@ -1,23 +1,25 @@
 @extends('layouts.app')
 <style>
-
-
+ .card2{
+    border-style: solid;
+    border-width: thin;
+    border-color: #2196F3;
+  }
   </style>
 @section('content')
 
 <div class="row">
   <div class="col-sm-3 ml-4 mr-5 mt-3">
-    <div class="card" style="height: 23%;">
+    <div class="card2" style="height: 23%;">
         <div class="card-body">
           <h5 class="nav-link" data-toggle="modal" data-target="#addmodalservicescategory">+ Add new Category</h5>
-
         </div>
       </div>
   </div>
 @if (count($categories)>0)
 	@foreach ($categories as $category)
 <div class="col-sm-3 ml-4 mr-5 mt-3">
-  <div class="card">
+  <div class="card2">
       <div class="card-body">
         <h5 class="card-title">{{ $category->title}}</h5>
       <span class="badge badge-pill badge-primary mb-3">Number of services : {{ count($category->services) }}</span>
@@ -29,6 +31,11 @@
     </div>
 </div>
   @endforeach
+@else
+  <div class="alert alert-danger" role="alert"> there is no categories </div>
+@endif
+</div>
+@endsection
 
 @foreach ($categories as $category)
      <div class="modal fade" id="deleteModalCenter{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
@@ -83,7 +90,7 @@
             <!--/.Content-->
         </div>
     </div>
-      @endforeach
+     @endforeach
 
  <div class="modal fade" id="addmodalservicescategory" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
     <!--Modal: Contact form-->
@@ -121,11 +128,3 @@
 
     </div>
 </div>
-
-
-@else
-</div>
-	<div class="alert alert-danger" role="alert"> there is no categories </div>
-@endif
-</div>
-@endsection
