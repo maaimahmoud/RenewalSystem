@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="mt-4" >
+  <h4 style="text-align: center;">Editing <a href="{{route('services.show',['id'=>$service->id])}}"> {{ $service->title }}</a> Information</h4>
 <form method="POST" action="{{route('services.update', $service->id)}}">
   @csrf
   <input name="_method" type="hidden" value="PUT">

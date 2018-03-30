@@ -23,7 +23,7 @@ class ServiceController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +34,7 @@ class ServiceController extends Controller
         try
         {
             //get all services
-            $services = Service::orderBy('title')->paginate(30);
+            $services = Service::orderBy('title')->paginate(24);
 
             //get all categories to display for filtering
             $categories = ServiceCategories::orderBy('title')->get();
@@ -96,7 +96,7 @@ class ServiceController extends Controller
         $service->title = $request->input('title');
         $service->description = $request->input('description');
         $service->cost = $request->input('cost');
-        
+
         try
         {
             //get category from its title
@@ -112,10 +112,10 @@ class ServiceController extends Controller
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
         }
-        
+
         try
         {
-            //save service in database  
+            //save service in database
             $service->save();
         }
         catch (QueryException $e)
@@ -125,7 +125,7 @@ class ServiceController extends Controller
             $myerrors = array($message);
 
             return redirect('/services/create')->withErrors($myerrors);
-        }   
+        }
 
         //redirect to services page
         return redirect('/services/'.$service->id);
@@ -143,6 +143,7 @@ class ServiceController extends Controller
         {
             //get service from database
             $service = Service::find($id);
+            $service->category=ServiceCategories::find($service->category_id);
         }
         catch (QueryException $e)
         {
@@ -221,11 +222,11 @@ class ServiceController extends Controller
             'categories' => 'required',
             'payment_methods' => 'required'
         ]);
-        
+
         try
         {
             //get a specific service to edit
-            $service = Service::find($id); 
+            $service = Service::find($id);
             //edit the services' information from inputs
             $service->title = $request->input('title');
             $service->description = $request->input('description');

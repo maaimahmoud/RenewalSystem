@@ -41,15 +41,19 @@ Route::get('clients/{client}/service/{service}/delete', 'ClientServiceController
 //Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 
-
-// Services Categories routes 
+// Services Categories routes
 Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destroy');
 
-// Payment Methods routes 
+// Payment Methods routes
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
-Route::get('/settings',function(){
-  return view('settings');
+//Pending routes
+Route::get('/statistics',function(){
+  return view('statistics');
+});
+
+Route::get('/clientservice/payforservice',function(){
+  return view('clients/services/payforservice');
 });
 
 

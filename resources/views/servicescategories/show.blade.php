@@ -1,21 +1,23 @@
 @extends('layouts.app')
 <style>
 
- .card2{
-    border-style: solid;
-    border-width: thin;
-    border-color: #2196F3;
-  }
+
   </style>
 @section('content')
-<div align ="right">
- <a type="button" data-toggle="modal" data-target="#addmodalservicescategory" class="btn btn-outline-primary col-md-2 ml-5" >Add New</a>
+
+<div class="row">
+  <div class="col-sm-3 ml-4 mr-5 mt-3">
+    <div class="card" style="height: 23%;">
+        <div class="card-body">
+          <h5 class="nav-link" data-toggle="modal" data-target="#addmodalservicescategory">+ Add new Category</h5>
+
+        </div>
+      </div>
   </div>
 @if (count($categories)>0)
-<div class="row">
 	@foreach ($categories as $category)
-    <div class="col-sm-3 ml-4 mr-5 mt-3">
-  <div class="card2">
+<div class="col-sm-3 ml-4 mr-5 mt-3">
+  <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ $category->title}}</h5>
       <span class="badge badge-pill badge-primary mb-3">Number of services : {{ count($category->services) }}</span>
@@ -25,7 +27,7 @@
         </div>
       </div>
     </div>
-  </div>s
+</div>
   @endforeach
 
 @foreach ($categories as $category)
@@ -62,7 +64,7 @@
                 </div>
                 <!--Body-->
                 <div class="modal-body mb-0">
-            
+
         <form method="POST" action="{{route('servicescategories.update', $category->id)}}">
             @csrf
             {{ method_field('PUT') }}
@@ -72,8 +74,8 @@
                           <input type="text" class="form-control" name="title"  value="{{ $category->title}}" required>
                       </div>
                       <div class="text-center mt-1-half">
-                          <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Edit</button>
-                          <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
+                        <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Edit</button>
+                        <button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
                       </div>
                     </form>
                 </div>
@@ -82,7 +84,7 @@
         </div>
     </div>
       @endforeach
-	
+
  <div class="modal fade" id="addmodalservicescategory" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
     <!--Modal: Contact form-->
     <div class="modal-dialog cascading-modal" role="document">
@@ -110,19 +112,19 @@
                     <input type="text" name="title"  id="modalservicecategoryForminput" class="form-control form-control-sm" required>
                 </div>
                 <div class="text-center mt-4 mb-2">
-                  <button type ="submit" class="btn btn-outline-primary" ><i class="fa fa-send ml-1"></i>Add</button>
-                          <a type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</a>
+                      <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Add</button>
+                      <button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
                 </div>
               </form>
             </div>
         </div>
-        <!--/.Content-->
+
     </div>
-    <!--/Modal: Contact form-->
 </div>
 
 
 @else
+</div>
 	<div class="alert alert-danger" role="alert"> there is no categories </div>
 @endif
 </div>

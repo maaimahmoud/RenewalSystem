@@ -13,13 +13,28 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style type="text/css">
+    a{
+      color: black;
+    }
+    .nav-link:hover{
+      cursor: pointer;
+    }
     .sub-list{
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 10px;
-        padding: 10px;
+        padding: 30px;
         overflow-y: auto;
     }
+
+    .sub-list-item{
+      overflow: hidden;
+      width: 250px;
+      max-width: 250px;
+      height: 100px;
+      max-height: 100px;
+    }
+
     #searchbutton{
       display: none;
     }
@@ -77,11 +92,11 @@
                                         </a>
 
                                         <a class="dropdown-item" href="/services">
-                                            View All Services
+                                            All Services
                                         </a>
 
                                         <a class="dropdown-item" href="/servicescategories">
-                                            View All Categories
+                                            Service Categories
                                         </a>
 
                                     </div>
@@ -89,7 +104,7 @@
 
                             <li><a class="nav-link" href="/paymentmethods">Payment Methods</a></li>
 
-                            <li><a class="nav-link" href="#">Statistics</a></li>
+                            <li><a class="nav-link" href="/statistics">Statistics</a></li>
                             <li><a class="nav-link" href="#" data-toggle="collapse" data-target=".search-input" id="searchbutton">Search</a></li>
 
                             <li class="nav-item dropdown">
@@ -127,7 +142,7 @@
 
         <div class="footer-copyright py-3 text-center">
             <div class="container-fluid">
-                © 2018 Copyright: <a href="#"> Renewal System </a>
+                © 2018 Copyright: <a href="/"> Renewal System </a>
             </div>
         </div>
 

@@ -23,7 +23,7 @@ class SearchController extends Controller
     }
     //
 
-    
+
     public function searchClient()
     {
         //get the search key
@@ -43,9 +43,9 @@ class SearchController extends Controller
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
         }
-           
+
         //go to view all clients
-        return view('clients.index', compact('clients', 'services'));
+        return view('clients.index', compact('clients', 'services','key'));
     }
 
 
@@ -58,7 +58,7 @@ class SearchController extends Controller
         try
         {
             //get all clients who are related to the keyword
-            $services = Service::SearchByKeyword($key)->paginate(30);
+            $services = Service::SearchByKeyword($key)->paginate(24);
 
             //get all categories to be shown for filtering
             $categories = ServiceCategories::orderBy('title')->get();
@@ -68,9 +68,9 @@ class SearchController extends Controller
             $message = 'problem with connection with database';
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
-        }    
+        }
         //go to view all clients
-        return view('services.index', compact('services', 'categories'));
+        return view('services.index', compact('services', 'categories','key'));
     }
-    
+
 }

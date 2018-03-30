@@ -9,7 +9,7 @@ use App\PaymentMethod;
 
 class PaymentMethodController extends Controller
 {
-    
+
     /**
      * Create a new controller instance.
      *
@@ -29,7 +29,7 @@ class PaymentMethodController extends Controller
     {
         try
         {
-            //retrieve all payment methods 
+            //retrieve all payment methods
             $paymentmethods = PaymentMethod::orderBy('title')->get();
         }
         catch(QueryException $e)
@@ -38,7 +38,7 @@ class PaymentMethodController extends Controller
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
         }
-        
+
         //show them in the page
         return view('paymentmethods.show')->with('paymentmethods', $paymentmethods);
     }
@@ -63,7 +63,8 @@ class PaymentMethodController extends Controller
     {
 
         $this->validate($request, [
-            'title' => 'required|unique:payment_methods'
+            'title' => 'required|unique:payment_methods',
+            'months'=>'required|unique:payment_methods|numeric'
         ]);
 
         //create new payment method
@@ -83,11 +84,11 @@ class PaymentMethodController extends Controller
             $message = "please check that the information is valid";
             $myerrors = array($message);
             return redirect('/paymentmethods')->withErrors($myerrors);
-        } 
-        
+        }
+
 
         //redirect to the page of payment methods
-        return redirect('/paymentmethods')->with('success', $payment_method->title.'was added successfully as a payment method');
+        return redirect('/paymentmethods')->with('success', $payment_method->title.' was added successfully as a payment method');
     }
 
     /**
@@ -138,7 +139,7 @@ class PaymentMethodController extends Controller
             //get the specific payment method
             $payment_method = PaymentMethod::find($id);
         }
-        
+
 
         //update the info from the input request
         $payment_method->title = $request->input('title');
@@ -181,7 +182,7 @@ class PaymentMethodController extends Controller
             $message = 'cannot delete this payment method as it is currently in use';
             $myerrors = array($message);
             return redirect('/paymentmethods')->withErrors($myerrors);
-        }    
+        }
 
         //return to payment mehtods page
         return redirect('/paymentmethods')->with('success', 'payment method was removed successfully');

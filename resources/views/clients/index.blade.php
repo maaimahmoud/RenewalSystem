@@ -1,15 +1,8 @@
 
 @extends('layouts.app')
 
-<style>
- .card2{
-    border-style: solid;
-    border-width: thin;
-    border-color: #2196F3;
-  }
-  </style>
-@section('content')
 
+@section('content')
 
   <script type="text/javascript">
     window.onload = function(){
@@ -19,41 +12,45 @@
  </script>
 
 <div class="row">
-<div class="col-md-10"></div>
-<div class="dropdown col-md-2">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Filter by services
-    </button>
-    <div id="myDropdown" class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+  <div class="col-2">
+    <div id="myDropdown" class="pre-scrollable full-height" >
+      <h5>Filter by Service</h5>
       <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
       @foreach ($services as $service)
         <a class="dropdown-item" href="{{url('filter/client/'.$service->id)}}">{{$service->title}}</a>
       @endforeach
     </div>
   </div>
-</div>
 
+  <div class="col-10">
 
-@if (@isset($clients))
+    @if (@isset($clients))
+      @if (@isset($chosen_service))
+        <h4>Clients have <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $chosen_service->title }} </a> service</h4>
+      @endif
 
-<div class="btn-group-vertical pre-scrollable full-height sub-list">
-      @foreach ($clients as $value)
-        <a href="{{url('/clients/'. $value{'id'})}}">
-          <div class="card2">
-        <div class="card align-items-center" >
-          <div class="card-block text-center">
-            <h4 class="card-title">{{ $value{'name'} }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">Number of Services: {{ count($value{'services'}) }}</h6>
-          </div>
-        </div>
+      @if (@isset($key))
+        <h4>Clients: Search result for "{{ $key }}": </h4>
+      @endif
+
+      <div class="btn-group-vertical full-height sub-list">
+        @foreach ($clients as $value)
+          <a href="{{url('/clients/'. $value{'id'})}}">
+            <div class="card align-items-center sub-list-item" >
+              <div class="card-block text-center">
+                <h4 class="card-title">{{ $value{'name'} }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">Number of Services: {{ count($value{'services'}) }}</h6>
+              </div>
+            </div>
+          </a>
+        @endforeach
       </div>
-      </a>
-      @endforeach
+      {{$clients->appends(Request::only('search'))->links()}}
+    @else
+      <p>No Clients Found</p>
+    @endif
 </div>
-{{$clients->appends(Request::only('search'))->links()}}
-@else
-    <p>No Clients Found</p>
-@endif
+
 
 @endsection
 

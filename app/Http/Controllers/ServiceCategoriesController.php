@@ -36,7 +36,7 @@ class ServiceCategoriesController extends Controller
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
         }
-          
+
         return view ('servicescategories.show')->with('categories',$categories);
     }
     /**
@@ -46,7 +46,7 @@ class ServiceCategoriesController extends Controller
      */
     public function create()
     {
-       // 
+       //
     }
     /**
      * Store a newly created resource in storage.
@@ -63,7 +63,7 @@ class ServiceCategoriesController extends Controller
         //create new servicescategories
         $servicescategory= new ServiceCategories;
 
-        //store the information from the input  
+        //store the information from the input
         $servicescategory->title = $request->input('title');
 
         try
@@ -76,10 +76,10 @@ class ServiceCategoriesController extends Controller
             $message = "please check that the information is valid";
             $myerrors = array($message);
             return redirect('/servicescategories')->withErrors($myerrors);
-        } 
-     
+        }
+
         //redirect to the page of servicescategories
-         return redirect('/servicescategories')->with('success', $servicescategory->title.'was added successfully as a category');
+         return redirect('/servicescategories')->with('success', $servicescategory->title.' was added successfully as a category');
     }
     /**
      * Display the specified resource.
@@ -118,7 +118,7 @@ class ServiceCategoriesController extends Controller
         //get the specific categoryservices
         $servicescategory= ServiceCategories::find($id);
 
-        //store the information from the input  
+        //store the information from the input
         $servicescategory->title = $request->input('title');
         try
         {
@@ -130,7 +130,7 @@ class ServiceCategoriesController extends Controller
             $message = "please check that the information is valid and that the title of the category is unique";
             $myerrors = array($message);
             return redirect('/servicescategories')->withErrors($myerrors);
-        } 
+        }
         //redirect to the page of servicescategories
          return redirect('/servicescategories')->with('success', 'information was edited successfully');
     }
@@ -156,7 +156,7 @@ class ServiceCategoriesController extends Controller
             $myerrors = array($message);
             return redirect('/servicescategories')->withErrors($myerrors);
         }
-        
+
         return redirect('/servicescategories')->with('success', 'Category was removed successfully');
     }
 }

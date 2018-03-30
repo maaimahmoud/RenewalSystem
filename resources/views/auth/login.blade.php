@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">E-Mail Address</label>
+                            <label for="email" class="col-sm-4 col-form-label text-md-right">E-mail address</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
@@ -43,7 +43,7 @@
                             <div class="col-md-6 offset-md-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember me
                                     </label>
                                 </div>
                             </div>

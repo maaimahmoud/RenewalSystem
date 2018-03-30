@@ -93,7 +93,7 @@ class ClientController extends Controller
         }
         catch (QueryException $e)
         {
-            $message = 'check the information please';
+            $message = 'The phone number or Address is not valid';
 
             $myerrors = array($message);
 
@@ -124,7 +124,7 @@ class ClientController extends Controller
             return redirect('/home')->withErrors($myerrors);
         }
 
-        $relation=ClientService::where('client_id','=',$id)->orderBy('end_time','desc')->join('services','services.id','=','client_services.service_id')->get();
+        $relation=ClientService::where('client_id','=',$id)->orderBy('end_time','desc')->join('services','services.id','=','client_services.service_id')->select('client_services.id','client_services.end_time','services.title')->get();
 
         $client->relation=$relation;
 

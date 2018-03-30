@@ -13,8 +13,27 @@
 </style>
 @section('content')
 
-    <div class="title py-3 ml-auto mr-auto col-md-6 " text-center title=" Services Information">
+<div class="row">
+  <div class="col-7">
+
+
+    <div class="title py-3 ml-auto mr-auto " text-center>
          <div class="card"  >
+           <div class="card-header">
+             <ul class="nav nav-tabs card-header-tabs">
+               <li class="nav-item">
+                  <a class="nav-link Edit" href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}">Edit</a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link Delete " data-toggle="modal" data-target="#exampleModalCenter">Stop Service</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link Edit" href="/clientservice/payforservice">Pay for Service</a>
+               </li>
+
+
+             </ul>
+           </div>
             <div class="card-body-custom text-dark bg-grey-light-3">
                 <h5 class="card-title"> <strong>Client: </strong> <a href="{{ route('clients.show',['id' => $client->id]) }}"> {{ $client->name }} </a> </h5>
              </div>
@@ -42,11 +61,17 @@
                  <h5 class="card-title"><strong>End date:</strong> {{ $end }}</h5>
              </div>
           </div>
+        </div>
+
+  </div>
+    <div class="col-5">
+      <h5>Mailing reminder system</h5>
+      <h6>System will send emails before due date as follows:</h6>
           <table class="table">
             <thead class="thead-light">
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">days before due date</th>
+                <th scope="col"># Reminder</th>
+                <th scope="col">days</th>
               </tr>
             </thead>
             <tbody>
@@ -59,6 +84,7 @@
               @endforeach
             </tbody>
           </table>
+    </div>
    </div>
 
 
@@ -73,11 +99,11 @@
                </button>
              </div>
              <div class="modal-body">
-               Are you sure you want to stop this service from {{ $client->name }}?
+                Are you sure you want to stop this service from {{ $client->name }}?
              </div>
              <div class="modal-footer">
-               <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-               <a type="button" class="btn btn-secondary" href="{{url('/clients/delete/'.$client->id)}}">Delete</a>
+               <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
+               <a type="button" class="btn btn-outline-primary" href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">Stop</a>
              </div>
          </div>
        </div>

@@ -75,6 +75,12 @@ class ClientServiceController extends Controller
    */
   public function store(Request $request,$clients)
   {
+        $this->validate($request, [
+            'service' => 'required',
+            'payment_method' => 'required',
+            'end_date' => 'required'
+        ]);
+
         $id=$clients;
         //first find Client info as it goes back to clients.show page to display his info
         $client=Client::find($id);
@@ -100,6 +106,10 @@ class ClientServiceController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid";
+
+            $myerrors = array($message);
+
+            return redirect()->route('clients.show',['id' => $client->id])->withErrors($myerrors);
         }
 
         for ($i=1; $i <= $reminders ; $i++) {
@@ -116,7 +126,7 @@ class ClientServiceController extends Controller
         }
 
         //redirect to client's info page
-        return redirect()->route('clients.show',['id' => $client->id]);
+        return redirect()->route('clients.show',['id' => $client->id])->with('success', 'Service has been added successfully');
 
   }
 
@@ -133,7 +143,7 @@ class ClientServiceController extends Controller
         $client=Client::find($clients); // Get Client's info for which service is provided to
         $service=Service::find($relation->service_id); // Get Service info to show when user click on it
         $payment_method=PaymentMethod::find($relation->payment_method); // Get payment method info for this Relation
-        $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $relation->id)->get();
+        $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $relation->id)->orderBy('days_to_mail')->get();
         return view('clients.services.show',compact('relation','client','service','payment_method','mailing_methods'));
 
   }
@@ -167,7 +177,7 @@ class ClientServiceController extends Controller
         $current_end_time=$relation->end_time;
         //Get current mailing method
         //$current_mailing_methods=$relation->mailingmethods;
-        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service)->get();
+        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service)->orderBy('days_to_mail')->get();
       }
       catch (QueryException $e)
       {
@@ -234,7 +244,7 @@ class ClientServiceController extends Controller
 
 
       //redirect to clients page
-      return redirect('/clients/'.$clients);
+      return redirect('/clients/'.$clients.'/service/'.$relation->id)->with('success', 'Service has been edited successfully');
   }
 
   /**
@@ -249,17 +259,19 @@ class ClientServiceController extends Controller
       {
         $clientservice=ClientService::find($service);
         $clientservice->end_time=date('Y-m-d H:i:s');
+        echo $clientservice;
         $clientservice->save();
       }
       catch (QueryException $e)
       {
+        echo $e;
           $message = 'problem with connection to database';
           $myerrors = array($message);
           return redirect('/home')->withErrors($myerrors);
       }
 
       //redirect to clients page
-      return redirect('/clients/'.$clients);
+      return redirect('/clients/'.$clients)->with('success', 'Service has been stopped successfully');;
   }
 
 }

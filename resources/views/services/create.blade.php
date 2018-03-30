@@ -1,6 +1,8 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="mt-4" >
+  <h4 style="text-align: center;">Adding new service</h4>
 <form method="POST" action="{{route('services.store')}}">
   @csrf
   <div class="form-group">
@@ -17,30 +19,31 @@
     </div>
    <div class="col-md-6 mb-3">
           <label for="category_id">Category</label>
+
              <select class="custom-select" value ="Open this select menu" name="categories" required>
 
-              <option value="1"></option>
+              <option disabled selected value> -- Select Service category -- </option>
               @foreach ($categories as $category)
-             <option>{{$category->title}}</option>
+                 <option value={{ $category->id }}>{{$category->title}}</option>
               @endforeach
             </select>
    	</div>
 
    	<div class="col-md-6 mb-3">
             <label for="cost">Cost</label>
-            <input type="number" class="form-control is-valid" name="cost" placeholder="Cost" min="1">
+            <input type="number" class="form-control is-valid" name="cost" placeholder="Cost" min="1" required>
               <div class="invalid-feedback">)
       		          Money must be positive number
             </div>
     </div>
       <div class="col-md-6 mb-3">
       <label for="payment_method_id">PaymentMethod</label>
-     <select class="custom-select" value="Open this select menu" name="payment_methods" required>
-      <option value="1"></option>
-      @foreach ($payment_methods as $payment_method)
-        <option>{{$payment_method->title}}</option>
-      @endforeach
-    </select>
+       <select class="custom-select" value="Open this select menu" name="payment_methods" required>
+         <option disabled selected value> -- Select Service payment method option -- </option>
+        @foreach ($payment_methods as $payment_method)
+          <option value={{ $payment_method->id }}>{{$payment_method->title}}</option>
+        @endforeach
+      </select>
  	</div>
     </div>
   <button class="btn btn-primary col-md-2 ml-5" type="submit"  >Confirm</button>

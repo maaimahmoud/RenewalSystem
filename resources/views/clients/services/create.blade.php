@@ -4,7 +4,7 @@
   <script type="text/javascript">
     window.onload = function(){
           var now = new Date();
-          var day = ("0" + now.getDate()).slice(-2);
+          var day = ("0" + (now.getDate()+1)).slice(-2);
           var month = ("0" + (now.getMonth() + 1)).slice(-2);
           var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
           $('#end_date').attr('min', today);
@@ -32,12 +32,12 @@
     @if (!isset($current_service) )
       <form method="POST" id="addservicetoclientform" action="{{route('clients.service.store', ['clients' => $client->id])}}">
         @csrf
-      <h2 style="text-align: center;">Adding new service to <a href="{{route('clients.show',['id'=>$client->id])}}"> {{ $client->name }}</a></h2>
+      <h4 style="text-align: center;">Adding new service to <a href="{{route('clients.show',['id'=>$client->id])}}"> {{ $client->name }}</a></h4>
       @else
         <form method="POST" id="editservicetoclientform" action="{{ route('clients.service.update',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">
           @csrf
           <input name="_method" type="hidden" value="PUT">
-        <h2 style="text-align: center;">Edit {{ $current_service->title }} service to {{ $client->name }}</h2>
+        <h4 style="text-align: center;">Edit {{ $current_service->title }} service to {{ $client->name }}</h4>
     @endif
     <br> <br>
 
@@ -47,11 +47,10 @@
           <label for="category_id">Service Category</label>
 
                <select class="custom-select" value="Open this select menu" name="servicecategory" id="servicecategories">
-                <option ></option>
+                <option value=0>All Services</option>
                     @foreach ($servicecategories as $servicecategory)
                       <option value="<?php echo $servicecategory->id; ?>">{{$servicecategory->title}}</option>
                     @endforeach
-                <option> <a href="/servicecategories/AddCategory" > Add new Category</a></option>
               </select>
           <label for="service_id">Services</label>
                <select class="custom-select" value="Open this select menu" name="service" id="services" required>
@@ -68,17 +67,15 @@
                       </div>
                     @endforeach
 
-                    <option> <a href="/services/addservice" > Add new Service</a></option>
                  </select>
 
 
-          <label for="payment_method_id">PaymentMethod</label>
+          <label for="payment_method_id">Payment Method</label>
                <select class="custom-select" value="Open this select menu" name="payment_method" id="payment_method" required>
                 <option value="0"></option>
                     @foreach ($paymentmethods as $payment_method)
                       <option value="<?php echo $payment_method->id; ?>">{{$payment_method->title}}</option>
                     @endforeach
-                    <option> <a href="/paymentmethods/AddPaymentMethod" > Add new Payment method</a></option>
               </select>
 
 
@@ -89,7 +86,7 @@
 
               <input style="display:none;" type="number" name="numberofreminders" id="numberofreminders" value="1">
 
-              <label for="Mail Reminder">Send mail to remind about due date (max 10) </label>
+              <label for="Mail Reminder">Reminder e-mail will be sent .......... days before due date (max 10) </label>
                 <div class="mailreminderinputs">
                   <input type="number" class="form-control is-valid" name="mailreminder1" placeholder="First Reminder" min="1" id="mailremind1">
                 </div>
@@ -107,9 +104,15 @@
 
 
 <div style="display:none; ">
+  <div id="category0">
+
+    @foreach ($services as $service)
+      <option value="<?php echo $service->id; ?>" >{{$service->title}}</option>
+    @endforeach
+  </div>
 
     @foreach ($servicecategories as $servicecategory)
-      <div id="<?php echo $servicecategory->id; ?>">
+      <div id="category<?php echo $servicecategory->id; ?>">
           @foreach ($services as $service)
               @if ($service->category_id == $servicecategory->id)
                 <option value="<?php echo $service->id; ?>" >{{$service->title}}</option>

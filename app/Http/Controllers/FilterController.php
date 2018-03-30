@@ -25,7 +25,7 @@ class FilterController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /*
     *This function takes service from user and returns all clients using this service
     *
@@ -36,9 +36,10 @@ class FilterController extends Controller
         {
             //get service from id
             $service = Service::find($id);
+            $chosen_service=$service;
 
             //get all clients who takes this service
-            $items = $service->clients; 
+            $items = $service->clients;
 
             //get page from input
             $page = Input::get('page', 1);
@@ -59,10 +60,10 @@ class FilterController extends Controller
             $message = 'cannot connect to database';
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
-        } 
-  
+        }
+
         //go to view all filtered clients
-        return view('clients.index', compact('clients','services'));
+        return view('clients.index', compact('clients','services','chosen_service'));
     }
 
 
@@ -77,6 +78,7 @@ class FilterController extends Controller
         {
             //get the category by id
             $category = ServiceCategories::find($id);
+            $chosen_category=$category;
 
             //get all services from this category
             $items = $category->services;
@@ -101,9 +103,9 @@ class FilterController extends Controller
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
         }
-        
+
 
         //go to view filtered services
-        return view('services.index', compact('services', 'categories'));
+        return view('services.index', compact('services', 'categories','chosen_category'));
     }
 }

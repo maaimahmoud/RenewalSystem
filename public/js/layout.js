@@ -8,10 +8,6 @@ $(".full-height").css({
 });
 
 $(document).ready(function () {
-    $('#colorpicker').change(function() {
-            var newcolor = $('#colorpicker').val();
-            document.body.style.setProperty("--main-color", newcolor);
-      });
 
     $('#servicecategories').change(function(){
         $('#services option').remove();
@@ -24,7 +20,7 @@ $(document).ready(function () {
 
         var val=$('#servicecategories').val();
 
-        var div=$('#'+val+' option');
+        var div=$('#category'+val+' option');
 
         div.clone(true).appendTo("#services");
 
