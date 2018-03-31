@@ -22,19 +22,33 @@
     margin:50px;
   }
 
+  #clientName
+  {
+    min-width: 350px;
+    margin-top: 20px;
+  }
+
 </style>
 @section('content')
 
   <div class="row">
-    <div class="col-9">
-      <div style="position:absolute; left:30%; top:5%;">
-        <h5> <strong>{{ $client->name }}</strong></h5>
-        <a href="{{route('clients.edit', ['id' => $client->id])}}"> <label class="btn btn-secondary"> Edit Info </label></a>
+    <div class="col-7">
 
-        <a class=" Delete " data-toggle="modal" data-target="#exampleModalCenter"><label class="btn btn-secondary"> Delete </label></a>
-      </div>
+      <div class="row">
+        <div class="col-4">
             <img src="/images/Person.png" alt="" id="clientImage">
-          </div>
+        </div>
+        <div id="clientName" class="col-8">
+            <h5> <strong>{{ $client->name }}</strong></h5>
+    
+            <a href="{{route('clients.edit', ['id' => $client->id])}}"> <label class="btn btn-secondary"> Edit Info </label></a>
+    
+            <a class=" Delete " data-toggle="modal" data-target="#exampleModalCenter"><label class="btn btn-secondary"> Delete </label></a>
+      </div>
+
+      
+      </div>
+            
             <div class="clientInfo">
 
               <div class="card-body-custom text-dark bg-grey-light-3">
@@ -47,6 +61,7 @@
                 <h6 class="card-title"><strong>Address:</strong> {{ $client->address }}</h6>
               </div>
             </div>
+    </div>
 
     <div class="col-5 full-height pre-scrollable">
       <div class="list-group">
@@ -97,7 +112,7 @@
         </div>
     </div>
   </div>
-@endsection
+
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -217,4 +232,4 @@
     </div>
 </div>
 -->
-
+@endsection
