@@ -44,16 +44,6 @@ class PaymentMethodController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -91,27 +81,6 @@ class PaymentMethodController extends Controller
         return redirect('/paymentmethods')->with('success', $payment_method->title.' was added successfully as a payment method');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -136,10 +105,15 @@ class PaymentMethodController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
-            //get the specific payment method
-            $payment_method = PaymentMethod::find($id);
+            $myerrors = array($message);
+            return redirect('/paymentmethods')->withErrors($myerrors);
         }
 
+        //if there is no client with this id return that there is no client
+        if ($payment_method == [])
+        {
+            return redirect('/paymentmethods')->withErrors('no payment method exists with that id');
+        }
 
         //update the info from the input request
         $payment_method->title = $request->input('title');
@@ -174,6 +148,12 @@ class PaymentMethodController extends Controller
             //get the specific payment method
             $payment_method = PaymentMethod::find($id);
 
+            //if there is no client with this id return that there is no client
+            if ($payment_method == [])
+            {
+                return redirect('/paymentmethod')->withErrors('no payment method with that id');
+            }
+
             //remove the payment method
             $payment_method->delete();
         }
@@ -186,5 +166,38 @@ class PaymentMethodController extends Controller
 
         //return to payment mehtods page
         return redirect('/paymentmethods')->with('success', 'payment method was removed successfully');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+        return redirect('/paymentmethods')->withErrors('url is not correct');
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+        return redirect('/paymentmethods')->withErrors('url is not correct');
     }
 }

@@ -76,7 +76,7 @@
                                     </a>
 
                                     <a class="dropdown-item" href="/clients">
-                                        View All
+                                        All Clients
                                     </a>
                                 </div>
                             </li>

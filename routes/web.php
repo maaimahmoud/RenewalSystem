@@ -68,3 +68,5 @@ Route::get('search/service', 'SearchController@searchService');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/clients/{client}/service/{service}/pay', 'ClientServiceController@payForService');

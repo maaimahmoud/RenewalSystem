@@ -26,27 +26,26 @@ class ClientServiceController extends Controller
     {
         $this->middleware('auth');
     }
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-      //
-  }
+
 
   /**
    * Show the form for creating a new resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function create($clients)
+  public function create($client_id)
   {
     try
     {
       //Prepare all data needed to add service
-      $client=Client::find($clients);
+      $client=Client::find($client_id);
+
+      //if there is no client with this id return that there is no client
+      if ($client == [])
+      {
+          return redirect('/clients')->withErrors('No such client with that id');
+      }
+
       //Get All Services from database to add one of them to client
       $services = Service::All();
       //Get All payment methods from database to add one of them to client
@@ -62,8 +61,8 @@ class ClientServiceController extends Controller
         $myerrors = array($message);
         return redirect('/home')->withErrors($myerrors);
     }
+    
     //Go to the input page with provided lists
-
     return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
   }
 
@@ -73,7 +72,7 @@ class ClientServiceController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request,$clients)
+  public function store(Request $request,$client_id)
   {
         $this->validate($request, [
             'service' => 'required',
@@ -81,9 +80,26 @@ class ClientServiceController extends Controller
             'end_date' => 'required'
         ]);
 
-        $id=$clients;
-        //first find Client info as it goes back to clients.show page to display his info
-        $client=Client::find($id);
+        $id=$client_id;
+
+        try
+        {
+            //first find Client info as it goes back to clients.show page to display his info
+            $client=Client::find($id);
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($client == [])
+        {
+            return redirect('/clients')->withErrors('No such client with that id');
+        }
+
         //and also client services to display
         $services = $client->services;
         //create a new relation to store data
@@ -136,15 +152,36 @@ class ClientServiceController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($clients,$service)
+  public function show($client_id,$service_id)
   {
-        //Get all information about relation in order to show the relation
-        $relation=ClientService::find($service); //Get relation info by its id
-        $client=Client::find($clients); // Get Client's info for which service is provided to
-        $service=Service::find($relation->service_id); // Get Service info to show when user click on it
-        $payment_method=PaymentMethod::find($relation->payment_method); // Get payment method info for this Relation
-        $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $relation->id)->orderBy('days_to_mail')->get();
-        return view('clients.services.show',compact('relation','client','service','payment_method','mailing_methods'));
+    try
+    {
+        //Get relation info by its id
+        $relation=ClientService::find($service_id);
+
+        // Get Client's info for which service is provided to 
+        $client=Client::find($client_id); 
+
+        //if there is no client with this id return that there is no client
+        if ($client == [] || $relation == [])
+        {
+            return redirect('/clients')->withErrors('No such client or service with that url');
+        }
+
+        // Get Service info to show when user click on it
+        $service=Service::find($relation->service_id);
+    }
+    catch (QueryException $e)
+    {
+        $message = 'problem with connecting to database';
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
+    }
+
+    // Get payment method info for this Relation
+    $payment_method=PaymentMethod::find($relation->payment_method); 
+    $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $relation->id)->orderBy('days_to_mail')->get();
+    return view('clients.services.show',compact('relation','client','service','payment_method','mailing_methods'));
 
   }
 
@@ -154,15 +191,22 @@ class ClientServiceController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($clients,$service)
+  public function edit($client_id,$service_id)
   {
       try
       {
 
         //Prepare all data needed to edit service
-        $client=Client::find($clients);
+        $client=Client::find($client_id);
         //Get Relation between this service and client
-        $relation=ClientService::find($service);
+        $relation=ClientService::find($service_id);
+
+        //if there is no client with this id return that there is no client
+        if ($client == [] || $relation == [])
+        {
+            return redirect('/clients')->withErrors('No such client or service with that url');
+        }
+
         //Get the service information
         $services=Service::All();
         //Get the category for service
@@ -196,19 +240,25 @@ class ClientServiceController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request,$clients,$service)
+  public function update(Request $request,$client_id,$service_id)
   {
 
         try
         {
             //get a specific client to edit
-            $relation = ClientService::find($service);
+            $relation = ClientService::find($service_id);
         }
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($relation == [])
+        {
+            return redirect('/clients')->withErrors('url is not correct');
         }
 
         //edit the clients information from inputs
@@ -244,7 +294,7 @@ class ClientServiceController extends Controller
 
 
       //redirect to clients page
-      return redirect('/clients/'.$clients.'/service/'.$relation->id)->with('success', 'Service has been edited successfully');
+      return redirect('/clients/'.$client_id.'/service/'.$relation->id)->with('success', 'Service has been edited successfully');
   }
 
   /**
@@ -253,11 +303,16 @@ class ClientServiceController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($clients,$service)
+  public function destroy($client_id,$service_id)
   {
       try
       {
-        $clientservice=ClientService::find($service);
+        $clientservice=ClientService::find($service_id);
+        //if there is no client with this id return that there is no client
+        if ($clientservice == [])
+        {
+            return redirect('/clients')->withErrors('url is not correct');
+        }
         $clientservice->end_time=date('Y-m-d H:i:s');
         echo $clientservice;
         $clientservice->save();
@@ -271,7 +326,69 @@ class ClientServiceController extends Controller
       }
 
       //redirect to clients page
-      return redirect('/clients/'.$clients)->with('success', 'Service has been stopped successfully');;
+      return redirect('/clients/'.$client_id)->with('success', 'Service has been stopped successfully');;
   }
 
+  /*
+* This function to support the client to pay for his service
+*
+*/
+public function payForService($client_id, $relation_id)
+{
+
+    //get money from request
+    $money = Input::get('money');
+
+    try
+    {
+        //get client to service relation from id
+        $relation = ClientService::find($relation_id);
+
+        //if there is no client with this id return that there is no client
+        if ($relation == [])
+        {
+            return redirect('/clients')->withErrors('url is not correct');
+        }
+    }
+    catch (QueryException $e)
+    {
+        $message = 'cannot connect to database';
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
+    }
+
+    //get the total money of the client by adding paid money to the balance of him/her
+    $total_money = $money + $relation->balance;
+
+    //check for total money if larger than required money of not
+    if ($total_money >= $relation->required_money)
+    {
+        //if greater than the required money then set required money to zero and the rest of money in his/her balance
+        $relation->balance = $total_money - $relation->required_money;
+        $relation->required_money = 0;
+    }
+    else
+    {
+        //if not then the balance will be zero and the total money will be subtracted from required money
+        $relation->balance = 0;
+        $relation->required_money = $relation->required_money - $total_money;
+    }
+
+    //save the relation between client and service
+    try
+    {
+        $relation->save();
+    }
+    catch (QueryException $e)
+    {
+        $message = 'cannot connect to database';
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
+    }
+
+    return redirect('/clients/'.$clientid.'/service/'.$relation->id)->with('success', 'successfully paid');
 }
+
+
+}
+

@@ -143,6 +143,11 @@ class ServiceController extends Controller
         {
             //get service from database
             $service = Service::find($id);
+            //if there is no client with this id return that there is no client
+            if ($service == [])
+            {
+                return redirect('/services')->withErrors('no service with that id');
+            }
             $service->category=ServiceCategories::find($service->category_id);
         }
         catch (QueryException $e)
@@ -174,6 +179,12 @@ class ServiceController extends Controller
             $message = 'problem with connection to database';
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($service == [])
+        {
+            return redirect('/services')->withErrors('no service with that id');
         }
 
         try
@@ -227,6 +238,12 @@ class ServiceController extends Controller
         {
             //get a specific service to edit
             $service = Service::find($id);
+
+            //if there is no client with this id return that there is no client
+            if ($service == [])
+            {
+                return redirect('/services')->withErrors('no service with that id');
+            }
             //edit the services' information from inputs
             $service->title = $request->input('title');
             $service->description = $request->input('description');
@@ -273,6 +290,12 @@ class ServiceController extends Controller
         {
             //get service to be removed
             $service = Service::find($id);
+
+            //if there is no client with this id return that there is no client
+            if ($service == [])
+            {
+                return redirect('/services')->withErrors('no service with that id');
+            }
 
             //remove service from database
             $service->delete();

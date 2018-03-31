@@ -28,7 +28,7 @@
                  <a class="nav-link Delete " data-toggle="modal" data-target="#exampleModalCenter">Stop Service</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link Edit" href="/clientservice/payforservice">Pay for Service</a>
+                  <a class="nav-link Edit" data-toggle="modal" data-target="#modalPayment">Pay for Service</a>
                </li>
 
 
@@ -41,8 +41,11 @@
                 <h5 class="card-title"><strong>Service: </strong> <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $service->title }} </a> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
-                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{$relation->required_money . ' per '. $payment_method->months .' months'}}">{{$relation->required_money}} LE/ {{$payment_method->title}}</span> </h5>
+                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{$relation->required_money . ' per '. $payment_method->months .' months'}}">{{$payment_method->title}}</span> </h5>
              </div>
+             <div class="card-body-custom text-dark bg-grey-light-3">
+                <h5 class="card-title"><strong>Required Money: </strong> {{$relation->required_money}} </h5>
+              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
                <h5 class="card-title"><strong>Balance: </strong> {{$relation->balance}} </h5>
              </div>
@@ -93,7 +96,7 @@
        <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
              <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
+               <h5 class="modal-title" id="exampleModalLongTitle">Stop Service</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                  <span aria-hidden="true">&times;</span>
                </button>
@@ -108,4 +111,30 @@
          </div>
        </div>
  </div>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="modalPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Pay for Service</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="GET" action="{{url('/clients/'.$client->id.'/service/'.$relation->id.'/pay')}}">
+          <div class="modal-body">
+              <input id="pay_input" type="number" min="0" name="money">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</button>
+            <button  type="submit" class="btn btn-outline-primary">Pay</button>
+          </div>
+          </form>
+      </div>
+    </div>
+</div>
 @endsection
+
+
