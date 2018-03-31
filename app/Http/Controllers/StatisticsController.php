@@ -9,7 +9,7 @@ use App\PaymentMethod;
 use App\Client;
 use App\Service;
 use App\ClientService;
-
+use Charts;
 class StatisticsController extends Controller
 {
     public function index()
@@ -41,7 +41,7 @@ class StatisticsController extends Controller
                     ->groupByYear(5);
         
         $chart = $service_time;
-        return view('test', ['chart' => $chart]);
+        return view('statistics', compact('chart'));
 
 
     }

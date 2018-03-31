@@ -48,9 +48,7 @@ Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destro
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 //Pending routes
-Route::get('/statistics',function(){
-  return view('statistics');
-});
+Route::get('/statistics','StatisticsController@index');
 
 Route::get('/clientservice/payforservice',function(){
   return view('clients/services/payforservice');
