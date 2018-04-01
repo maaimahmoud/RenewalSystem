@@ -165,8 +165,4 @@
     <!-- Scripts -->
     <script src="{{ asset('js/layout.js') }}"></script>
 
-<<<<<<< HEAD
-</body>
-=======
->>>>>>> d5080e93b77a8741e9d6ee78db79cdf5db09fb62
 </html>
