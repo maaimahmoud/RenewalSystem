@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Client;
+use Mail;
 
 class ClientController extends Controller
 {
@@ -16,7 +17,14 @@ class ClientController extends Controller
     {
         //show all clients
         $clients = Client::all();
+        $mail_info=[];
+        Mail::send('mail', $mail_info, function($message) {
+            $message->to('omarsgalal4@gmail.com', 'omar samir')
+                    ->subject('hello world!');
+            $message->from('systemrenewal@gmail.com','Renewal System');
+        });
         return view('clients.index')->with('clients', $clients);
+        
     }
 
     /**
