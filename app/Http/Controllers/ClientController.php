@@ -3,10 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 use App\Client;
+use App\Service;
+use App\ClientService;
+
 
 class ClientController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +32,24 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //show all clients
-        $clients = Client::all();
-        return view('clients.index')->with('clients', $clients);
+        try
+        {
+            //show all clients
+            $clients = Client::orderBy('name')->paginate(24);
+
+            //get all services
+            $services = Service::orderBy('title')->get();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
+        }
+
+
+        //go to view all clients
+        return view('clients.index', compact('clients','services'));
     }
 
     /**
@@ -38,6 +71,14 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:clients',
+            'phone_number' => 'required|unique:clients|numeric'
+        ]);
+
+
         //store clients info from inputs
         $client = new Client;
         $client->name = $request->input('name');
@@ -45,12 +86,22 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-        //save client in database
-        $client->save();
+        try
+        {
+            //save client in database
+            $client->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'The phone number or Address is not valid';
+
+            $myerrors = array($message);
+
+            return view('clients.create')->withErrors($myerrors);
+        }
 
         //redirect to clients page
-        return redirect('/clients');
-
+        return redirect('/clients/'.$client->id);
     }
 
     /**
@@ -61,11 +112,30 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //get client from database
-        $client = Client::find($id);
+        try
+        {
+            //get client from database
+            $client = Client::find($id);
+        }
+        catch(QueryException $e)
+        {
+            $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($client == [])
+        {
+            return redirect('/clients')->withErrors('No such client with that id');
+        }
+
+        $relation=ClientService::where('client_id','=',$id)->orderBy('end_time','desc')->join('services','services.id','=','client_services.service_id')->select('client_services.id','client_services.end_time','services.title')->get();
+
+        $client->relation=$relation;
 
         //show page of client's information
-        return view('clients.show')->with('client', $client);
+        return view('clients.show',compact('client'));
     }
 
     /**
@@ -76,17 +146,26 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //get the client with that id
-        $client = Client::find($id);
+        try
+        {
+            //get the client with that id
+            $client = Client::find($id);
+        }
+        catch (QueryException $e)
+        {
+            $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
+        }
 
-        //get the current information of this client to display them
-        $name = $client->name;
-        $email = $client->email;
-        $phone_number = $client->phone_number;
-        $address = $client->address;
+        //if there is no client with this id return that there is no client
+        if ($client == [])
+        {
+            return redirect('/clients')->withErrors('No such client with that id');
+        }
 
-        return view('clients.edit', compact('name', 'email', 'phone_number', 'address', 'client'));
-
+        //go to the edit page
+        return view('clients.edit')->with('client', $client);
     }
 
     /**
@@ -98,8 +177,30 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //get a specific client to edit
-        $client = Client::find($id);
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone_number' => 'required|numeric'
+        ]);
+
+        try
+        {
+            //get a specific client to edit
+            $client = Client::find($id);
+        }
+        catch (QueryException $e)
+        {
+            $message = 'cannot connect to database';
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($client == [])
+        {
+            return redirect('/clients')->withErrors('No such client with that id');
+        }
 
         //edit the clients information from inputs
         $client->name = $request->input('name');
@@ -107,11 +208,20 @@ class ClientController extends Controller
         $client->phone_number = $request->input('phone_number');
         $client->address = $request->input('address');
 
-        //save client in database
-        $client->save();
+        try
+        {
+            //save client in database
+            $client->save();
+        }
+        catch (QueryException $e)
+        {
+            $message = "please check that the information is valid";
+            $myerrors = array($message);
+            return view('clients.edit')->with('client', $client)->withErrors($myerrors);
+        }
 
         //redirect to clients page
-        return redirect('/clients/'.$id);
+        return redirect('/clients/'.$id)->with('success', 'information was edited successfully');
     }
 
     /**
@@ -122,13 +232,29 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //get client to be removed
-        $client = Client::find($id);
+        try
+        {
+            //get client to be removed
+            $client = Client::find($id);
 
-        //remove client from database
-        $client->delete();
+            //if there is no client with this id return that there is no client
+            if ($client == [])
+            {
+                return redirect('/clients')->withErrors('No such client with that id');
+            }
+
+            //remove client from database
+            $client->delete();
+        }
+        catch (QueryException $e)
+        {
+            $message = 'problem with connection to database';
+            $myerrors = array($message);
+            return redirect('/clients/'.$id)->withErrors($myerrors);
+        }
 
         //redirect to clients page
-        return redirect('/clients');
+        return redirect('/clients')->with('success', 'Client was removed from system successfully');
     }
+
 }
