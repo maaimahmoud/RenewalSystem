@@ -12,6 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    <script src="{{ asset('js/layout.js') }}"></script>
+
     <style type="text/css">
     a{
       color: black;
@@ -147,11 +153,6 @@
         </div>
 
     </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
-    <script src="{{ asset('js/layout.js') }}"></script>
 
 </body>
 </html>
