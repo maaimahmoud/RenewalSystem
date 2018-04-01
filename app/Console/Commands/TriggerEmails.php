@@ -52,7 +52,6 @@ class TriggerEmails extends Command
             $Mails_Infos = $this->getMailsInfo($client_services_id_to_mail);
             $this->sendMails ($Mails_Infos);
         }
-        $this->info('The happy birthday messages were sent successfully!');
 
     }
 
