@@ -9,6 +9,5 @@ $factory->define(App\Service::class, function (Faker $faker) {
         'cost'=>$faker->numberBetween(100,1000),
         'payment_method_id'=>$faker->numberBetween(1, App\PaymentMethod::count()),
         'description'=>$faker->text,
-        'email_template'=>$faker->paragraph,
     ];
 });

@@ -17,13 +17,12 @@
 
       $('#calendar').fullCalendar({
         header: {
-          left: 'prev,next today',
+          left: 'prev today next',
           center: 'title',
           right: 'month,agendaWeek,agendaDay,listMonth'
         },
-        defaultDate: '2018-03-12',
         locale: initialLocaleCode,
-        buttonIcons: false, // show the prev/next text
+        buttonIcons: true, // show the prev/next text
         weekNumbers: true,
         navLinks: true, // can click day/week names to navigate views
         editable: true,
@@ -59,14 +58,6 @@
       font-size: 14px;
     }
 
-    #top {
-      background: #eee;
-      border-bottom: 1px solid #ddd;
-      padding: 0 10px;
-      line-height: 40px;
-      font-size: 12px;
-    }
-
     #calendar {
       max-width: 900px;
       margin: 40px auto;
@@ -79,12 +70,6 @@
 
 
     <div id='calendar'></div>
-    <div id='top'>
-
-      Locales:
-      <select id='locale-selector'></select>
-
-    </div>
 
   </body>
 

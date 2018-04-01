@@ -100,11 +100,9 @@ class ServiceController extends Controller
         try
         {
             //get category from its title
-            $category = ServiceCategories::where('title','=', $request->get('categories'))->get()->first();
-            $service->category_id = $category->id;
+            $service->category_id = $request->input('categories');
             //get payment method from its title
-            $method = PaymentMethod::where('title', '=', $request->get('payment_methods'))->get()->first();
-            $service->payment_method_id = $method->id;
+            $service->payment_method_id = $request->input('payment_methods');
         }
         catch (QueryException $e)
         {
