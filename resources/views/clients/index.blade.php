@@ -24,7 +24,7 @@
 
   <div class="col-10">
 
-    @if (@isset($clients))
+    @if (count($clients)>0)
       @if (@isset($chosen_service))
         <h4>Clients have <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $chosen_service->title }} </a> service</h4>
       @endif
@@ -49,6 +49,7 @@
     @else
       <p>No Clients Found</p>
     @endif
+</div>
 </div>
 
 

@@ -13,9 +13,9 @@
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
+Route::get('/getEvents','HomeController@getEvents');
 
 
 Route::resource('clients', 'ClientController');
