@@ -36,6 +36,14 @@ class FilterController extends Controller
         {
             //get service from id
             $service = Service::find($id);
+
+            //if there is no client with this id return that there is no client
+            if ($service == [])
+            {
+                return redirect('/clients')->withErrors('url is not correct');
+            }
+
+            //to send it later to the view
             $chosen_service=$service;
 
             //get all clients who takes this service
@@ -78,6 +86,14 @@ class FilterController extends Controller
         {
             //get the category by id
             $category = ServiceCategories::find($id);
+
+            //if there is no client with this id return that there is no client
+            if ($category == [])
+            {
+                return redirect('/services')->withErrors('url is not correct');
+            }
+
+            //to send the category to the view later
             $chosen_category=$category;
 
             //get all services from this category
