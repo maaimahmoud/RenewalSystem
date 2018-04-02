@@ -144,7 +144,7 @@ class ServiceCategoriesController extends Controller
             $category = ServiceCategories::find($id);
 
             //if there is no client with this id return that there is no client
-            if ($servicescategory == [])
+            if ($category == [])
             {
                 return redirect('/servicescategories')->withErrors('url is not correct');
             }

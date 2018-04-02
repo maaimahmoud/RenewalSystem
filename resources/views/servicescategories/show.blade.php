@@ -5,6 +5,10 @@
   </style>
 @section('content')
 
+  @if(count($categories) == 0)
+    <div class="alert alert-danger" role="alert"> There is no categories </div>
+  @endif
+
 <div class="row">
   <div class="col-sm-3 ml-4 mr-5 mt-3">
     <div class="card" style="height: 23%;">
@@ -85,47 +89,46 @@
     </div>
       @endforeach
 
- <div class="modal fade" id="addmodalservicescategory" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
-    <!--Modal: Contact form-->
-    <div class="modal-dialog cascading-modal" role="document">
-
-        <!--Content-->
-        <div class="modal-content">
-
-            <!--Header-->
-            <div class="modal-header primary-color white-text">
-                <h4 class="title">
-                    <i class="fa fa-pencil"></i> Add Category</h4>
-                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <!--Body-->
-            <div class="modal-body">
-               <form action="{{route('servicescategories.store')}}" method="POST">
-            @csrf
-              {{ method_field('POST') }}
-                <!-- Material input name -->
-                <div class="md-form form-sm">
-                    <i class="fa fa-envelope prefix"></i>
-                    <label for ="modalservicecategoryForm">Title</label>
-                    <input type="text" name="title"  id="modalservicecategoryForminput" class="form-control form-control-sm" required>
-                </div>
-                <div class="text-center mt-4 mb-2">
-                      <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Add</button>
-                      <button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
-                </div>
-              </form>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 
 @else
-</div>
-	<div class="alert alert-danger" role="alert"> there is no categories </div>
+  </div>
 @endif
+<div class="modal fade" id="addmodalservicescategory" tabindex="-1" role="dialog" aria-labelledby="modalservicecategoryFor" aria-hidden="true">
+  <!--Modal: Contact form-->
+  <div class="modal-dialog cascading-modal" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Header-->
+      <div class="modal-header primary-color white-text">
+        <h4 class="title">
+          <i class="fa fa-pencil"></i> Add Category</h4>
+          <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+          <form action="{{route('servicescategories.store')}}" method="POST">
+            @csrf
+            {{ method_field('POST') }}
+            <!-- Material input name -->
+            <div class="md-form form-sm">
+              <i class="fa fa-envelope prefix"></i>
+              <label for ="modalservicecategoryForm">Title</label>
+              <input type="text" name="title"  id="modalservicecategoryForminput" class="form-control form-control-sm" required>
+            </div>
+            <div class="text-center mt-4 mb-2">
+              <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Add</button>
+              <button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 @endsection

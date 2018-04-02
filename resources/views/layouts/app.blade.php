@@ -12,6 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <script src="{{ asset('js/app.js') }}"></script>
+
     <style type="text/css">
     a{
       color: black;
@@ -26,7 +29,6 @@
         padding: 30px;
         overflow-y: auto;
     }
-
     .sub-list-item{
       overflow: hidden;
       width: 250px;
@@ -34,10 +36,19 @@
       height: 100px;
       max-height: 100px;
     }
-
     #searchbutton{
       display: none;
     }
+
+    ::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 7px;
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(0,0,0,.5);
+            -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+        }
     </style>
 </head>
 <body>
@@ -148,14 +159,10 @@
 
     </div>
 
+  </body>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
     <script src="{{ asset('js/layout.js') }}"></script>
 
-    <script src="{{ asset('js/jquery-3.3.1.min.js') }}" > </script>
-    <script src="{{ asset('js/popper.min.js') }}" > </script>
-    <script src="{{ asset('js/bootstrap.min.js') }}" > </script>
 
 </body>
 </html>
