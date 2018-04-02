@@ -9,5 +9,7 @@ $factory->define(App\Service::class, function (Faker $faker) {
         'cost'=>$faker->numberBetween(100,1000),
         'payment_method_id'=>$faker->numberBetween(1, App\PaymentMethod::count()),
         'description'=>$faker->text,
+        'created_at'=>$faker->dateTimeInInterval($startDate = '-6 years', $interval = '+ 6 years', $timezone = null) ,
+        'updated_at'=>$faker->dateTimeInInterval($startDate = '-6 years', $interval = '+ 6 years', $timezone = null) 
     ];
 });
