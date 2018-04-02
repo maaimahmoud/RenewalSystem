@@ -58,7 +58,7 @@ class TriggerEmails extends Command
     protected function getClientsToMail ()
     {
         $result = DB::select('SELECT client_services_id as id
-                            FROM mailing_method_clinet_services
+                            FROM mailing_method_client_services
                             WHERE  DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH) > curdate()
                             AND DATEDIFF( DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH), curdate() ) = days_to_mail;');
         $ID_Arr = [];
