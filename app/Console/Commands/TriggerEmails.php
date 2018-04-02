@@ -74,7 +74,7 @@ class TriggerEmails extends Command
                 ->whereIn('client_services.id', $ids)
                 ->join('clients', 'client_services.client_id', '=', 'clients.id')
                 ->join('services', 'client_services.service_id', '=', 'services.id')
-                ->select('clients.name as client_name', 'clients.email as email','clients.phone_number','client_services.balance','client_services.required_money','services.title as service_name','services.email_template')
+                ->select('clients.name as client_name', 'clients.email as email','clients.phone_number','client_services.balance','client_services.required_money','services.title as service_name')
                 ->get();
 
     }
