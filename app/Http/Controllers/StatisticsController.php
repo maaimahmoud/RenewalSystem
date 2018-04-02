@@ -27,13 +27,13 @@ class StatisticsController extends Controller
                     ->dimensions(1000, 500)
                     ->responsive(true)
                     ->groupByYear(5);
-        $client_time = Charts::database(Client::all(), 'bar', 'highcharts')
+        $client_time = Charts::database(Client::all(), 'bar', 'google')
                     ->elementLabel("Clients")
                     ->title('Clients')
                     ->dimensions(1000, 500)
                     ->responsive(true)
                     ->groupByYear(5);
-        $service_time = Charts::database(Service::all(), 'bar', 'highcharts')
+        $service_time = Charts::database(Service::all(), 'bar', 'material')
                     ->elementLabel("Services")
                     ->title('Services')
                     ->dimensions(1000, 500)
@@ -91,5 +91,5 @@ class StatisticsController extends Controller
                     ->responsive(true);
         
         return view('statistics', compact('service_time','client_time','service_categories_time','service_count','client_count','service_categories_count','payment_method_count'));
-
+    }
 }
