@@ -26,6 +26,7 @@
     color: #2F5485;
     text-shadow: 0.03em 0.03em 0px #B3B3B3;
 }
+   
 </style>
 @section('content')
 
@@ -55,9 +56,12 @@
      <a href="/paymentmethods"><div class="  mt-2 ml-4"> Methods <h4>{{ $payment_method_count }}</h4></div></a>
   </div>
   </div>
+
+
+
 <div class="wordart slate ml-5 mb-3"><span class="text" >Statistics for the last 5 years</span></div>
 
-<div class="container-fluid" >
+<div class="container-fluid mb-5" >
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -99,6 +103,7 @@
 			{!! $service_categories_time->script() !!}
 </div>
   </div>
+
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -109,5 +114,84 @@
   </a>
 </div>
 </div>
+
+
+
+
+
+<div class="container-fluid" >
+<div id="carouselExampleIndicator" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicator" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicator" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicator" data-slide-to="2"></li>
+     <li data-target="#carouselExampleIndicator" data-slide-to="3"></li>
+  </ol>
+  <div class="carousel-inner ">
+    <div class="carousel-item active">
+      	<div class="col-md-12">
+            	<div class="panel panel-default">
+            		<div class="wordart salte ml-5 mb-3"><span class="text" > Clients with Services</span></div>
+                	<div class="panel-body">
+                    {!! $client_time->html() !!}
+               		 </div>
+            	</div>
+        	</div>
+        	{!! Charts::scripts() !!}
+			{!! $client_time->script() !!}
+    </div>
+    <div class="carousel-item">
+      	<div class="col-md-12">
+            	<div class="panel panel-default">
+            		<div class="wordart salte ml-5 mb-3"><span class="text" > Clients with catgeories</span></div>
+                	<div class="panel-body">
+                    {!! $service_time->html() !!}
+               		 </div>
+            	</div>
+        	</div>
+        	{!! Charts::scripts() !!}
+			{!! $service_time->script() !!}
+    </div>
+    <div class="carousel-item">
+      	<div class="col-md-12">
+            	<div class="panel panel-default">
+            		<div class="wordart salte ml-5 mb-3"><span class="text" > Services with categories</span></div>
+                	<div class="panel-body">
+                    {!! $service_categories_time->html() !!}
+               		 </div>
+            	</div>
+        	</div>
+        	{!! Charts::scripts() !!}
+			{!! $service_categories_time->script() !!}
+</div>
+    <div class="carousel-item">
+      	<div class="col-md-12">
+            	<div class="panel panel-default">
+            		<div class="wordart salte ml-5 mb-3"><span class="text" > Services with payment methods</span></div>
+                	<div class="panel-body">
+                    {!! $service_categories_time->html() !!}
+               		 </div>
+            	</div>
+        	</div>
+        	{!! Charts::scripts() !!}
+			{!! $service_categories_time->script() !!}
+</div>
+  </div>
+
+  <a class="carousel-control-prev" href="#carouselExampleIndicator" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicator" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+
+
+
+
+
 
 @endsection
