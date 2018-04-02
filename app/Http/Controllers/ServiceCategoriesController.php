@@ -81,26 +81,7 @@ class ServiceCategoriesController extends Controller
         //redirect to the page of servicescategories
          return redirect('/servicescategories')->with('success', $servicescategory->title.' was added successfully as a category');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-         //
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -115,8 +96,23 @@ class ServiceCategoriesController extends Controller
             'title' => 'required'
         ]);
 
-        //get the specific categoryservices
-        $servicescategory= ServiceCategories::find($id);
+        try
+        {
+            //get the specific categoryservices
+            $servicescategory= ServiceCategories::find($id);
+        }
+        catch (QueryException $e)
+        {
+            $message = "problem connecting to database";
+            $myerrors = array($message);
+            return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($servicescategory == [])
+        {
+            return redirect('/servicescategories')->withErrors('url is not correct');
+        }
 
         //store the information from the input
         $servicescategory->title = $request->input('title');
@@ -147,6 +143,12 @@ class ServiceCategoriesController extends Controller
             //find category with the specific id
             $category = ServiceCategories::find($id);
 
+            //if there is no client with this id return that there is no client
+            if ($category == [])
+            {
+                return redirect('/servicescategories')->withErrors('url is not correct');
+            }
+
             //remove servicescategory from database
             $category->delete();
         }
@@ -158,5 +160,27 @@ class ServiceCategoriesController extends Controller
         }
 
         return redirect('/servicescategories')->with('success', 'Category was removed successfully');
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+         //
+         return redirect('/servicescategories')->withErrors('url is not correct');
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+        return redirect('/servicescategories')->withErrors('url is not correct');
     }
 }

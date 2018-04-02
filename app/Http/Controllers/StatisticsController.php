@@ -102,4 +102,5 @@ class StatisticsController extends Controller
         
         return view('statistics', compact('service_time','client_time','service_categories_time','service_count','client_count','service_categories_count','payment_method_count','clients_by_categories','service_by_categories','clients_by_services','clients_by_payment_methods'));
     }
+
 }

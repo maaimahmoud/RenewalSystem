@@ -12,6 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <script src="{{ asset('js/app.js') }}"></script>
+
     <style type="text/css">
     a{
       color: black;
@@ -36,6 +39,16 @@
     #searchbutton{
       display: none;
     }
+
+    ::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 7px;
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(0,0,0,.5);
+            -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+        }
     </style>
 </head>
 <body>
@@ -74,7 +87,7 @@
                                     </a>
 
                                     <a class="dropdown-item" href="/clients">
-                                        View All
+                                        All Clients
                                     </a>
                                 </div>
                             </li>
@@ -146,11 +159,9 @@
 
     </div>
 
+  </body>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
     <script src="{{ asset('js/layout.js') }}"></script>
-
 
 
 </body>

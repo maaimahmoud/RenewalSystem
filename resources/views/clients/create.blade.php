@@ -29,7 +29,7 @@
     </div>
 
     <div class="col-md-4 mb-3">
-        <label for="title">Address(optional)</label>
+        <label for="title">Address (optional)</label>
         <input type="text" class="form-control is-valid" name="address" placeholder="Address">
         <div class="invalid-feedback">)
             Duplicate Title

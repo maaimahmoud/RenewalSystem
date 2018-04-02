@@ -13,9 +13,9 @@
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
+Route::get('/getEvents','HomeController@getEvents');
 
 
 Route::resource('clients', 'ClientController');
@@ -66,3 +66,5 @@ Route::get('search/service', 'SearchController@searchService');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/clients/{client}/service/{service}/pay', 'ClientServiceController@payForService');
