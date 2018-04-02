@@ -21,30 +21,30 @@ class StatisticsController extends Controller
         $service_categories_count=(ServiceCategories::all()->count());
         $payment_method_count=(PaymentMethod::all()->count());
 
-        $service_categories_time = Charts::database(ServiceCategories::all(), 'bar', 'google')
+        $service_categories_time = Charts::database(ServiceCategories::all(), 'bar', 'highcharts')
                     ->elementLabel("Categories")
                     ->title('Service_Categories')
                     ->dimensions(1000, 500)
-                    ->responsive(true)
-                    ->width(500)
+                    ->responsive(false)
+                    ->width(1300)
                     ->groupByYear(5);
 
 
-        $client_time = Charts::database(Client::all(), 'bar', 'google')
+        $client_time = Charts::database(Client::all(), 'bar', 'highcharts')
                     ->elementLabel("Clients")
                     ->title('Clients')
                     ->dimensions(1000, 500)
-                    ->responsive(true)
-                    ->width(500)
+                    ->responsive(false)
+                    ->width(1300)
                     ->groupByYear(5);
 
 
-        $service_time = Charts::database(Service::all(), 'bar', 'google')
+        $service_time = Charts::database(Service::all(), 'bar', 'highcharts')
                     ->elementLabel("Services")
                     ->title('Services')
                     ->dimensions(1000, 500)
-                    ->responsive(true)
-                     ->width(500)
+                    ->responsive(false)
+                     ->width(1300)
                     ->groupByYear(5);
 
          $clients_by_categories_query = DB::table('services')

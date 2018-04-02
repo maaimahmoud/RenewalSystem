@@ -61,7 +61,7 @@
 
 <div class="wordart slate ml-5 mb-3"><span class="text" >Statistics for the last 5 years</span></div>
 
-<div class="container-fluid mb-5" >
+<div class="container-fluid mb-5 ml-3" >
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
