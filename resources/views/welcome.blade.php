@@ -1,9 +1,29 @@
 @extends('layouts.app')
 
+<style>
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+
+#calendar {
+  font-size: 14px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 10px;
+}
+
+</style>
+
 @section('content')
 
-  <head>
-  <meta charset='utf-8' />
+    <div id='calendar'></div>
+
+@endsection
+
+@section('js')
   <link href={{ asset('/../calendar/fullcalendar.min.css') }} rel='stylesheet' />
   <link href={{ asset('/../calendar/fullcalendar.print.min.css') }} rel='stylesheet' media='print' />
   <script src={{ asset('/../calendar/lib/moment.min.js') }} ></script>
@@ -49,28 +69,4 @@
     });
 
   </script>
-  <style>
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-      font-size: 14px;
-    }
-
-    #calendar {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 10px;
-    }
-
-  </style>
-  </head>
-  <body>
-
-
-    <div id='calendar'></div>
-
-  </body>
-
 @endsection

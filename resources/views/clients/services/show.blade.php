@@ -16,24 +16,25 @@
 <div class="row">
   <div class="col-7">
 
-
     <div class="title py-3 ml-auto mr-auto " text-center>
          <div class="card"  >
-           <div class="card-header">
-             <ul class="nav nav-tabs card-header-tabs">
-               <li class="nav-item">
-                  <a class="nav-link Edit" href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}">Edit</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link Delete " data-toggle="modal" data-target="#exampleModalCenter">Stop Service</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link Edit" data-toggle="modal" data-target="#modalPayment">Pay for Service</a>
-               </li>
+           @if ($relation->end_time> date('Y-m-d'))
+             <div class="card-header">
+               <ul class="nav nav-tabs card-header-tabs">
+                 <li class="nav-item">
+                    <a class="nav-link Edit" href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}">Edit</a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link Delete " data-toggle="modal" data-target="#exampleModalCenter">Stop Service</a>
+                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link Edit" data-toggle="modal" data-target="#modalPayment">Pay for Service</a>
+                 </li>
 
 
-             </ul>
-           </div>
+               </ul>
+             </div>
+          @endif
             <div class="card-body-custom text-dark bg-grey-light-3">
                 <h5 class="card-title"> <strong>Client: </strong> <a href="{{ route('clients.show',['id' => $client->id]) }}"> {{ $client->name }} </a> </h5>
              </div>
@@ -41,7 +42,7 @@
                 <h5 class="card-title"><strong>Service: </strong> <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $service->title }} </a> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
-                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{$relation->required_money . ' per '. $payment_method->months .' months'}}">{{$payment_method->title}}</span> </h5>
+                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{' per '. $payment_method->months .' months'}}">{{$payment_method->title}}</span> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
                 <h5 class="card-title"><strong>Required Money: </strong> {{$relation->required_money}} </h5>
@@ -136,5 +137,3 @@
     </div>
 </div>
 @endsection
-
-

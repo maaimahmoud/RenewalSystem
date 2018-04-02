@@ -1,58 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-        <script src="{{ asset('js/app.js') }}"></script>
-
-    <style type="text/css">
-    a{
-      color: black;
-    }
-    .nav-link:hover{
-      cursor: pointer;
-    }
-    .sub-list{
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: 10px;
-        padding: 30px;
-        overflow-y: auto;
-    }
-
-    .sub-list-item{
-      overflow: hidden;
-      width: 250px;
-      max-width: 250px;
-      height: 100px;
-      max-height: 100px;
-    }
-
-    #searchbutton{
-      display: none;
-    }
-
-    ::-webkit-scrollbar {
-            -webkit-appearance: none;
-            width: 7px;
-        }
-        ::-webkit-scrollbar-thumb {
-            border-radius: 4px;
-            background-color: rgba(0,0,0,.5);
-            -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-        }
-    </style>
-</head>
+@include('layouts.head')
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
@@ -162,7 +110,8 @@
     </div>
 
   </body>
-    <!-- Scripts -->
-    <script src="{{ asset('js/layout.js') }}"></script>
+  <div class="se-pre-con"></div>
+
+
 
 </html>
