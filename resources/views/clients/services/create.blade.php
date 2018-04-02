@@ -32,14 +32,13 @@
     @if (!isset($current_service) )
       <form method="POST" id="addservicetoclientform" action="{{route('clients.service.store', ['clients' => $client->id])}}">
         @csrf
-      <h4 style="text-align: center;">Adding new service to <a href="{{route('clients.show',['id'=>$client->id])}}"> {{ $client->name }}</a></h4>
+      <h5 style="text-align:center;">Adding new service to <a href="{{route('clients.show',['id'=>$client->id])}}"> {{ $client->name }}</a></h5>
       @else
         <form method="POST" id="editservicetoclientform" action="{{ route('clients.service.update',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">
           @csrf
           <input name="_method" type="hidden" value="PUT">
-        <h4 style="text-align: center;">Edit {{ $current_service->title }} service to {{ $client->name }}</h4>
+        <h5 style="text-align: center;">Edit {{ $current_service->title }} service to {{ $client->name }}</h5>
     @endif
-    <br> <br>
 
     <div class="form-group col-md-6 mb-3">
 
@@ -54,7 +53,7 @@
               </select>
           <label for="service_id">Services</label>
                <select class="custom-select" value="Open this select menu" name="service" id="services" required>
-                    <option value="0"> </option>
+                    <option disabled selected value> -- Select Service -- </option>
 
                     @foreach ($servicecategories as $servicecategory)
                       <div class="'category'+<?php echo $servicecategory->id; ?>">
@@ -72,7 +71,7 @@
 
           <label for="payment_method_id">Payment Method</label>
                <select class="custom-select" value="Open this select menu" name="payment_method" id="payment_method" required>
-                <option value="0"></option>
+                <option disabled selected value> -- Select Payment Method -- </option>
                     @foreach ($paymentmethods as $payment_method)
                       <option value="<?php echo $payment_method->id; ?>">{{$payment_method->title}}</option>
                     @endforeach

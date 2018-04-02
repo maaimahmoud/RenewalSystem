@@ -11,13 +11,6 @@ $(document).ready(function () {
 
     $('#servicecategories').change(function(){
         $('#services option').remove();
-
-        var o = new Option(" ", "0");
-        /// jquerify the DOM object 'o' so we can use the html method
-        $(o).html(" ");
-        $("#services").append(o);
-
-
         var val=$('#servicecategories').val();
 
         var div=$('#category'+val+' option');
@@ -105,3 +98,4 @@ $(document).ready(function () {
 
           });
 });
+

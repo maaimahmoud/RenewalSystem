@@ -3,6 +3,10 @@
 
 @section('content')
 
+  @if(count($paymentmethods) == 0)
+    <div class="alert alert-danger" role="alert"> There is no Payment Methods </div>
+  @endif
+
   <div class="row">
           <div class="col-sm-3 ml-4 mr-5 mt-3 addpaymentcard">
             <a data-toggle="modal" data-target="#addmodalpaymentmethod">
@@ -88,7 +92,6 @@
 
  @else
      </div>
-    <div class="alert alert-danger" role="alert"> there is no PaymentMethods </div>
 @endif
     <div class="modal fade" id="addmodalpaymentmethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">

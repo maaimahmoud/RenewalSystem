@@ -13,9 +13,9 @@
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
+Route::get('/getEvents','HomeController@getEvents');
 
 
 Route::resource('clients', 'ClientController');
@@ -48,9 +48,7 @@ Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destro
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 //Pending routes
-Route::get('/statistics',function(){
-  return view('statistics');
-});
+Route::get('/statistics','StatisticsController@index');
 
 Route::get('/clientservice/payforservice',function(){
   return view('clients/services/payforservice');
@@ -68,3 +66,5 @@ Route::get('search/service', 'SearchController@searchService');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/clients/{client}/service/{service}/pay', 'ClientServiceController@payForService');

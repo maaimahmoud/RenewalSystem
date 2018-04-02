@@ -124,6 +124,12 @@ class ClientController extends Controller
             return redirect('/home')->withErrors($myerrors);
         }
 
+        //if there is no client with this id return that there is no client
+        if ($client == [])
+        {
+            return redirect('/clients')->withErrors('No such client with that id');
+        }
+
         $relation=ClientService::where('client_id','=',$id)->orderBy('end_time','desc')->join('services','services.id','=','client_services.service_id')->select('client_services.id','client_services.end_time','services.title')->get();
 
         $client->relation=$relation;
@@ -150,6 +156,12 @@ class ClientController extends Controller
             $message = 'cannot connect to database';
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($client == [])
+        {
+            return redirect('/clients')->withErrors('No such client with that id');
         }
 
         //go to the edit page
@@ -182,6 +194,12 @@ class ClientController extends Controller
             $message = 'cannot connect to database';
             $myerrors = array($message);
             return redirect('/home')->withErrors($myerrors);
+        }
+
+        //if there is no client with this id return that there is no client
+        if ($client == [])
+        {
+            return redirect('/clients')->withErrors('No such client with that id');
         }
 
         //edit the clients information from inputs
@@ -218,6 +236,12 @@ class ClientController extends Controller
         {
             //get client to be removed
             $client = Client::find($id);
+
+            //if there is no client with this id return that there is no client
+            if ($client == [])
+            {
+                return redirect('/clients')->withErrors('No such client with that id');
+            }
 
             //remove client from database
             $client->delete();
