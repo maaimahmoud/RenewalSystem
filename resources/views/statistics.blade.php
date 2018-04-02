@@ -11,7 +11,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 .wordart.slate {
     transform: scale(1, 1.5);
     -webkit-transform: scale(1, 1.5);
@@ -113,7 +112,7 @@
 </div>
 </div>
 
-<div class="wordart slate ml-5 mb-3"><span class="text" >Statistics</span></div>
+<div class="wordart slate ml-5 mb-3"><span class="text" >Statistical Pie Charts</span></div>
 <div class="container-fluid ml-5" >
 <div id="carouselExampleIndicator" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
