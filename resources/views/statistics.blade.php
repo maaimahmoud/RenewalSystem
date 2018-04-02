@@ -30,27 +30,27 @@
 </style>
 @section('content')
 
-<div class="row mb-3 ">
+<div class="row mb-3 ml-5">
   <div class="card bg-danger text-white ml-5 " style="width: 5rem; height: 4rem; ">
   </div>
   	 <div class="card bg-white text-dark" style="width: 10rem; height: 4rem;">
      <a href="/clients"><div class="  mt-2 ml-4"> Clients <h4>{{ $client_count }}</h4></div></a>
   	</div>
 
-  <div class="card bg-warning text-white ml-3" style="width: 5rem; height: 4rem; ">
+  <div class="card bg-warning text-white ml-5" style="width: 5rem; height: 4rem; ">
   </div>
   	 <div class="card bg-white text-dark" style="width: 10rem; height: 4rem;">
      <a href="/services"><div class="  mt-2 ml-4"> Services <h4>{{ $service_count }}</h4></div></a>
   	</div>
 
 
-  <div class="card bg-info text-white ml-3" style="width: 5rem; height: 4rem;">
+  <div class="card bg-info text-white ml-5" style="width: 5rem; height: 4rem;">
   </div>
   	<div class="card bg-light text-dark  mr-5" style="width: 10rem; ">
     <a href="/servicescategories"> <div class="  mt-2 ml-4"> Categories <h4>{{ $service_categories_count }}</h4></div></a>
   </div>
 
-  <div class="card bg-success text-white ml-3" style="width: 5rem; height: 4rem;">
+  <div class="card bg-success text-white ml-5" style="width: 5rem; height: 4rem;">
   </div>
   	<div class="card bg-light text-dark mr-5" style="width: 10rem; ">
      <a href="/paymentmethods"><div class="  mt-2 ml-4"> Methods <h4>{{ $payment_method_count }}</h4></div></a>
@@ -118,7 +118,7 @@
 
 
 
-
+<div class="wordart slate ml-5 mb-3"><span class="text" >Statistics</span></div>
 <div class="container-fluid" >
 <div id="carouselExampleIndicator" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -131,50 +131,47 @@
     <div class="carousel-item active">
       	<div class="col-md-12">
             	<div class="panel panel-default">
-            		<div class="wordart salte ml-5 mb-3"><span class="text" > Clients with Services</span></div>
+
                 	<div class="panel-body">
-                    {!! $client_time->html() !!}
+                    {!! $clients_by_services->html() !!}
                		 </div>
             	</div>
         	</div>
         	{!! Charts::scripts() !!}
-			{!! $client_time->script() !!}
+			{!! $clients_by_services->script() !!}
     </div>
     <div class="carousel-item">
       	<div class="col-md-12">
             	<div class="panel panel-default">
-            		<div class="wordart salte ml-5 mb-3"><span class="text" > Clients with catgeories</span></div>
                 	<div class="panel-body">
-                    {!! $service_time->html() !!}
+                    {!! $clients_by_categories->html() !!}
                		 </div>
             	</div>
         	</div>
         	{!! Charts::scripts() !!}
-			{!! $service_time->script() !!}
+			{!! $clients_by_categories->script() !!}
     </div>
     <div class="carousel-item">
       	<div class="col-md-12">
             	<div class="panel panel-default">
-            		<div class="wordart salte ml-5 mb-3"><span class="text" > Services with categories</span></div>
                 	<div class="panel-body">
-                    {!! $service_categories_time->html() !!}
+                    {!! $clients_by_payment_methods->html() !!}
                		 </div>
             	</div>
         	</div>
         	{!! Charts::scripts() !!}
-			{!! $service_categories_time->script() !!}
+			{!! $clients_by_payment_methods->script() !!}
 </div>
     <div class="carousel-item">
       	<div class="col-md-12">
             	<div class="panel panel-default">
-            		<div class="wordart salte ml-5 mb-3"><span class="text" > Services with payment methods</span></div>
                 	<div class="panel-body">
-                    {!! $service_categories_time->html() !!}
+                    {!! $service_by_categories->html() !!}
                		 </div>
             	</div>
         	</div>
         	{!! Charts::scripts() !!}
-			{!! $service_categories_time->script() !!}
+			{!! $service_by_categories->script() !!}
 </div>
   </div>
 
@@ -188,9 +185,6 @@
   </a>
 </div>
 </div>
-
-
-
 
 
 

@@ -26,7 +26,6 @@
         padding: 30px;
         overflow-y: auto;
     }
-
     .sub-list-item{
       overflow: hidden;
       width: 250px;
@@ -34,7 +33,6 @@
       height: 100px;
       max-height: 100px;
     }
-
     #searchbutton{
       display: none;
     }
@@ -153,6 +151,7 @@
 
     <script src="{{ asset('js/layout.js') }}"></script>
 
- 
+
+
 </body>
 </html>
