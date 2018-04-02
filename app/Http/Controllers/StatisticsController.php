@@ -59,7 +59,9 @@ class StatisticsController extends Controller
                     ->elementLabel('clients_by_categories')
                     ->labels($clients_by_categories_query->pluck('title'))
                     ->values($clients_by_categories_query->pluck('num'))
-                    ->responsive(true);
+                     ->width(1300)
+                     ->height(800)
+                    ->responsive(false);
 
         $clients_by_payment_methods_query = DB::table('client_services')
                     ->select(DB::raw('count(*) as num , payment_methods.title as title'))
@@ -72,7 +74,9 @@ class StatisticsController extends Controller
                     ->elementLabel('clients_by_payment_methods')
                     ->labels($clients_by_payment_methods_query->pluck('title'))
                     ->values($clients_by_payment_methods_query->pluck('num'))
-                    ->responsive(true);
+                     ->width(1300)
+                     ->height(800)
+                    ->responsive(false);
 
         $clients_by_services_query = DB::table('client_services')
                     ->select(DB::raw('count(*) as num , services.title as title'))
@@ -85,7 +89,9 @@ class StatisticsController extends Controller
                     ->elementLabel('clients_by_services')
                     ->labels($clients_by_services_query->pluck('title'))
                     ->values($clients_by_services_query->pluck('num'))
-                    ->responsive(true);
+                     ->width(1300)
+                     ->height(800)
+                    ->responsive(false);
         
        $service_by_categories_query = DB::table('services')
                     ->select(DB::raw('count(*) as num , service_categories.title '))
@@ -98,7 +104,9 @@ class StatisticsController extends Controller
                     ->elementLabel('service_by_categories')
                     ->labels($service_by_categories_query->pluck('title'))
                     ->values($service_by_categories_query->pluck('num'))
-                    ->responsive(true);
+                     ->width(1300)
+                     ->height(800)
+                    ->responsive(false);
         
         return view('statistics', compact('service_time','client_time','service_categories_time','service_count','client_count','service_categories_count','payment_method_count','clients_by_categories','service_by_categories','clients_by_services','clients_by_payment_methods'));
     }
