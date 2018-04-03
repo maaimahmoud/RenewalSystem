@@ -25,7 +25,9 @@ $(document).ready(function () {
             }
 
             if (filledReminders != value){
-              alert("Please fill existing Reminders before adding another one");
+              $('#errors div').remove();
+              $('#errors').prepend('<div class="alert alert-danger">Please fill existing Reminders before adding another one </div>');
+              window.scrollTo(0,0);
             }
             else {
                     var duplicate = false;
@@ -39,7 +41,9 @@ $(document).ready(function () {
                     }
 
                     if (duplicate){
-                      alert("Please fill existing Reminders with distinct days");
+                      $('#errors div').remove();
+                      $('#errors').prepend('<div class="alert alert-danger"> Please fill existing Reminders with distinct days </div>');
+                      window.scrollTo(0,0);
                     }
                     else{
 
@@ -63,17 +67,11 @@ $(document).ready(function () {
 
       $('#servicetoclientform').submit(function() {
                   var valid=true;
-                  if ( $("#services").val() == 0){
-                        alert("Please choose service to add");
-                        valid= false;
-                      }
-                  if ( $("#payment_method").val() == 0){
-                        alert("Please choose the payment method");
-                        valid= false;
-                      }
+
+                  $('#errors div').remove();
 
                   if ( $("#mailremind1").val() == ""){
-                        alert("Please choose at least one mail reminder");
+                        $('#errors').prepend('<div class="alert alert-danger"> Please choose at least one mail reminder </div>');
                         valid= false;
                       }
 
@@ -86,7 +84,7 @@ $(document).ready(function () {
                     for (var i = 1; i <= value; i++) {
                       if($('#mailremind'+i).val() > maxDaysToMail){
                       valid=false;
-                      alert("Please choose at e-mail reminders before duration less than payment method");
+                      $('#errors').prepend('<div class="alert alert-danger"> Please choose at e-mail reminders before duration less than payment method </div>');
                     }
                       for (var j = i+1; j <= value; j++) {
                         if ($('#mailremind'+i).val() == $('#mailremind'+j).val()){
@@ -97,12 +95,15 @@ $(document).ready(function () {
                     }
 
                       if (duplicate){
-                        alert("Please fill existing Reminders with distinct days");
+                        $('#errors').prepend('<div class="alert alert-danger"> Please fill existing Reminders with distinct days </div>');
                         valid=false;
                       }
 
                     if (!valid)
-                      return false;
+                      {
+                        window.scrollTo(0,0);
+                        return false;
+                      }
 
           });
 });
