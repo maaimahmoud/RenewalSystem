@@ -41,6 +41,9 @@
                 <h5 class="card-title"><strong>Service: </strong> <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $service->title }} </a> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
+              <h5 class="card-title"><strong>Service cost:</strong> <span class="badge badge-pill badge-primary " >{{$service->cost.' LE every '.$service->payment_method->months.' months'}}</span> </h5>
+            </div>
+             <div class="card-body-custom text-dark bg-grey-light-3">
                 <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{$relation->required_money . ' per '. $payment_method->months .' months'}}">{{$payment_method->title}}</span> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">

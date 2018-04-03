@@ -16,6 +16,7 @@
         <div class="card-body">
             <h5 class="card-title">{{$service->title}}</h5>
             <h6 class="card-text">Category: {{ $service->category->title }}</h6>
+            <h6 class="card-text">Number of clients: {{ $count_clients }}</h6>
             <p class="card-text">{{$service->description}}</p>
             <p class = " col-md-5">
               <span class="badge badge-pill badge-primary ">{{$service->cost}} LE/ {{$service->payment_method->title}}</span>
@@ -39,7 +40,12 @@
               </button>
             </div>
             <div class="modal-body">
-              Are you sure you want to delete this service?
+              <p>Are you sure you want to delete this service?</p>
+              @if($count_clients > 1)
+                <p>Note: {{$count_clients}} clients are using this service</p>
+              @elseif($count_clients == 1)
+                 <p>Note: One client is using this service</p>
+               @endif
             </div>
             <div class="modal-footer">
               <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>

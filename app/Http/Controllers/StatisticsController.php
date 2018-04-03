@@ -90,6 +90,7 @@ class StatisticsController extends Controller
                     ->select(DB::raw('count(*) as num , services.title as title'))
                     ->join('services','service_id','=','services.id')
                     ->groupBy('service_id','services.title')
+                    ->take(5)
                     ->get();
 
         $clients_by_services = Charts::create('pie', 'highcharts')

@@ -40,10 +40,12 @@ $(document).ready(function () {
                     var duplicate = false;
                     for (var i = 1; i <= value; i++) {
                       for (var j = i+1; j <= value; j++) {
-                        if ($('#mailremind'+i).val() == $('#mailremind'+j).val()){
-                              duplicate=true;
-                              $('#mailremind'+j).val("");
-                            }
+                          if($('#mailremind'+i).val()){
+                          if ($('#mailremind'+i).val() == $('#mailremind'+j).val()){
+                                duplicate=true;
+                                $('#mailremind'+j).val("");
+                              }
+                        }
                       }
                     }
 

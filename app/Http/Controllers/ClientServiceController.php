@@ -221,7 +221,7 @@ class ClientServiceController extends Controller
         $current_end_time=$relation->end_time;
         //Get current mailing method
         //$current_mailing_methods=$relation->mailingmethods;
-        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service)->orderBy('days_to_mail')->get();
+        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service_id)->orderBy('days_to_mail')->get();
       }
       catch (QueryException $e)
       {
@@ -266,7 +266,7 @@ class ClientServiceController extends Controller
         //End time of service as every service has a life time
         $relation->end_time=$request->input('end_date');
         $reminders=$request->input('numberofreminders');
-        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service)->delete();
+        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service_id)->delete();
 
         try
         {
@@ -314,12 +314,10 @@ class ClientServiceController extends Controller
             return redirect('/clients')->withErrors('url is not correct');
         }
         $clientservice->end_time=date('Y-m-d H:i:s');
-        echo $clientservice;
         $clientservice->save();
       }
       catch (QueryException $e)
       {
-        echo $e;
           $message = 'problem with connection to database';
           $myerrors = array($message);
           return redirect('/home')->withErrors($myerrors);
@@ -350,7 +348,7 @@ public function payForService($client_id, $relation_id)
             return redirect('/clients')->withErrors('url is not correct');
         }
     }
-    catch (QueryException $e)
+    catch (QueryException $e)   
     {
         $message = 'cannot connect to database';
         $myerrors = array($message);
@@ -386,7 +384,7 @@ public function payForService($client_id, $relation_id)
         return redirect('/home')->withErrors($myerrors);
     }
 
-    return redirect('/clients/'.$clientid.'/service/'.$relation->id)->with('success', 'successfully paid');
+    return redirect('/clients/'.$client_id.'/service/'.$relation->id)->with('success', 'successfully paid');
 }
 
 
