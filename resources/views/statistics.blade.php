@@ -28,33 +28,37 @@
    
 </style>
 @section('content')
-<div class="row mb-3 ml-5">
-  <div class="card bg-danger text-white ml-5 " style="width: 5rem; height: 4rem; ">
+
+<div class="row ml-5 mb-3  ">
+  <div class="row">
+  <div class="card bg-danger text-white " style="width: 5rem; height: 4rem; ">
   </div>
   	 <div class="card bg-white text-dark" style="width: 10rem; height: 4rem;">
      <a href="/clients"><div class="  mt-2 ml-4"> Clients <h4>{{ $client_count }}</h4></div></a>
   	</div>
-
+  </div>
+   <div class="row">
   <div class="card bg-warning text-white ml-5" style="width: 5rem; height: 4rem; ">
   </div>
   	 <div class="card bg-white text-dark" style="width: 10rem; height: 4rem;">
-     <a href="/services"><div class="  mt-2 ml-4"> Services <h4>{{ $service_count }}</h4></div></a>
+     <a href="/services"><div class=" mt-2 ml-4"> Services <h4>{{ $service_count }}</h4></div></a>
   	</div>
-
-
+</div>
+ <div class="row">
   <div class="card bg-info text-white ml-5" style="width: 5rem; height: 4rem;">
   </div>
-  	<div class="card bg-light text-dark  mr-5" style="width: 10rem; ">
-    <a href="/servicescategories"> <div class="  mt-2 ml-4"> Categories <h4>{{ $service_categories_count }}</h4></div></a>
+  	<div class="card bg-white text-dark " style="width: 10rem; ">
+    <a href="/servicescategories"> <div class=" mt-2 ml-4"> Categories <h4>{{ $service_categories_count }}</h4></div></a>
   </div>
-
+</div>
+ <div class="row">
   <div class="card bg-success text-white ml-5" style="width: 5rem; height: 4rem;">
   </div>
-  	<div class="card bg-light text-dark mr-5" style="width: 10rem; ">
+  	<div class="card bg-white text-dark " style="width: 10rem; ">
      <a href="/paymentmethods"><div class="  mt-2 ml-4"> Methods <h4>{{ $payment_method_count }}</h4></div></a>
   </div>
   </div>
-
+</div>
 
 <div class="wordart slate ml-5 mb-3"><span class="text" >Statistics for the last 5 years</span></div>
 

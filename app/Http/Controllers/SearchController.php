@@ -48,7 +48,6 @@ class SearchController extends Controller
         return view('clients.index', compact('clients', 'services','key'));
     }
 
-
     //
     public function searchService()
     {
