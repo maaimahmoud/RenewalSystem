@@ -25,13 +25,14 @@
                     <a class="nav-link Edit" href="{{url('/clients/'. $client{'id'}.'/service/'.$relation{'id'}.'/edit')}}">Edit</a>
                  </li>
                  <li class="nav-item">
-                   <a class="nav-link Delete " data-toggle="modal" data-target="#exampleModalCenter">Stop Service</a>
+                   <a class="nav-link Edit" data-toggle="modal" data-target="#modalPayment">Pay for Service</a>
                  </li>
                  <li class="nav-item">
-                    <a class="nav-link Edit" data-toggle="modal" data-target="#modalPayment">Pay for Service</a>
+                   <a class="nav-link Delete " data-toggle="modal" data-target="#stopServiceModal">Stop Service</a>
                  </li>
-
-
+                 <li class="nav-item">
+                   <a class="nav-link Delete " data-toggle="modal" data-target="#deleteServiceModal">Delete Service</a>
+                 </li>
                </ul>
              </div>
           @endif
@@ -42,7 +43,10 @@
                 <h5 class="card-title"><strong>Service: </strong> <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $service->title }} </a> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
-                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{' per '. $payment_method->months .' months'}}">{{$payment_method->title}}</span> </h5>
+              <h5 class="card-title"><strong>Service cost:</strong> <span class="badge badge-pill badge-primary " >{{$service->cost.' LE every '.$service->payment_method->months.' months'}}</span> </h5>
+            </div>
+             <div class="card-body-custom text-dark bg-grey-light-3">
+                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{$relation->required_money . ' per '. $payment_method->months .' months'}}">{{$payment_method->title}}</span> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
                 <h5 class="card-title"><strong>Required Money: </strong> {{$relation->required_money}} </h5>
@@ -92,26 +96,6 @@
    </div>
 
 
-   <!-- Modal -->
-   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-       <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLongTitle">Stop Service</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-               </button>
-             </div>
-             <div class="modal-body">
-                Are you sure you want to stop this service from {{ $client->name }}?
-             </div>
-             <div class="modal-footer">
-               <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
-               <a type="button" class="btn btn-outline-primary" href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">Stop</a>
-             </div>
-         </div>
-       </div>
- </div>
 
 
  <!-- Modal -->
@@ -135,5 +119,48 @@
           </form>
       </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="stopServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Stop Service</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to stop this service from {{ $client->name }}?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
+        <a type="button" class="btn btn-outline-primary" href="{{ route('client.service.stop',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">Stop</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Stop Service</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete all records of this service from {{ $client->name }}?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
+        <a type="button" class="btn btn-outline-primary" href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">Stop</a>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

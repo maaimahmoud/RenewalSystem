@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="alert alert-danger">
-    This functionality is not avaliable yet
-  </div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

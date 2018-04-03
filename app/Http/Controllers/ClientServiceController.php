@@ -49,7 +49,7 @@ class ClientServiceController extends Controller
       //Get All Services from database to add one of them to client
       $services = Service::All();
       //Get All payment methods from database to add one of them to client
-      $paymentmethods = PaymentMethod::All();
+      $paymentmethods = PaymentMethod::orderBy('months')->get();
       //if client wants to add a service to a particular category
       $servicecategories=ServiceCategories::All();
       //intialize variables to distinguish between editing and adding service
@@ -80,12 +80,10 @@ class ClientServiceController extends Controller
             'end_date' => 'required'
         ]);
 
-        $id=$client_id;
-
         try
         {
             //first find Client info as it goes back to clients.show page to display his info
-            $client=Client::find($id);
+            $client=Client::find($client_id);
         }
         catch(QueryException $e)
         {
@@ -105,7 +103,7 @@ class ClientServiceController extends Controller
         //create a new relation to store data
         $data = new ClientService;
         //fill relation data with inputs from user
-        $data->client_id = $id;
+        $data->client_id = $client_id;
         //service that client wants to add
         $data->service_id = $request->input('service');
         //payment method as disscused with client
@@ -214,7 +212,7 @@ class ClientServiceController extends Controller
         //Get the category for service
         $servicecategories=ServiceCategories::All();
         //Get All payment methods from database if the client wants to change his current payment method
-        $paymentmethods = PaymentMethod::All();
+        $paymentmethods = PaymentMethod::orderBy('months')->get();
         ///////////////////////////////
         $current_service =Service::find($relation->service_id);
         //Get current paymentmethod
@@ -264,10 +262,12 @@ class ClientServiceController extends Controller
         }
 
         //edit the clients information from inputs
-        $relation->payment_method = PaymentMethod::where('months','=',$request->input('payment_method'))->get()->first()->id;
+        $relation->payment_method=$request->input('payment_method');
         //End time of service as every service has a life time
         $relation->end_time=$request->input('end_date');
         $reminders=$request->input('numberofreminders');
+        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service_id)->get()->first();
+        $last_paid=$current_mailing_methods->last_paid_date;
         $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service_id)->delete();
 
         try
@@ -288,7 +288,9 @@ class ClientServiceController extends Controller
               $new->client_services_id=$relation->id;
               $input='mailreminder'.$i;
               $new->days_to_mail=$request->input($input);
-              $new->last_paid_date=date('Y-m-d H:i:s');
+              $new->last_paid_date=$last_paid;
+              $payment=PaymentMethod::find($relation->payment_method);
+              $new->required_months_to_pay=$payment->months;
               $new->save();
             }
         }
@@ -315,13 +317,34 @@ class ClientServiceController extends Controller
         {
             return redirect('/clients')->withErrors('url is not correct');
         }
+        $clientservice->delete();
+      }
+      catch (QueryException $e)
+      {
+          $message = 'problem with connection to database';
+          $myerrors = array($message);
+          return redirect('/home')->withErrors($myerrors);
+      }
+
+      //redirect to clients page
+      return redirect('/clients/'.$client_id)->with('success', 'Service has been deleted successfully');;
+  }
+
+  public function stop($client_id,$service_id)
+  {
+      try
+      {
+        $clientservice=ClientService::find($service_id);
+        //if there is no client with this id return that there is no client
+        if ($clientservice == [])
+        {
+            return redirect('/clients')->withErrors('url is not correct');
+        }
         $clientservice->end_time=date('Y-m-d H:i:s');
-        echo $clientservice;
         $clientservice->save();
       }
       catch (QueryException $e)
       {
-        echo $e;
           $message = 'problem with connection to database';
           $myerrors = array($message);
           return redirect('/home')->withErrors($myerrors);
@@ -352,7 +375,7 @@ public function payForService($client_id, $relation_id)
             return redirect('/clients')->withErrors('url is not correct');
         }
     }
-    catch (QueryException $e)
+    catch (QueryException $e)   
     {
         $message = 'cannot connect to database';
         $myerrors = array($message);
@@ -388,7 +411,7 @@ public function payForService($client_id, $relation_id)
         return redirect('/home')->withErrors($myerrors);
     }
 
-    return redirect('/clients/'.$clientid.'/service/'.$relation->id)->with('success', 'successfully paid');
+    return redirect('/clients/'.$client_id.'/service/'.$relation->id)->with('success', 'successfully paid');
 }
 
 
