@@ -1,26 +1,17 @@
-$(".full-height").css({
-        "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $(".navbar").innerHeight()
-    });
-    $(window).on('resize', function() {
-        $(".full-height").css({
-          "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $(".navbar").innerHeight()
-    });
-});
 
 $(document).ready(function () {
+  $(".se-pre-con").fadeOut("slow");
 
-    $('#servicecategories').change(function(){
-        $('#services option').remove();
-        var val=$('#servicecategories').val();
-
-        var div=$('#category'+val+' option');
-
-        div.clone(true).appendTo("#services");
-
+  $(".full-height").css({
+    "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $(".navbar").innerHeight()
+  });
+  $(window).on('resize', function() {
+    $(".full-height").css({
+      "min-height": $(window).height() - $(".footer-copyright").innerHeight() - $(".navbar").innerHeight()
     });
+  });
 
-    $('#addAnotherRemindMail').click(function(){
-      var numbers=[0,"First","Second","Third","Fourth","Fifth","Sixth","Seventh","Eighth","Ninth","Tenth"];
+  $('#addAnotherRemindMail').click(function(){
       var value=$('#numberofreminders').val();
 
         if (value == 10){
@@ -34,7 +25,9 @@ $(document).ready(function () {
             }
 
             if (filledReminders != value){
-              alert("Please fill existing Reminders before adding another one");
+              $('#errors div').remove();
+              $('#errors').prepend('<div class="alert alert-danger">Please fill existing Reminders before adding another one </div>');
+              window.scrollTo(0,0);
             }
             else {
                     var duplicate = false;
@@ -50,38 +43,51 @@ $(document).ready(function () {
                     }
 
                     if (duplicate){
-                      alert("Please fill existing Reminders with distinct days");
+                      $('#errors div').remove();
+                      $('#errors').prepend('<div class="alert alert-danger"> Please fill existing Reminders with distinct days </div>');
+                      window.scrollTo(0,0);
                     }
                     else{
 
                           var add=parseInt(value)+1;
                           $('#numberofreminders').val(add);
-                          $('.mailreminderinputs').append("<br>");
-                          $('#mailremind1').clone(true).attr("id","mailremind"+add).attr("name","mailreminder"+add).attr("placeholder",numbers[add]+' Reminder' ).appendTo('.mailreminderinputs').val("");
+                          $('#mailremind1').clone(true).attr("id","mailremind"+add).attr("name","mailreminder"+add).attr("placeholder",' Reminder' ).appendTo('.mailreminderinputs').val("");
                        }
                   }
            }
       });
 
-      $('#addservicetoclientform').submit(function() {
+    $('#servicecategories').change(function(){
+        $('#services option').remove();
+        var val=$('#servicecategories').val();
+
+        var div=$('#category'+val+' option');
+
+        div.clone(true).appendTo("#services");
+
+    });
+
+      $('#servicetoclientform').submit(function() {
                   var valid=true;
-                  if ( $("#services").val() == 0){
-                        alert("Please choose service to add");
-                        valid= false;
-                      }
-                  if ( $("#payment_method").val() == 0){
-                        alert("Please choose the payment method");
+
+                  $('#errors div').remove();
+
+                  if ( $("#mailremind1").val() == ""){
+                        $('#errors').prepend('<div class="alert alert-danger"> Please choose at least one mail reminder </div>');
                         valid= false;
                       }
 
-                  if ( $("#mailremind1").val() == ""){
-                        alert("Please choose at least one mail reminder");
-                        valid= false;
-                      }
+                      //Get payment months to know max days to remind
+                      var maxDaysToMail=$("#payment_method").val();
+                      maxDaysToMail=30*maxDaysToMail;
 
                   var value=$('#numberofreminders').val();
                   var duplicate = false;
                     for (var i = 1; i <= value; i++) {
+                      if($('#mailremind'+i).val() > maxDaysToMail){
+                      valid=false;
+                      $('#errors').prepend('<div class="alert alert-danger"> Please choose at e-mail reminders before duration less than payment method </div>');
+                    }
                       for (var j = i+1; j <= value; j++) {
                         if ($('#mailremind'+i).val() == $('#mailremind'+j).val()){
                               duplicate=true;
@@ -91,13 +97,15 @@ $(document).ready(function () {
                     }
 
                       if (duplicate){
-                        alert("Please fill existing Reminders with distinct days");
+                        $('#errors').prepend('<div class="alert alert-danger"> Please fill existing Reminders with distinct days </div>');
                         valid=false;
                       }
 
                     if (!valid)
-                      return false;
+                      {
+                        window.scrollTo(0,0);
+                        return false;
+                      }
 
           });
 });
-

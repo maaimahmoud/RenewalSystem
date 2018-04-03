@@ -2,16 +2,65 @@
 
 
 @section('content')
-
   <script type="text/javascript">
     window.onload = function(){
       $("#searchbutton").css("display", "block");
       $('#searchform').attr('action', '{{url('/search/service')}}');
-
     };
+ </script>
+
+  <div class="row">
+    <div class="col-2">
+      <div id="myDropdown" class="pre-scrollable full-height" >
+        <h5>Filter by Category</h5>
+        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+        @foreach ($categories as $category)
+          <a class="dropdown-item" href="{{url('filter/service/'.$category->id)}}">{{$category->title}}</a>
+        @endforeach
+      </div>
+    </div>
+
+    <div class="col-10">
+
+      @if (@isset($chosen_category))
+        <h4>Services in {{ $chosen_category->title }} category</h4>
+      @endif
+      @if (@isset($key))
+        <h4>Services: Search result for "{{ $key }}":</h4>
+      @endif
+
+  @if (count($services) > 0)
+
+    <div class="btn-group-vertical full-height sub-list  padding-right: 5px" >
+        @foreach ($services as $value)
+          <a href="{{url('/services/'. $value{'id'})}}">
+                <div class="card align-items-center sub-list-item"  id="cardservice{{ $value->id}}" style=" position: relative; top:50%; transform: translateY(-50%);">
+                    <div class="card-block text-center "style=" margin:5px" >
+                      <h4 class="card-title">{{ $value{'title'} }}</h4>
+                      <h6 class="card-subtitle mb-2 text-muted">Category: {{ $value->service_categories->title }}</h6>
+                    </div>
+                </div>
+
+          </a>
+          <script type="text/javascript">
+              serviceColor({{ $value->category_id }},{{ $value->id }});
+          </script>
+        @endforeach
+    </div>
+    {{$services->appends(Request::only('search'))->links()}}
+@else
+    <h5 style="text-align:center; margin-top:100px">No Services Found</h5>
+@endif
+
+@endsection
+
+
+@section('js')
+
+  <script type="text/javascript">
     function serviceColor(x,id){
       var z ="cardservice"+id;
-      var mai=document.getElementById(z);
+      var elementToColor=document.getElementById(z);
 
       x=x*x*x*x*x*x*x;
 
@@ -39,78 +88,17 @@
       HTMLcolor = template.substring(0,7 - HTMLcolor.length) + HTMLcolor;
 
 
-
-
       hexString = x.toString(16);
       hexString='#'+hexString;
-      console.log(hexString);
-      mai.style.background=HTMLcolor;
-      console.log(z);
-      console.log(x);
+
+      elementToColor.style.borderTop='thick solid '+HTMLcolor;
+      elementToColor.style.borderTopWidth ='8px';
+      elementToColor.style.borderBottom='thick solid '+HTMLcolor;
+      elementToColor.style.borderBottomWidth ='8px';
+
+
     };
+
  </script>
 
-  <div class="row">
-    <div class="col-2">
-      <div id="myDropdown" class="pre-scrollable full-height" >
-        <h5>Filter by Category</h5>
-        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-        @foreach ($categories as $category)
-          <a class="dropdown-item" href="{{url('filter/service/'.$category->id)}}">{{$category->title}}</a>
-        @endforeach
-      </div>
-    </div>
-
-    <div class="col-10">
-
-  @if (@isset($services))
-
-    @if (@isset($chosen_category))
-      <h4>Services in {{ $chosen_category->title }} category</h4>
-    @endif
-
-    @if (@isset($key))
-      <h4>Services: Search result for "{{ $key }}":</h4>
-    @endif
-
-    <div class="btn-group-vertical full-height sub-list  padding-right: 5px">
-        @foreach ($services as $value)
-          <a href="{{url('/services/'. $value{'id'})}}">
-              <div class="card align-items-center" >
-                <div class="card-block text-center" >
-                  <h4 class="card-title">{{ $value{'title'} }}</h4>
-                  <h6 class="card-subtitle mb-2 text-muted">Category: {{ $value->service_categories->title }}</h6>
-                </div>
-                <div class="triangle" id="cardservice{{ $value->id }}" style="width: 0; height: 0; border: solid 20px; border-color: transparent transparent black transparent;"></div>
-            </div>
-
-          </a>
-          <script type="text/javascript">
-          window.serviceColor({{ $value->category_id }},{{ $value->id }});
-          </script>
-        @endforeach
-    </div>
-{{$services->appends(Request::only('search'))->links()}}
-@else
-    <p>No Services Found</p>
-@endif
-
 @endsection
-
-
-<script>
-    function filterFunction() {
-        var input, filter, a, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        div = document.getElementById("myDropdown");
-        a = div.getElementsByClassName("dropdown-item");
-        for (i = 0; i < a.length; i++) {
-            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                a[i].style.display = "";
-            } else {
-                a[i].style.display = "none";
-            }
-        }
-    }
-</script>

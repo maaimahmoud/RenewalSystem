@@ -11,7 +11,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 .wordart.slate {
     transform: scale(1, 1.5);
     -webkit-transform: scale(1, 1.5);
@@ -29,7 +28,6 @@
    
 </style>
 @section('content')
-
 <div class="row mb-3 ml-5">
   <div class="card bg-danger text-white ml-5 " style="width: 5rem; height: 4rem; ">
   </div>
@@ -56,7 +54,6 @@
      <a href="/paymentmethods"><div class="  mt-2 ml-4"> Methods <h4>{{ $payment_method_count }}</h4></div></a>
   </div>
   </div>
-
 
 
 <div class="wordart slate ml-5 mb-3"><span class="text" >Statistics for the last 5 years</span></div>
@@ -115,11 +112,8 @@
 </div>
 </div>
 
-
-
-
-<div class="wordart slate ml-5 mb-3"><span class="text" >Statistics</span></div>
-<div class="container-fluid" >
+<div class="wordart slate ml-5 mb-3"><span class="text" >Statistical Pie Charts</span></div>
+<div class="container-fluid ml-5" >
 <div id="carouselExampleIndicator" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicator" data-slide-to="0" class="active"></li>

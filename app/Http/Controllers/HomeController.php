@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Client;
 use App\ClientService;
 use App\PaymentMethod;
-use Datetime;
 
 class Event
 {
@@ -60,7 +59,7 @@ class HomeController extends Controller
             //Add number of months of payment method
             $str='+'.$per_months.' month';
             //Get the new date in datetime format
-            $nextReminder = date("Y-m-d", strtotime($str, $time));
+            $nextReminder = date("Y-m-d H:i:s", strtotime($str, $time));
             //Checks date is not after the end time of service
             if ($nextReminder < $value->end_time){
                 //Then, create new event contains variable to show in calendar
