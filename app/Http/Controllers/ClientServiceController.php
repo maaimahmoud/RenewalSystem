@@ -61,7 +61,7 @@ class ClientServiceController extends Controller
         $myerrors = array($message);
         return redirect('/home')->withErrors($myerrors);
     }
-    
+
     //Go to the input page with provided lists
     return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
   }
@@ -137,6 +137,8 @@ class ClientServiceController extends Controller
               $input='mailreminder'.$i;
               $new->days_to_mail=$request->input($input);
               $new->last_paid_date=date('Y-m-d H:i:s');
+              $payment=PaymentMethod::find($data->payment_method);
+              $new->required_months_to_pay=$payment->months;
               $new->save();
             }
         }
@@ -159,8 +161,8 @@ class ClientServiceController extends Controller
         //Get relation info by its id
         $relation=ClientService::find($service_id);
 
-        // Get Client's info for which service is provided to 
-        $client=Client::find($client_id); 
+        // Get Client's info for which service is provided to
+        $client=Client::find($client_id);
 
         //if there is no client with this id return that there is no client
         if ($client == [] || $relation == [])
@@ -179,7 +181,7 @@ class ClientServiceController extends Controller
     }
 
     // Get payment method info for this Relation
-    $payment_method=PaymentMethod::find($relation->payment_method); 
+    $payment_method=PaymentMethod::find($relation->payment_method);
     $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $relation->id)->orderBy('days_to_mail')->get();
     return view('clients.services.show',compact('relation','client','service','payment_method','mailing_methods'));
 
@@ -221,7 +223,7 @@ class ClientServiceController extends Controller
         $current_end_time=$relation->end_time;
         //Get current mailing method
         //$current_mailing_methods=$relation->mailingmethods;
-        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service)->orderBy('days_to_mail')->get();
+        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service_id)->orderBy('days_to_mail')->get();
       }
       catch (QueryException $e)
       {
@@ -262,11 +264,11 @@ class ClientServiceController extends Controller
         }
 
         //edit the clients information from inputs
-        $relation->payment_method = $request->input('payment_method');
+        $relation->payment_method = PaymentMethod::where('months','=',$request->input('payment_method'))->get()->first()->id;
         //End time of service as every service has a life time
         $relation->end_time=$request->input('end_date');
         $reminders=$request->input('numberofreminders');
-        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service)->delete();
+        $current_mailing_methods=MailingMethodClientServices::where('client_services_id','=', $service_id)->delete();
 
         try
         {
@@ -391,4 +393,3 @@ public function payForService($client_id, $relation_id)
 
 
 }
-

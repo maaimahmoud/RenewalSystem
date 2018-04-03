@@ -8,7 +8,7 @@
   <div class="form-group">
     <div class="col-md-4 mb-3">
       <label for="title">Service Title</label>
-      <input type="text" class="form-control is-valid" name="title" placeholder="Title"  required>
+      <input type="text" maxlength=40 class="form-control is-valid" name="title" placeholder="Title"  required>
       <div class="invalid-feedback">)
 		Duplicate Title
       </div>

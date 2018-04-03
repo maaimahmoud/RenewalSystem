@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 
@@ -23,21 +22,20 @@
   </div>
 
   <div class="col-10">
+    @if (@isset($chosen_service))
+      <h4>Clients have <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $chosen_service->title }} </a> service</h4>
+    @endif
 
+    @if (@isset($key))
+      <h4>Clients: Search result for "{{ $key }}": </h4>
+    @endif
     @if (count($clients)>0)
-      @if (@isset($chosen_service))
-        <h4>Clients have <a href="{{ route('services.show',['id' => $service->id]) }}"> {{ $chosen_service->title }} </a> service</h4>
-      @endif
-
-      @if (@isset($key))
-        <h4>Clients: Search result for "{{ $key }}": </h4>
-      @endif
 
       <div class="btn-group-vertical full-height sub-list">
         @foreach ($clients as $value)
           <a href="{{url('/clients/'. $value{'id'})}}">
             <div class="card align-items-center sub-list-item" >
-              <div class="card-block text-center">
+              <div class="card-block text-center" style=" position: relative; top:50%; transform: translateY(-50%);">
                 <h4 class="card-title">{{ $value{'name'} }}</h4>
                 <h6 class="card-subtitle mb-2 text-muted">Number of Services: {{ count($value{'services'}) }}</h6>
               </div>
@@ -47,7 +45,7 @@
       </div>
       {{$clients->appends(Request::only('search'))->links()}}
     @else
-      <p>No Clients Found</p>
+      <h5 style="text-align:center; margin-top:100px">No Clients Found</h5>
     @endif
 </div>
 </div>
@@ -55,6 +53,7 @@
 
 @endsection
 
+@section('js')
 
 <script>
     function filterFunction() {
@@ -72,3 +71,5 @@
         }
     }
 </script>
+
+@endsection
