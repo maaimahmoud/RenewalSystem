@@ -38,6 +38,8 @@ Route::get('clients/delete/{id}', 'ClientController@destroy');
 
 Route::get('clients/{client}/service/{service}/delete', 'ClientServiceController@destroy')->name('client.service.delete');
 
+Route::get('clients/{client}/service/{service}/stop', 'ClientServiceController@stop')->name('client.service.stop');
+
 //Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 

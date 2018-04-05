@@ -66,8 +66,8 @@ public function getClientServiceChart()
                     ->elementLabel('clients_by_services')
                     ->labels($clients_by_services_query->pluck('title'))
                     ->values($clients_by_services_query->pluck('num'))
-                     ->width(1300)
-                     ->height(800)
+                     ->width(1200)
+                     ->height(700)
                     ->responsive(false);
 
     return ($clients_by_services);
@@ -94,8 +94,8 @@ public function getClientCategoryChart()
                     ->elementLabel('clients_by_categories')
                     ->labels($clients_by_categories_query->pluck('title'))
                     ->values($clients_by_categories_query->pluck('num'))
-                     ->width(1300)
-                     ->height(800)
+                     ->width(1200)
+                     ->height(700)
                     ->responsive(false);
     return ($clients_by_categories);
 
@@ -117,8 +117,8 @@ public  function getClientPaymentMethodChart()
                     ->elementLabel('clients_by_payment_methods')
                     ->labels($clients_by_payment_methods_query->pluck('title'))
                     ->values($clients_by_payment_methods_query->pluck('num'))
-                     ->width(1300)
-                     ->height(800)
+                     ->width(1200)
+                     ->height(700)
                     ->responsive(false);
 
     return ($clients_by_payment_methods);
@@ -143,8 +143,8 @@ public  function getServiceCategoryChart()
                     ->elementLabel('service_by_categories')
                     ->labels($service_by_categories_query->pluck('title'))
                     ->values($service_by_categories_query->pluck('num'))
-                     ->width(1300)
-                     ->height(800)
+                     ->width(1200)
+                     ->height(700)
                     ->responsive(false);
 
     return ($service_by_categories);

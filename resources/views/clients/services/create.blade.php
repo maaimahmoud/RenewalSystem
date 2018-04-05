@@ -12,6 +12,8 @@
           <input name="_method" type="hidden" value="PUT">
         <h5 style="text-align: center;">Edit <a href="{{route('services.show',['id'=>$current_service->id])}}"> {{ $current_service->title }}</a> service to <a href="{{route('clients.show',['id'=>$client->id])}}">{{ $client->name }}</a></h5>
     @endif
+    <div id="errors">
+    </div>
     <div class="form-group col-md-6 mb-3">
 
 
@@ -45,7 +47,7 @@
                <select class="custom-select mb-3" value="Open this select menu" name="payment_method" id="payment_method" required>
                 <option disabled selected value> -- Select Payment Method -- </option>
                     @foreach ($paymentmethods as $payment_method)
-                      <option value="<?php echo $payment_method->months; ?>">{{$payment_method->title}} ( every {{ $payment_method->months }} months)</option>
+                      <option value="<?php echo $payment_method->id; ?>">{{$payment_method->title}} ( every {{ $payment_method->months }} months)</option>
                     @endforeach
               </select>
 
@@ -127,7 +129,7 @@ editserviceload();
             @if (isset($current_service) )
                 $('#services').val( {{ $current_service->id}} ).prop('disabled', 'disabled');
                 $('#servicecategories').val( {{ $current_service->category_id}} ).prop('disabled', 'disabled');
-                $('#payment_method').val( {{ $current_payment_method->months}} );
+                $('#payment_method').val( {{ $current_payment_method->id}} );
                 var now = new Date("{{ $current_end_time }}");
                 var day = ("0" + now.getDate()).slice(-2);
                 var month = ("0" + (now.getMonth() + 1)).slice(-2);

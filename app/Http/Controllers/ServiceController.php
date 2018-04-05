@@ -147,6 +147,15 @@ class ServiceController extends Controller
                 return redirect('/services')->withErrors('no service with that id');
             }
             $service->category=ServiceCategories::find($service->category_id);
+            
+            //get count of clients that currently use this service
+            $count_clients = count(DB::table('client_services')
+                                ->where('end_time', '>', 'NOW()')
+                                ->where('service_id', $id)
+                                ->select('client_id')
+                                ->distinct('client_id')
+                                ->get());
+
         }
         catch (QueryException $e)
         {
@@ -156,7 +165,7 @@ class ServiceController extends Controller
         }
 
         //show page of service's information
-        return view('services.show')->with('service', $service);
+        return view('services.show', compact('service', 'count_clients'));
     }
 
     /**
