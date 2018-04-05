@@ -71,6 +71,7 @@ class TriggerEmails extends Command
     protected function getMailsInfo ($ids)
     {
         return DB::table('client_services')
+                ->where('end_time','<=','curdate()')
                 ->whereIn('client_services.id', $ids)
                 ->join('clients', 'client_services.client_id', '=', 'clients.id')
                 ->join('services', 'client_services.service_id', '=', 'services.id')
