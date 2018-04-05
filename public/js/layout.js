@@ -32,8 +32,9 @@ $(document).ready(function () {
             else {
                     var duplicate = false;
                     for (var i = 1; i <= value; i++) {
+                      if($('#mailremind'+i).val()){
                       for (var j = i+1; j <= value; j++) {
-                          if($('#mailremind'+i).val()){
+                          
                           if ($('#mailremind'+i).val() == $('#mailremind'+j).val()){
                                 duplicate=true;
                                 $('#mailremind'+j).val("");
@@ -71,8 +72,17 @@ $(document).ready(function () {
                   var valid=true;
 
                   $('#errors div').remove();
+                  
+                  var value=$('#numberofreminders').val();
+                  var noReminders=true;
+                  for (var i=1;i<value;i++){
+                    if ($('#mailremind'+i).val()){
+                      noReminders=false;
+                      break;
+                    }
+                  }
 
-                  if ( $("#mailremind1").val() == ""){
+                  if (noReminders == true){
                         $('#errors').prepend('<div class="alert alert-danger"> Please choose at least one mail reminder </div>');
                         valid= false;
                       }
@@ -89,11 +99,13 @@ $(document).ready(function () {
                       $('#errors').prepend('<div class="alert alert-danger"> Please choose at e-mail reminders before duration less than payment method </div>');
                     }
                       for (var j = i+1; j <= value; j++) {
+                        if($('#mailremind'+i).val()){
                         if ($('#mailremind'+i).val() == $('#mailremind'+j).val()){
                               duplicate=true;
                               $('#mailremind'+j).val("");
                             }
                       }
+                    }
                     }
 
                       if (duplicate){
