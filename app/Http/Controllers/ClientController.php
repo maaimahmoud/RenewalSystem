@@ -26,7 +26,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the clients.
      *
      * @return \Illuminate\Http\Response
      */
@@ -53,7 +53,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new client.
      *
      * @return \Illuminate\Http\Response
      */
@@ -64,7 +64,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created client in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -105,7 +105,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified client.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -139,7 +139,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified client.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -169,7 +169,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified client in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -225,7 +225,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified client from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

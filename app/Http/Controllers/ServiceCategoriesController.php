@@ -20,7 +20,7 @@ class ServiceCategoriesController extends Controller
         $this->middleware('auth');
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the category.
      *
      * @return \Illuminate\Http\Response
      */
@@ -40,7 +40,7 @@ class ServiceCategoriesController extends Controller
         return view ('servicescategories.show')->with('categories',$categories);
     }
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new category.
      *
      * @return \Illuminate\Http\Response
      */
@@ -49,7 +49,7 @@ class ServiceCategoriesController extends Controller
        //
     }
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created category in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -83,7 +83,7 @@ class ServiceCategoriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified category in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -131,7 +131,7 @@ class ServiceCategoriesController extends Controller
          return redirect('/servicescategories')->with('success', 'information was edited successfully');
     }
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified category from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -162,7 +162,7 @@ class ServiceCategoriesController extends Controller
         return redirect('/servicescategories')->with('success', 'Category was removed successfully');
     }
     /**
-     * Display the specified resource.
+     * Display the specified category.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -173,7 +173,7 @@ class ServiceCategoriesController extends Controller
          return redirect('/servicescategories')->withErrors('url is not correct');
     }
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified category.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

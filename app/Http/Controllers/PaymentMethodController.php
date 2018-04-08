@@ -21,7 +21,7 @@ class PaymentMethodController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the payment method.
      *
      * @return \Illuminate\Http\Response
      */
@@ -44,7 +44,7 @@ class PaymentMethodController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created payment method in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -83,7 +83,7 @@ class PaymentMethodController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified payment method in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -136,7 +136,7 @@ class PaymentMethodController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified payment method from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -169,7 +169,7 @@ class PaymentMethodController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new payment method.
      *
      * @return \Illuminate\Http\Response
      */
@@ -179,7 +179,7 @@ class PaymentMethodController extends Controller
 
     }
     /**
-     * Display the specified resource.
+     * Display the specified payment method.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -190,7 +190,7 @@ class PaymentMethodController extends Controller
         return redirect('/paymentmethods')->withErrors('url is not correct');
     }
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified payment method.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
