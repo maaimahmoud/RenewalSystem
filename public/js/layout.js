@@ -75,7 +75,7 @@ $(document).ready(function () {
                   
                   var value=$('#numberofreminders').val();
                   var noReminders=true;
-                  for (var i=1;i<value;i++){
+                  for (var i=1;i<=value;i++){
                     if ($('#mailremind'+i).val()){
                       noReminders=false;
                       break;

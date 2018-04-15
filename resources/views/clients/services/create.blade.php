@@ -67,15 +67,23 @@
                     @php
                       $i=1;
                     @endphp
-                    @foreach ($current_mailing_methods as $value)
-                      <input type="number" class="form-control is-valid mb-3" name="mailreminder{{ $i }}" placeholder="Reminder" min="1" id="mailremind{{ $i }}" value={{$value->days_to_mail}}>
-                      @php
-                        $i=$i+1;
-                      @endphp
-                    @endforeach
-                    <script type="text/javascript">
-                    $('#numberofreminders').val({{ count($current_mailing_methods) }});
-                    </script>
+                    @if(count($current_mailing_methods) >0)
+                      @foreach ($current_mailing_methods as $value)
+                        <input type="number" class="form-control is-valid mb-3" name="mailreminder{{ $i }}" placeholder="Reminder" min="1" id="mailremind{{ $i }}" value={{$value->days_to_mail}}>
+                        @php
+                          $i=$i+1;
+                        @endphp
+                      @endforeach
+                      <script type="text/javascript">
+                        $('#numberofreminders').val({{ count($current_mailing_methods) }});
+                      </script>
+                    @else
+                      <input type="number" class="form-control is-valid mb-3" name="mailreminder1" placeholder="Reminder" min="1" id="mailremind1">
+                      <script type="text/javascript">
+                        $('#numberofreminders').val(1);
+                      </script>
+                    @endif
+                    
                   @endif
                 </div>
 
