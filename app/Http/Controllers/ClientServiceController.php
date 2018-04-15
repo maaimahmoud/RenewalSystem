@@ -29,7 +29,7 @@ class ClientServiceController extends Controller
 
 
   /**
-   * Show the form for creating a new resource.
+   * Show the form for creating a new client_service.
    *
    * @return \Illuminate\Http\Response
    */
@@ -67,7 +67,7 @@ class ClientServiceController extends Controller
   }
 
   /**
-   * Store a newly created resource in storage.
+   * Store a newly created client_service in storage.
    *
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
@@ -147,7 +147,7 @@ class ClientServiceController extends Controller
   }
 
   /**
-   * Display the specified resource.
+   * Display the specified client_service.
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
@@ -186,7 +186,7 @@ class ClientServiceController extends Controller
   }
 
   /**
-   * Show the form for editing the specified resource.
+   * Show the form for editing the specified client_service.
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
@@ -234,7 +234,7 @@ class ClientServiceController extends Controller
 }
 
   /**
-   * Update the specified resource in storage.
+   * Update the specified client_service in storage.
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  int  $id
@@ -302,7 +302,7 @@ class ClientServiceController extends Controller
   }
 
   /**
-   * Remove the specified resource from storage.
+   * Remove the specified client_service from storage.
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
@@ -330,6 +330,10 @@ class ClientServiceController extends Controller
       return redirect('/clients/'.$client_id)->with('success', 'Service has been deleted successfully');;
   }
 
+  /*
+  * This funciton sets the end date of the service to now
+  * to stop the client from using this service
+  */
   public function stop($client_id,$service_id)
   {
       try
@@ -354,7 +358,7 @@ class ClientServiceController extends Controller
       return redirect('/clients/'.$client_id)->with('success', 'Service has been stopped successfully');;
   }
 
-  /*
+/*
 * This function to support the client to pay for his service
 *
 */

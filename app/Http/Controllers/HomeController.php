@@ -35,6 +35,11 @@ class HomeController extends Controller
     {
       return view('welcome');
     }
+
+    /*
+    * This function gets events to be displayed in the calender
+    * in the home page
+    */
     public function getEvents()
     {
       $array=array();

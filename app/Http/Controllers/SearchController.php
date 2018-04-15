@@ -21,9 +21,11 @@ class SearchController extends Controller
     {
         $this->middleware('auth');
     }
-    //
 
-
+    /*
+    *this function searches for a client from an input from a user
+    *and searches by name, phone, address and email
+    */
     public function searchClient()
     {
         //get the search key
@@ -48,8 +50,10 @@ class SearchController extends Controller
         return view('clients.index', compact('clients', 'services','key'));
     }
 
-
-    //
+    /*
+    * This function takes input from user and searches for a service
+    * by title, description and cost
+    */
     public function searchService()
     {
         //get the search key
