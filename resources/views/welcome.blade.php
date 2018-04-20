@@ -19,6 +19,7 @@ body {
 
 @section('content')
 
+    <h3 style="text-align: center;">Payment Dates</h3>
     <div id='calendar'></div>
 
 @endsection

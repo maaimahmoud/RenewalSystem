@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         factory(App\Client::class,300)->create();
         factory(App\Service::class,50)->create();
         factory(App\ClientService::class,500)->create();
-        factory(App\MailingMethodClientServices::class,1000)->create();
+        factory(App\MailingMethodClientServices::class,5000)->create();
     }
 }
