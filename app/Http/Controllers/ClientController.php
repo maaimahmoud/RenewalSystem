@@ -256,5 +256,5 @@ class ClientController extends Controller
         //redirect to clients page
         return redirect('/clients')->with('success', 'Client was removed from system successfully');
     }
-
+    
 }

@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\TriggerEmails::class,
+        \App\Console\Commands\TriggerMoney::class,
     ];
 
     /**
@@ -28,7 +29,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('TriggerEmails:checkmails')->daily();        
+        $schedule->command('TriggerEmails:checkmails')->daily();      
+        $schedule->command('TriggerEmails:AddRequiredMoney')->daily();  
     }
 
     /**
