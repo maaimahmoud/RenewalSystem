@@ -7,6 +7,8 @@ use Illuminate\Console\Command;
 use App\PaymentMethod;
 use Carbon\Carbon;
 use App\ClientService;
+use DB;
+use App\Service;
 
 class TriggerMoney extends Command
 {
@@ -15,7 +17,7 @@ class TriggerMoney extends Command
      *
      * @var string
      */
-    protected $signature = 'TriggerEmails:AddRequiredMoney';
+    protected $signature = 'TriggerMoney:AddRequiredMoney';
 
     /**
      * The console command description.
