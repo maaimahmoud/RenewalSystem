@@ -1,8 +1,8 @@
 <?php
 
-use Faker\Generator as Faker;
 
-$factory->define(App\ClientService::class, function (Faker $faker) {
+$factory->define(App\ClientService::class, function () {
+    $faker = Faker\Factory::create('ar_SA');
     return [
         'client_id'=>$faker->numberBetween(1, App\Client::count()),
         'service_id'=>$faker->numberBetween(1, App\Service::count()),
