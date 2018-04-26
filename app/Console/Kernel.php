@@ -5,8 +5,6 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-use App\Client;
-use Illuminate\Support\Str;
 
 
 class Kernel extends ConsoleKernel
@@ -18,6 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\TriggerEmails::class,
+        \App\Console\Commands\TriggerMoney::class,
     ];
 
     /**
@@ -28,7 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('TriggerEmails:checkmails')->daily();        
+        $schedule->command('TriggerEmails:checkmails')->daily();      
+        $schedule->command('TriggerMoney:AddRequiredMoney')->daily();  
     }
 
     /**

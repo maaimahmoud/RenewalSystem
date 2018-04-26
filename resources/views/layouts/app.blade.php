@@ -57,7 +57,7 @@
                                         </a>
 
                                         <a class="dropdown-item" href="/servicescategories">
-                                            Service Categories
+                                            Categories
                                         </a>
 
                                     </div>

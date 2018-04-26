@@ -148,7 +148,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Stop Service</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete Service</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -158,7 +158,7 @@
       </div>
       <div class="modal-footer">
         <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
-        <a type="button" class="btn btn-outline-primary" href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">Stop</a>
+        <a type="button" class="btn btn-outline-primary" href="{{ route('client.service.delete',['clients'=>$client->id , 'service'=>$relation->id ] ) }}">Delete</a>
       </div>
     </div>
   </div>
