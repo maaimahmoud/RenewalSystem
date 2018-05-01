@@ -1,8 +1,9 @@
 <?php
 
-use Faker\Generator as Faker;
 
-$factory->define(App\Service::class, function (Faker $faker) {
+
+$factory->define(App\Service::class, function() {
+	$faker = Faker\Factory::create('ar_SA');
     return [
         'title'=>$faker->unique()->text($maxNbChars = 20),
         'category_id'=>$faker->numberBetween(1, App\ServiceCategories::count()),

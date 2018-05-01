@@ -1,8 +1,8 @@
 <?php
 
-use Faker\Generator as Faker;
 
-$factory->define(App\PaymentMethod::class, function (Faker $faker) {
+$factory->define(App\PaymentMethod::class, function () {
+	$faker = Faker\Factory::create('ar_SA');
     return [
         'title' => $faker->unique()->text($maxNbChars = 20),
         'months' => $faker->unique()->numberBetween(1,24),

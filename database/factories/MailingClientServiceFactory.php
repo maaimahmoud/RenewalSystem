@@ -1,8 +1,7 @@
 <?php
 
-use Faker\Generator as Faker;
-
-$factory->define(App\MailingMethodClientServices::class, function (Faker $faker) {
+$factory->define(App\MailingMethodClientServices::class, function () {
+	$faker = Faker\Factory::create('ar_SA');
     return [
         'days_to_mail'=>$faker->numberBetween(1, 45),
         'required_months_to_pay'=>$faker->numberBetween(1, 24),
