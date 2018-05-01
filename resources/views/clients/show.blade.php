@@ -83,7 +83,6 @@
 
 
                       @foreach ($client->relation as $relation)
-
                         @php
                             $url='/clients/'. $client{'id'}.'/service/'.$relation{'id'};
                             $end_date=$relation->end_time;
@@ -92,7 +91,9 @@
 
                         @if ($end_date > date('Y-m-d'))
                           <tr class="table-success">
-                            <td><a href="{{ $url }}" >{{$relation->title}}</a></td>
+                            <td><a href="{{ $url }}" >{{$relation->title}}</a>
+                       
+                       </td>
                             <td>{{ $end_date }}</td>
                           </tr>
                         @else

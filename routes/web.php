@@ -40,7 +40,10 @@ Route::get('clients/{client}/service/{service}/delete', 'ClientServiceController
 
 Route::get('clients/{client}/service/{service}/stop', 'ClientServiceController@stop')->name('client.service.stop');
 
-//Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
+Route::put('client/{days_to_mail}/editReminder/{client_services_id}','ClientServiceController@editReminder')->name('client.service.editReminder');
+Route::get('client/{days_to_mail}/deleteReminder/{client_services_id}','ClientServiceController@deleteReminder')->name('client.service.deleteReminder');
+
+// Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
 
 // Services Categories routes

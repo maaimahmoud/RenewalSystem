@@ -415,7 +415,73 @@ public function payForService($client_id, $relation_id)
         return redirect('/home')->withErrors($myerrors);
     }
 
-    return redirect('/clients/'.$client_id.'/service/'.$relation->id)->with('success', 'successfully paid');
+    return redirect('/clients/'.$client_id.'/service/'.$relation->id)->with('success', 'Successfully paid');
+}
+
+public function editReminder(Request $request,$days_to_mail, $client_service_id)
+{
+
+   $this->validate($request, [
+            'day_to_mail' => 'required|numeric|max:50|min:1']);
+    //get all reminders to this services through this client
+    $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->orderBy('days_to_mail')->get();
+    // get their number 
+    $mailing_methods_number=$mailing_methods->count();
+    // get relation in order to be redirected 
+    $relation=ClientService::find($client_service_id);
+    // loop on already made reminders in order to be unique
+    for ($i=0;$i<$mailing_methods_number;$i++)
+    {
+      if ($mailing_methods[$i]->days_to_mail==$request->input('day_to_mail'))
+      {
+          $message=" this reminder is already made";
+          $myerrors = array($message);
+
+          return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+      }
+    } 
+// get reduired edited one in order to change it 
+    $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->get()->first();
+        try{
+          $new=new MailingMethodClientServices;
+              $new->client_services_id=$client_service_id;
+              $new->days_to_mail=$request->input('day_to_mail');
+              $new->last_paid_date=$mailing_method->last_paid_date;
+              $new->required_months_to_pay=$mailing_method->required_months_to_pay;
+              $new->save();
+        }
+       catch (QueryException $e)
+       {
+        $message = 'cannot connect to database';
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
+        }
+
+    $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
+    return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success', 'Successfully Edited');
+}
+
+
+
+public function deleteReminder($days_to_mail,$client_service_id)
+{
+   // get relation in order to be redirected 
+    $relation=ClientService::find($client_service_id);
+    $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->orderBy('days_to_mail')->get();
+    // get their number 
+    $mailing_methods_number=$mailing_methods->count();
+     // get relation in order to be redirected 
+    $relation=ClientService::find($client_service_id);
+    // check that there exist another reminders 
+    if ($mailing_methods_number<= 1)
+    {
+      $message=" there will be no reminders so this can't be deleted";
+       $myerrors = array($message);
+      return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+    }
+    // get specific reminder in order to delete it 
+   $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
+   return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('sucess','successfully deleted');
 }
 
 
