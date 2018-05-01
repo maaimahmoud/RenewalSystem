@@ -132,7 +132,9 @@
         </button>
       </div>
       <div class="modal-body">
-        Are you sure you want to stop this service from {{ $client->name }}?
+        <p>Are you sure you want to stop this service from {{ $client->name }}?</p>
+
+        <p>Note: This client has {{ $relation->required_money }} LE late fees.</p>
       </div>
       <div class="modal-footer">
         <a type="button" class="btn btn-outline-primary"  data-dismiss="modal">Cancel</a>
