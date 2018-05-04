@@ -64,7 +64,6 @@ class TriggerEmails extends Command
         $ID_Arr = [];
 
         foreach($result as $row){
-            echo ((array) $row)['id'];
             $ID_Arr[] = ((array) $row)['id'];
         }
         return $ID_Arr;        
@@ -89,7 +88,7 @@ class TriggerEmails extends Command
             $mail_info=((array) $data);
             //sending mail to every client
             Mail::send('mail', $mail_info, function($message) use ($mail_info) {
-                $message->to('remoash97@gmail.com', $mail_info['client_name'])
+                $message->to($mail_info['email'], $mail_info['client_name'])
                         ->subject($mail_info['service_name']);
                 $message->from('systemrenewal@gmail.com','ismart');
             });
