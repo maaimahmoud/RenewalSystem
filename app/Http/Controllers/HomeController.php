@@ -7,6 +7,14 @@ use App\Client;
 use App\ClientService;
 use App\PaymentMethod;
 
+
+
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
+
 class Event
 {
   public $title;
@@ -35,6 +43,7 @@ class HomeController extends Controller
     {
       return view('welcome');
     }
+   
 
     /*
     * This function gets events to be displayed in the calender

@@ -22,7 +22,7 @@ class ClientService extends Seeder
         'payment_method'=>$faker->numberBetween(1, App\PaymentMethod::count()),
         'balance'=>$faker->numberBetween(0,0),
         'end_time'=>$faker->dateTimeInInterval($startDate = '-1 years', $interval = '+ 5 years', $timezone = null) ,
-        'required_money'=>$faker->numberBetween(1,1000),
+        'required_money'=>$faker->numberBetween(0,0),
         'created_at'=>$faker->dateTimeInInterval($startDate = '-6 years', $interval = '+ 6 years', $timezone = null) ,
         'updated_at'=>$faker->dateTimeInInterval($startDate = '-6 years', $interval = '+ 6 years', $timezone = null) 
 

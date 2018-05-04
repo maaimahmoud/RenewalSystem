@@ -12,7 +12,7 @@
 */
 
 
-
+//Route::get ('/mail','HomeController@mail');
 Route::get('/', 'HomeController@index');
 
 Route::get('/getEvents','HomeController@getEvents');
