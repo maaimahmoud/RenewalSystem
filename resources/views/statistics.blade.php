@@ -57,18 +57,17 @@
   	<div class="card bg-white text-dark " style="width: 10rem; ">
      <a href="/paymentmethods"><div class="  mt-2 ml-4"> Methods <h4>{{ $payment_method_count }}</h4></div></a>
   </div>
-  </div>
+ </div>
 </div>
 
 <div class="wordart slate ml-5 mb-3"><span class="text" >Statistics for the last 5 years</span></div>
-
-<div class="container-fluid mb-5 ml-3" >
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
+  <div class="container-fluid mb-5 ml-3" >
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
   <div class="carousel-inner ">
     <div class="carousel-item active">
       	<div class="col-md-12">
@@ -102,7 +101,7 @@
         	</div>
         	{!! Charts::scripts() !!}
 			{!! $service_categories_time->script() !!}
-</div>
+    </div>
   </div>
 
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -113,7 +112,7 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>
+    </div>
 </div>
 
 <div class="wordart slate ml-5 mb-3"><span class="text" >Statistical Pie Charts</span></div>
@@ -181,9 +180,7 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
+   </div>
 </div>
-</div>
-
-
 
 @endsection

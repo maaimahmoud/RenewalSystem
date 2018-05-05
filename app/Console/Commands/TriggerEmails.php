@@ -62,7 +62,6 @@ class TriggerEmails extends Command
                             WHERE  DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH) > curdate()
                             AND DATEDIFF( DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH), curdate() ) = days_to_mail;');
         $ID_Arr = [];
-
         foreach($result as $row){
             $ID_Arr[] = ((array) $row)['id'];
         }
@@ -78,21 +77,18 @@ class TriggerEmails extends Command
                 ->join('services', 'client_services.service_id', '=', 'services.id')
                 ->select('clients.name as client_name', 'clients.email as email','clients.phone_number','client_services.balance as balance','client_services.required_money as required_money','services.title as service_name')
                 ->get();
-
     }
 
     protected function sendMails ($mails_info)
     {
-
         foreach ($mails_info as $data){
             $mail_info=((array) $data);
             //sending mail to every client
             Mail::send('mail', $mail_info, function($message) use ($mail_info) {
-                $message->to($mail_info['email'], $mail_info['client_name'])
+                $message->to( $mail_info['email'], $mail_info['client_name'])
                         ->subject($mail_info['service_name']);
                 $message->from('systemrenewal@gmail.com','ismart');
             });
-        }
-      
+        } 
     }
 }

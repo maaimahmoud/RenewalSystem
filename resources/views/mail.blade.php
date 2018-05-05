@@ -8,7 +8,6 @@
 }
 </style>
 <div class= "container-fluid ">
-
 	<div class="card border-primary ml-auto mt-5 mr-auto" style="max-width: 18rem;">
 	  <div class="card-body text-dark">
 	    <h5 class="card-title">Dear {{ $client_name }}, </h5>
