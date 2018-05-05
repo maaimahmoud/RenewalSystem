@@ -30,17 +30,17 @@ class PaymentMethodController extends Controller
         try
         {
             //retrieve all payment methods
-            $paymentmethods = PaymentMethod::orderBy('title')->get();
+            $payment_methods = PaymentMethod::orderBy('title')->get();
         }
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //show them in the page
-        return view('paymentmethods.show')->with('paymentmethods', $paymentmethods);
+        return view('paymentmethods.show')->with('payment_methods', $payment_methods);
     }
 
     /**
@@ -72,8 +72,8 @@ class PaymentMethodController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid";
-            $myerrors = array($message);
-            return redirect('/paymentmethods')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/paymentmethods')->withErrors($my_errors);
         }
 
 
@@ -105,8 +105,8 @@ class PaymentMethodController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/paymentmethods')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/paymentmethods')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
@@ -127,8 +127,8 @@ class PaymentMethodController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid and that the title of payment method is unique";
-            $myerrors = array($message);
-            return redirect('/paymentmethods')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/paymentmethods')->withErrors($my_errors);
         }
 
          //redirect to the page of servicescategories
@@ -160,8 +160,8 @@ class PaymentMethodController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot delete this payment method as it is currently in use';
-            $myerrors = array($message);
-            return redirect('/paymentmethods')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/paymentmethods')->withErrors($my_errors);
         }
 
         //return to payment mehtods page

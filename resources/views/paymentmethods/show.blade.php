@@ -3,7 +3,7 @@
 
 @section('content')
 
-  @if(count($paymentmethods) == 0)
+  @if(count($payment_methods) == 0)
     <div class="alert alert-danger" role="alert"> There is no Payment Methods </div>
   @endif
 
@@ -18,8 +18,8 @@
               </div>
             </a>
         </div>
-        @if (count($paymentmethods)>0)
-            @foreach ($paymentmethods as $payment)
+        @if (count($payment_methods)>0)
+            @foreach ($payment_methods as $payment)
                 <div class="col-sm-3 ml-4 mr-5 mt-3">
                   <div class="card">
                       <div class="card-body">
@@ -34,7 +34,7 @@
                   </div>
             @endforeach
   </div>
-            @foreach ($paymentmethods as $payment)
+            @foreach ($payment_methods as $payment)
                  <div class="modal fade" id="deleteModalCenter{{ $payment->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">

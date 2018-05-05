@@ -53,10 +53,10 @@ class FilterController extends Controller
             $page = Input::get('page', 1);
 
             //set number of items in a single page
-            $perPage = 24;
+            $per_Page = 24;
 
             //create the clients paginator
-            $clients = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+            $clients = new LengthAwarePaginator($items->forPage($page, $per_Page), $items->count(), $per_Page, $page, [
                 'path' => Paginator::resolveCurrentPath()
             ]);
 
@@ -66,8 +66,8 @@ class FilterController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //go to view all filtered clients
@@ -103,10 +103,10 @@ class FilterController extends Controller
             $page = Input::get('page', 1);
 
             //set number of items in a single page
-            $perPage = 24;
+            $per_Page = 24;
 
             //create the clients paginator
-            $services = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+            $services = new LengthAwarePaginator($items->forPage($page, $per_Page), $items->count(), $per_Page, $page, [
                 'path' => Paginator::resolveCurrentPath()
             ]);
 
@@ -116,8 +116,8 @@ class FilterController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
 

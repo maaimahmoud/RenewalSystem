@@ -41,8 +41,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
         //show services in the page
         return view('services.index', compact('services', 'categories'));
@@ -66,8 +66,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection with database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
         //just go to the add service page
         return view('services.create', compact('payment_methods', 'categories'));
@@ -106,8 +106,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         try
@@ -119,9 +119,9 @@ class ServiceController extends Controller
         {
             $message = 'please check that the information are valid';
 
-            $myerrors = array($message);
+            $my_errors = array($message);
 
-            return redirect('/services/create')->withErrors($myerrors);
+            return redirect('/services/create')->withErrors($my_errors);
         }
 
         //redirect to services page
@@ -159,8 +159,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //show page of service's information
@@ -183,8 +183,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
@@ -214,8 +214,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //go to the edit page
@@ -264,8 +264,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         try
@@ -276,8 +276,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid and the title of the service is unique";
-            $myerrors = array($message);
-            return redirect('/services/'.$id.'/edit')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/services/'.$id.'/edit')->withErrors($my_errors);
         }
 
         //redirect to clients page
@@ -309,8 +309,8 @@ class ServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
-            $myerrors = array($message);
-            return redirect('/services/'.$id)->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/services/'.$id)->withErrors($my_errors);
         }
 
         //redirect to services' page

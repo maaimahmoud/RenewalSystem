@@ -49,8 +49,8 @@ class TriggerEmails extends Command
 
         if ($client_services_id_to_mail)
         {
-            $Mails_Infos = $this->getMailsInfo($client_services_id_to_mail);
-            $this->sendMails ($Mails_Infos);
+            $mails_infos = $this->getMailsInfo($client_services_id_to_mail);
+            $this->sendMails ($mails_infos);
         }
 
     }
@@ -61,11 +61,11 @@ class TriggerEmails extends Command
                             FROM mailing_method_client_services
                             WHERE  DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH) > curdate()
                             AND DATEDIFF( DATE_ADD( last_paid_date , INTERVAL required_months_to_pay MONTH), curdate() ) = days_to_mail;');
-        $ID_Arr = [];
+        $id_arr = [];
         foreach($result as $row){
-            $ID_Arr[] = ((array) $row)['id'];
+            $id_arr[] = ((array) $row)['id'];
         }
-        return $ID_Arr;        
+        return $id_arr;        
     }
 
     protected function getMailsInfo ($ids)

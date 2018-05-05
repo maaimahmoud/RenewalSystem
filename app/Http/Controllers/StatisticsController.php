@@ -26,7 +26,7 @@ class StatisticsController extends Controller
         $this->middleware('auth');
     }
 
-    public function getcolors($number)
+    public function getColors($number)
     {
         $colors =array ("FFA07A",
         "20B2AA",
@@ -177,8 +177,8 @@ public function getClientServiceChart()
     //prepare data in order to put it chart 
     $clients_by_services_q=StatisticsController::getClientServiceQuery();
     //put data in chart shape
-      $clients_by_services = Charts::create('pie', 'highcharts')
-                    ->colors(StatisticsController::getcolors($clients_by_services_q['count']))
+    $clients_by_services = Charts::create('pie', 'highcharts')
+                    ->colors(StatisticsController::getColors($clients_by_services_q['count']))
                     ->title('clients_by_services')
                     ->elementLabel('clients_by_services')
                     ->labels($clients_by_services_q['clients_by_services_query']->pluck('title'))
@@ -212,7 +212,7 @@ public function getClientCategoryChart()
     // put data in chart shape
     $clients_by_categories = Charts::create('pie', 'highcharts')
                     ->title('clients_by_categories')
-                    ->colors(StatisticsController::getcolors($clients_by_categories_q['count']))
+                    ->colors(StatisticsController::getColors($clients_by_categories_q['count']))
                     ->elementLabel('clients_by_categories')
                     ->labels($clients_by_categories_q['clients_by_categories_query']->pluck('title'))
                     ->values($clients_by_categories_q['clients_by_categories_query']->pluck('num'))
@@ -241,12 +241,12 @@ public  function getClientPaymentMethodChart()
        // put data in chart shape
       $clients_by_payment_methods = Charts::create('pie', 'highcharts')
                     ->title('clients_by_payment_methods')
-                    ->colors(StatisticsController::getcolors($clients_by_payment_methods_q['count']))
+                    ->colors(StatisticsController::getColors($clients_by_payment_methods_q['count']))
                     ->elementLabel('clients_by_payment_methods')
                     ->labels($clients_by_payment_methods_q['clients_by_payment_methods_query']->pluck('title'))
                     ->values($clients_by_payment_methods_q['clients_by_payment_methods_query']->pluck('num'))
-                     ->width(1200)
-                     ->height(700)
+                    ->width(1200)
+                    ->height(700)
                     ->responsive(false);
 
     return ($clients_by_payment_methods);
@@ -272,12 +272,12 @@ public  function getServiceCategoryChart()
        // put data in chart shape
     $service_by_categories = Charts::create('pie', 'highcharts')
                     ->title('service_by_categories')
-                    ->colors(StatisticsController::getcolors($service_by_categories_q['count']))
+                    ->colors(StatisticsController::getColors($service_by_categories_q['count']))
                     ->elementLabel('service_by_categories')
                     ->labels($service_by_categories_q['service_by_categories_query']->pluck('title'))
                     ->values($service_by_categories_q['service_by_categories_query']->pluck('num'))
-                     ->width(1200)
-                     ->height(700)
+                    ->width(1200)
+                    ->height(700)
                     ->responsive(false);
 
     return ($service_by_categories);
@@ -305,7 +305,7 @@ public function getServiceChartWithTime()
                     ->title('Services')
                     ->dimensions(1000, 500)
                     ->responsive(false)
-                     ->width(1300)
+                    ->width(1300)
                     ->groupByYear(5);
     return($service_time);
 }

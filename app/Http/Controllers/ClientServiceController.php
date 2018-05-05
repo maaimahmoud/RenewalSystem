@@ -49,21 +49,21 @@ class ClientServiceController extends Controller
       //Get All Services from database to add one of them to client
       $services = Service::All();
       //Get All payment methods from database to add one of them to client
-      $paymentmethods = PaymentMethod::orderBy('months')->get();
+      $payment_methods = PaymentMethod::orderBy('months')->get();
       //if client wants to add a service to a particular category
-      $servicecategories=ServiceCategories::All();
+      $service_categories=ServiceCategories::All();
       //intialize variables to distinguish between editing and adding service
 
     }
     catch (QueryException $e)
     {
         $message = 'problem with connecting to database';
-        $myerrors = array($message);
-        return redirect('/home')->withErrors($myerrors);
+        $my_errors = array($message);
+        return redirect('/home')->withErrors($my_errors);
     }
 
     //Go to the input page with provided lists
-    return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
+    return view('clients.services.create',compact('client','services','relation','payment_methods','service_categories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
   }
 
   /**
@@ -88,8 +88,8 @@ class ClientServiceController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
@@ -121,9 +121,9 @@ class ClientServiceController extends Controller
         {
             $message = "please check that the information is valid";
 
-            $myerrors = array($message);
+            $my_errors = array($message);
 
-            return redirect()->route('clients.show',['id' => $client->id])->withErrors($myerrors);
+            return redirect()->route('clients.show',['id' => $client->id])->withErrors($my_errors);
         }
 
         for ($i=1; $i <= $reminders ; $i++) {
@@ -174,8 +174,8 @@ class ClientServiceController extends Controller
     catch (QueryException $e)
     {
         $message = 'problem with connecting to database';
-        $myerrors = array($message);
-        return redirect('/home')->withErrors($myerrors);
+        $my_errors = array($message);
+        return redirect('/home')->withErrors($my_errors);
     }
 
     // Get payment method info for this Relation
@@ -210,9 +210,9 @@ class ClientServiceController extends Controller
         //Get the service information
         $services=Service::All();
         //Get the category for service
-        $servicecategories=ServiceCategories::All();
+        $service_categories=ServiceCategories::All();
         //Get All payment methods from database if the client wants to change his current payment method
-        $paymentmethods = PaymentMethod::orderBy('months')->get();
+        $payment_methods = PaymentMethod::orderBy('months')->get();
         ///////////////////////////////
         $current_service =Service::find($relation->service_id);
         //Get current paymentmethod
@@ -226,8 +226,8 @@ class ClientServiceController extends Controller
       catch (QueryException $e)
       {
         $message = 'cannot connect to database';
-        $myerrors = array($message);
-        return redirect('/home')->withErrors($myerrors);
+        $my_errors = array($message);
+        return redirect('/home')->withErrors($my_errors);
       }
       //Go to the input page with provided lists
       return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
@@ -251,8 +251,8 @@ class ClientServiceController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
@@ -311,19 +311,19 @@ class ClientServiceController extends Controller
   {
       try
       {
-        $clientservice=ClientService::find($service_id);
+        $client_service=ClientService::find($service_id);
         //if there is no client with this id return that there is no client
-        if ($clientservice == [])
+        if ($client_service == [])
         {
             return redirect('/clients')->withErrors('url is not correct');
         }
-        $clientservice->delete();
+        $client_service->delete();
       }
       catch (QueryException $e)
       {
           $message = 'problem with connection to database';
-          $myerrors = array($message);
-          return redirect('/home')->withErrors($myerrors);
+          $my_errors = array($message);
+          return redirect('/home')->withErrors($my_errors);
       }
 
       //redirect to clients page
@@ -338,20 +338,20 @@ class ClientServiceController extends Controller
   {
       try
       {
-        $clientservice=ClientService::find($service_id);
+        $client_service=ClientService::find($service_id);
         //if there is no client with this id return that there is no client
-        if ($clientservice == [])
+        if ($client_service == [])
         {
             return redirect('/clients')->withErrors('url is not correct');
         }
-        $clientservice->end_time=date('Y-m-d H:i:s');
-        $clientservice->save();
+        $client_service->end_time=date('Y-m-d H:i:s');
+        $client_service->save();
       }
       catch (QueryException $e)
       {
           $message = 'problem with connection to database';
-          $myerrors = array($message);
-          return redirect('/home')->withErrors($myerrors);
+          $my_errors = array($message);
+          return redirect('/home')->withErrors($my_errors);
       }
 
       //redirect to clients page
@@ -382,8 +382,8 @@ public function payForService($client_id, $relation_id)
     catch (QueryException $e)   
     {
         $message = 'cannot connect to database';
-        $myerrors = array($message);
-        return redirect('/home')->withErrors($myerrors);
+        $my_errors = array($message);
+        return redirect('/home')->withErrors($my_errors);
     }
 
     //get the total money of the client by adding paid money to the balance of him/her
@@ -411,8 +411,8 @@ public function payForService($client_id, $relation_id)
     catch (QueryException $e)
     {
         $message = 'cannot connect to database';
-        $myerrors = array($message);
-        return redirect('/home')->withErrors($myerrors);
+        $my_errors = array($message);
+        return redirect('/home')->withErrors($my_errors);
     }
 
     return redirect('/clients/'.$client_id.'/service/'.$relation->id)->with('success', 'Successfully paid');
@@ -435,9 +435,9 @@ public function editReminder(Request $request,$days_to_mail, $client_service_id)
       if ($mailing_methods[$i]->days_to_mail==$request->input('day_to_mail'))
       {
           $message=" this reminder is already made";
-          $myerrors = array($message);
+          $my_errors = array($message);
 
-          return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+          return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($my_errors);
       }
     } 
 // get reduired edited one in order to change it 
@@ -453,8 +453,8 @@ public function editReminder(Request $request,$days_to_mail, $client_service_id)
        catch (QueryException $e)
        {
         $message = 'cannot connect to database';
-        $myerrors = array($message);
-        return redirect('/home')->withErrors($myerrors);
+        $my_errors = array($message);
+        return redirect('/home')->withErrors($my_errors);
         }
 
     $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
@@ -476,8 +476,8 @@ public function deleteReminder($days_to_mail,$client_service_id)
     if ($mailing_methods_number<= 1)
     {
       $message=" there will be no reminders so this can't be deleted";
-       $myerrors = array($message);
-      return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+       $my_errors = array($message);
+      return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($my_errors);
     }
     // get specific reminder in order to delete it 
    $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
