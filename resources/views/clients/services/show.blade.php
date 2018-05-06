@@ -90,8 +90,8 @@
                   <td>{{$value->days_to_mail}}</td>
                   <td>
                     <a class="btn btn-outline-primary" data-toggle="modal" data-target="#editreminderModal{{ $value->days_to_mail }}" style="color:blue;margin-right: 5px; border: none; background: none;">Edit</a>
-                    <a  class="btn btn-outline-primary" data-toggle="modal" data-target="#deletereminderModal{{ $value->days_to_mail }}" style="color:blue;margin-left: 5px;border: none; background: none;">Delete</a>
-                  </td>
+										<a id="deleteremindersbuttons" class="btn btn-outline-primary" data-toggle="modal" data-target="#deletereminderModal{{ $value->days_to_mail }}" style="color:blue;margin-left: 5px;border: none; background: none;">Delete</a>
+									 </td>
                 </tr>
               @endforeach
             </tbody>
@@ -191,7 +191,13 @@
 								</div>
 							</div>
 						</div>
-			</div>	
+			</div>
+		@else
+				<style>
+							#deleteremindersbuttons{
+								display:none;
+							}
+				</style>
 		@endif            
 				
 				<div class="modal fade" id="editreminderModal{{ $value->days_to_mail}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -215,10 +221,10 @@
 																			<button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Edit</button>
 																			<button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
 																		</div>
-											</div>
-										</form>
+															</div>
+														</form>
+												</div>
 									</div>
-								</div>
 							</div>
 				</div>
 		@endforeach

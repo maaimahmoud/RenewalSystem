@@ -422,13 +422,30 @@ public function editReminder(Request $request,$days_to_mail, $client_service_id)
 {
 
    $this->validate($request, [
-            'day_to_mail' => 'required|numeric|max:50|min:1']);
+            'day_to_mail' => 'required|numeric']);
     //get all reminders to this services through this client
     $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->orderBy('days_to_mail')->get();
     // get their number 
     $mailing_methods_number=$mailing_methods->count();
     // get relation in order to be redirected 
     $relation=ClientService::find($client_service_id);
+    //Check on input number to be positive and less than payment
+    $new_mail_reminder = $request->input('day_to_mail');
+    $payment = PaymentMethod::find($relation->payment_method);
+    if ($new_mail_reminder < 1)
+    {
+        $message=" Number of days must be a positive number ";
+        $myerrors = array($message);
+        return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+    }
+    else if ($new_mail_reminder > 30*($payment->months))
+    {
+        $message=" E-mail reminders must be in a duration less than payment method duration ";
+        $myerrors = array($message);
+        return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+    }
+
+
     // loop on already made reminders in order to be unique
     for ($i=0;$i<$mailing_methods_number;$i++)
     {
@@ -481,7 +498,7 @@ public function deleteReminder($days_to_mail,$client_service_id)
     }
     // get specific reminder in order to delete it 
    $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
-   return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('sucess','Mailing reminder was successfully deleted');
+   return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success','Mailing reminder was successfully deleted');
 }
 
 
