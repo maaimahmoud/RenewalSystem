@@ -12,25 +12,32 @@
 */
 
 
-
 Route::get('/', 'HomeController@index');
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::get('/getEvents','HomeController@getEvents');
 
 
 Route::resource('clients', 'ClientController');
 
+
 Route::resource('services', 'ServiceController');
+
 
 Route::resource('paymentmethods', 'PaymentMethodController');
 
+
 Route::resource('servicescategories', 'ServiceCategoriesController');
-//////////////////////////////////
-//Service to Client Routes
+
 
 Route::resource('clients.service', 'ClientServiceController');
-//////////////////////////////////
 
+
+Auth::routes();
+////////////////////////////////////////////////////
 
 Route::get('services/delete/{id}', 'ServiceController@destroy');
 
@@ -40,22 +47,15 @@ Route::get('clients/{client}/service/{service}/delete', 'ClientServiceController
 
 Route::get('clients/{client}/service/{service}/stop', 'ClientServiceController@stop')->name('client.service.stop');
 
-//Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
+Route::put('client/{days_to_mail}/editReminder/{client_services_id}','ClientServiceController@editReminder')->name('client.service.editReminder');
 
+Route::get('client/{days_to_mail}/deleteReminder/{client_services_id}','ClientServiceController@deleteReminder')->name('client.service.deleteReminder');
 
-// Services Categories routes
 Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destroy');
 
-// Payment Methods routes
 Route::get('paymentmethods/delete/{id}', 'PaymentMethodController@destroy');
 
-//Pending routes
 Route::get('/statistics','StatisticsController@index');
-
-Route::get('/clientservice/payforservice',function(){
-  return view('clients/services/payforservice');
-});
-
 
 Route::get('filter/client/{id}', 'FilterController@filterClientsByServices');
 
@@ -64,9 +64,5 @@ Route::get('filter/service/{id}', 'FilterController@filterServicesByCategories')
 Route::get('search/client', 'SearchController@searchClient');
 
 Route::get('search/service', 'SearchController@searchService');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/clients/{client}/service/{service}/pay', 'ClientServiceController@payForService');

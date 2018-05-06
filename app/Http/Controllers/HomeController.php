@@ -7,6 +7,14 @@ use App\Client;
 use App\ClientService;
 use App\PaymentMethod;
 
+
+
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
+
 class Event
 {
   public $title;
@@ -35,6 +43,7 @@ class HomeController extends Controller
     {
       return view('welcome');
     }
+   
 
     /*
     * This function gets events to be displayed in the calender
@@ -53,26 +62,26 @@ class HomeController extends Controller
           //Get Months of this payment method ( 1,2 or 3 months etc.)
           $per_months=$payment->months;
           // A variable next reminder starts from the date this service is created and ends at service end
-          $nextReminder=$value->created_at;
+          $next_reminder=$value->created_at;
           // Url for client service profile
           $url='/clients/'.$value->id.'/service/'.$value->url;
           //This loop is executed from the start of service and step by payment method months until it reaches the ends
           //provides all due dates of this client to his service
-          while ($nextReminder < $value->end_time) {
+          while ($next_reminder < $value->end_time) {
             //Add Months to the time
-            $time = strtotime($nextReminder);
+            $time = strtotime($next_reminder);
             //Add number of months of payment method
             $str='+'.$per_months.' month';
             //Get the new date in datetime format
-            $nextReminder = date("Y-m-d H:i:s", strtotime($str, $time));
+            $next_reminder = date("Y-m-d H:i:s", strtotime($str, $time));
             //Checks date is not after the end time of service
-            if ($nextReminder < $value->end_time){
+            if ($next_reminder < $value->end_time){
                 //Then, create new event contains variable to show in calendar
                 $object = new Event();
                 //takes client name as the title of the event
                 $object->title = $value->name;
                 //adding calculated date to the new event
-                $object->start=$nextReminder;
+                $object->start=$next_reminder;
                 //attach event url to connect the event with service client page
                 $object->url=$url;
                 //add the event to array of events

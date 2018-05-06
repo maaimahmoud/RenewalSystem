@@ -21,7 +21,7 @@
 
                <select class="custom-select mb-3" value="Open this select menu" name="servicecategory" id="servicecategories">
                 <option value=0>All Services</option>
-                    @foreach ($servicecategories as $servicecategory)
+                    @foreach ($service_categories as $servicecategory)
                       <option value="<?php echo $servicecategory->id; ?>">{{$servicecategory->title}}</option>
                     @endforeach
               </select>
@@ -29,7 +29,7 @@
                <select class="custom-select mb-3" value="Open this select menu" name="service" id="services" required>
                     <option disabled selected value> -- Select Service -- </option>
 
-                    @foreach ($servicecategories as $servicecategory)
+                    @foreach ($service_categories as $servicecategory)
                       <div class="'category'+<?php echo $servicecategory->id; ?>">
 
                         @foreach ($services as $service)
@@ -46,7 +46,7 @@
           <label for="payment_method_id" class="mb-3">Payment Method</label>
                <select class="custom-select mb-3" value="Open this select menu" name="payment_method" id="payment_method" required>
                 <option disabled selected value> -- Select Payment Method -- </option>
-                    @foreach ($paymentmethods as $payment_method)
+                    @foreach ($payment_methods as $payment_method)
                       <option value="<?php echo $payment_method->id; ?>">{{$payment_method->title}} ( every {{ $payment_method->months }} months)</option>
                     @endforeach
               </select>
@@ -107,7 +107,7 @@
     @endforeach
   </div>
 
-    @foreach ($servicecategories as $servicecategory)
+    @foreach ($service_categories as $servicecategory)
       <div id="category<?php echo $servicecategory->id; ?>">
           @foreach ($services as $service)
               @if ($service->category_id == $servicecategory->id)

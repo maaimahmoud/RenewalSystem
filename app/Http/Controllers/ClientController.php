@@ -43,8 +43,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
 
@@ -95,9 +95,9 @@ class ClientController extends Controller
         {
             $message = 'The phone number or Address is not valid';
 
-            $myerrors = array($message);
+            $my_errors = array($message);
 
-            return view('clients.create')->withErrors($myerrors);
+            return view('clients.create')->withErrors($my_errors);
         }
 
         //redirect to clients page
@@ -120,8 +120,8 @@ class ClientController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
@@ -154,8 +154,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
@@ -192,8 +192,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
@@ -216,8 +216,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = "please check that the information is valid";
-            $myerrors = array($message);
-            return view('clients.edit')->with('client', $client)->withErrors($myerrors);
+            $my_errors = array($message);
+            return view('clients.edit')->with('client', $client)->withErrors($my_errors);
         }
 
         //redirect to clients page
@@ -249,8 +249,8 @@ class ClientController extends Controller
         catch (QueryException $e)
         {
             $message = 'problem with connection to database';
-            $myerrors = array($message);
-            return redirect('/clients/'.$id)->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/clients/'.$id)->withErrors($my_errors);
         }
 
         //redirect to clients page

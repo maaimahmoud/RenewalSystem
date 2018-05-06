@@ -33,8 +33,8 @@ class ServiceCategoriesController extends Controller
         catch(QueryException $e)
         {
             $message = 'cannot connect to database';
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         return view ('servicescategories.show')->with('categories',$categories);
@@ -61,25 +61,25 @@ class ServiceCategoriesController extends Controller
         ]);
 
         //create new servicescategories
-        $servicescategory= new ServiceCategories;
+        $services_category= new ServiceCategories;
 
         //store the information from the input
-        $servicescategory->title = $request->input('title');
+        $services_category->title = $request->input('title');
 
         try
         {
             //save the servicescategories in the data base
-            $servicescategory->save();
+            $services_category->save();
         }
         catch (QueryException $e)
         {
             $message = "please check that the information is valid";
-            $myerrors = array($message);
-            return redirect('/servicescategories')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/servicescategories')->withErrors($my_errors);
         }
 
         //redirect to the page of servicescategories
-         return redirect('/servicescategories')->with('success', $servicescategory->title.' was added successfully as a category');
+         return redirect('/servicescategories')->with('success', $services_category->title.' was added successfully as a category');
     }
 
     /**
@@ -99,33 +99,33 @@ class ServiceCategoriesController extends Controller
         try
         {
             //get the specific categoryservices
-            $servicescategory= ServiceCategories::find($id);
+            $services_category= ServiceCategories::find($id);
         }
         catch (QueryException $e)
         {
             $message = "problem connecting to database";
-            $myerrors = array($message);
-            return redirect('/home')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/home')->withErrors($my_errors);
         }
 
         //if there is no client with this id return that there is no client
-        if ($servicescategory == [])
+        if ($services_category == [])
         {
             return redirect('/servicescategories')->withErrors('url is not correct');
         }
 
         //store the information from the input
-        $servicescategory->title = $request->input('title');
+        $services_category->title = $request->input('title');
         try
         {
             //save the servicescategories in the data base
-            $servicescategory->save();
+            $services_category->save();
         }
         catch (QueryException $e)
         {
             $message = "please check that the information is valid and that the title of the category is unique";
-            $myerrors = array($message);
-            return redirect('/servicescategories')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/servicescategories')->withErrors($my_errors);
         }
         //redirect to the page of servicescategories
          return redirect('/servicescategories')->with('success', 'information was edited successfully');
@@ -155,8 +155,8 @@ class ServiceCategoriesController extends Controller
         catch (QueryException $e)
         {
             $message = 'Category cannot be deleted as there are services associated with it';
-            $myerrors = array($message);
-            return redirect('/servicescategories')->withErrors($myerrors);
+            $my_errors = array($message);
+            return redirect('/servicescategories')->withErrors($my_errors);
         }
 
         return redirect('/servicescategories')->with('success', 'Category was removed successfully');
