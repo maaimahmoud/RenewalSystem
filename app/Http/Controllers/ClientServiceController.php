@@ -230,7 +230,7 @@ class ClientServiceController extends Controller
         return redirect('/home')->withErrors($my_errors);
       }
       //Go to the input page with provided lists
-      return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
+      return view('clients.services.create',compact('client','services','relation','payment_methods','service_categories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
 }
 
   /**
@@ -458,7 +458,7 @@ public function editReminder(Request $request,$days_to_mail, $client_service_id)
         }
 
     $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
-    return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success', 'Successfully Edited');
+    return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success', 'Mailing reminder was successfully edited');
 }
 
 
@@ -481,7 +481,7 @@ public function deleteReminder($days_to_mail,$client_service_id)
     }
     // get specific reminder in order to delete it 
    $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
-   return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('sucess','successfully deleted');
+   return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('sucess','Mailing reminder was successfully deleted');
 }
 
 
