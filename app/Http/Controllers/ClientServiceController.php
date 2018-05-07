@@ -230,7 +230,7 @@ class ClientServiceController extends Controller
         return redirect('/home')->withErrors($my_errors);
       }
       //Go to the input page with provided lists
-      return view('clients.services.create',compact('client','services','relation','paymentmethods','servicecategories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
+      return view('clients.services.create',compact('client','services','relation','payment_methods','service_categories','current_service','current_payment_method','current_end_time','current_mailing_methods'));
 }
 
   /**
@@ -422,22 +422,39 @@ public function editReminder(Request $request,$days_to_mail, $client_service_id)
 {
 
    $this->validate($request, [
-            'day_to_mail' => 'required|numeric|max:50|min:1']);
+            'day_to_mail' => 'required|numeric']);
     //get all reminders to this services through this client
     $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->orderBy('days_to_mail')->get();
     // get their number 
     $mailing_methods_number=$mailing_methods->count();
     // get relation in order to be redirected 
     $relation=ClientService::find($client_service_id);
+    //Check on input number to be positive and less than payment
+    $new_mail_reminder = $request->input('day_to_mail');
+    $payment = PaymentMethod::find($relation->payment_method);
+    if ($new_mail_reminder < 1)
+    {
+        $message=" Number of days must be a positive number ";
+        $myerrors = array($message);
+        return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+    }
+    else if ($new_mail_reminder > 30*($payment->months))
+    {
+        $message=" E-mail reminders must be in a duration less than payment method duration ";
+        $myerrors = array($message);
+        return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+    }
+
+
     // loop on already made reminders in order to be unique
     for ($i=0;$i<$mailing_methods_number;$i++)
     {
       if ($mailing_methods[$i]->days_to_mail==$request->input('day_to_mail'))
       {
           $message=" this reminder is already made";
-          $my_errors = array($message);
+          $myerrors = array($message);
 
-          return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($my_errors);
+          return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
       }
     } 
 // get reduired edited one in order to change it 
@@ -453,12 +470,12 @@ public function editReminder(Request $request,$days_to_mail, $client_service_id)
        catch (QueryException $e)
        {
         $message = 'cannot connect to database';
-        $my_errors = array($message);
-        return redirect('/home')->withErrors($my_errors);
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
         }
 
     $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
-    return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success', 'Successfully Edited');
+    return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success', 'Mailing reminder was successfully edited');
 }
 
 
@@ -476,12 +493,12 @@ public function deleteReminder($days_to_mail,$client_service_id)
     if ($mailing_methods_number<= 1)
     {
       $message=" there will be no reminders so this can't be deleted";
-       $my_errors = array($message);
-      return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($my_errors);
+       $myerrors = array($message);
+      return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
     }
     // get specific reminder in order to delete it 
    $mailing_method=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->where('days_to_mail','=',$days_to_mail)->delete();
-   return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('sucess','successfully deleted');
+   return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success','Mailing reminder was successfully deleted');
 }
 
 

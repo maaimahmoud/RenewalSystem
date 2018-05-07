@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\User;
 use App\ServiceCategories;
@@ -12,10 +10,8 @@ use App\ClientService;
 use Charts;
 use DB;
 use Faker\Factory as Faker;
-
 class StatisticsController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -25,7 +21,6 @@ class StatisticsController extends Controller
     {
         $this->middleware('auth');
     }
-
     public function getColors($number)
     {
         $colors =array ("FFA07A",
@@ -122,7 +117,6 @@ class StatisticsController extends Controller
         "EE82EE",
         "F5DEB3",
         "F5F5F5",
-
         );
         for ($i=0;$i<$number;$i++)
         {
@@ -132,7 +126,6 @@ class StatisticsController extends Controller
         return ($colors);
   }
    
-
     public function index()
     {   
         //get total number of services from database
@@ -186,12 +179,8 @@ public function getClientServiceChart()
                     ->width(1200)
                     ->height(700)
                     ->responsive(false);
-
     return ($clients_by_services);
-
 }
-
-
 public function getClientCategoryQuery()
 {
      //get clients that used by each category
@@ -220,7 +209,6 @@ public function getClientCategoryChart()
                      ->height(700)
                     ->responsive(false);
     return ($clients_by_categories);
-
 }
 public  function getClientPaymentMethodQuery()
 {
@@ -248,10 +236,8 @@ public  function getClientPaymentMethodChart()
                     ->width(1200)
                     ->height(700)
                     ->responsive(false);
-
     return ($clients_by_payment_methods);
 }
-
 public  function getServiceCategoryQuery()
 {
     //get service that in each category
@@ -263,7 +249,6 @@ public  function getServiceCategoryQuery()
         // get number of used service in categories 
         $count=$service_by_categories_query->count();
         return compact('service_by_categories_query','count');
-
 }
 public  function getServiceCategoryChart()
 {
@@ -279,11 +264,8 @@ public  function getServiceCategoryChart()
                     ->width(1200)
                     ->height(700)
                     ->responsive(false);
-
     return ($service_by_categories);
-
 }
-
 public function getServiceCategoryChartWithTime()
 {
     // prepare data of service_categories number within the last 5 years 
@@ -295,7 +277,6 @@ public function getServiceCategoryChartWithTime()
                     ->width(1300)
                     ->groupByYear(5);
     return($service_categories_time);
-
 }
 public function getServiceChartWithTime()
 {
@@ -309,7 +290,6 @@ public function getServiceChartWithTime()
                     ->groupByYear(5);
     return($service_time);
 }
-
 public function getCientChartWithTime()
 {
      // prepare data of service_categories number within the last 5 years 
@@ -322,5 +302,4 @@ public function getCientChartWithTime()
                     ->groupByYear(5);
 return($client_time);
 }
-
 }

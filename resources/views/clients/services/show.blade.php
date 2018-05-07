@@ -46,7 +46,7 @@
               <h5 class="card-title"><strong>Service cost:</strong> <span class="badge badge-pill badge-primary " >{{$service->cost.' LE every '.$service->payment_method->months.' months'}}</span> </h5>
             </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
-                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary " title="{{$relation->required_money . ' per '. $payment_method->months .' months'}}">{{$payment_method->title}}</span> </h5>
+                <h5 class="card-title"><strong>Payment method:</strong> <span class="badge badge-pill badge-primary ">{{$payment_method->title}}</span> </h5>
              </div>
              <div class="card-body-custom text-dark bg-grey-light-3">
                 <h5 class="card-title"><strong>Required Money: </strong> {{$relation->required_money}} </h5>
@@ -90,7 +90,8 @@
                   <td>{{$value->days_to_mail}}</td>
                   <td>
                     <a class="btn btn-outline-primary" data-toggle="modal" data-target="#editreminderModal{{ $value->days_to_mail }}" style="color:blue;margin-right: 5px; border: none; background: none;">Edit</a>
-                     <a  class="btn btn-outline-primary" data-toggle="modal" data-target="#deletereminderModal{{ $value->days_to_mail }}" style="color:blue;margin-left: 5px;border: none; background: none;">Delete</a></td>
+										<a id="deleteremindersbuttons" class="btn btn-outline-primary" data-toggle="modal" data-target="#deletereminderModal{{ $value->days_to_mail }}" style="color:blue;margin-left: 5px;border: none; background: none;">Delete</a>
+									 </td>
                 </tr>
               @endforeach
             </tbody>
@@ -168,59 +169,64 @@
     </div>
   </div>
 </div>
-<!--Model -->
-@foreach($mailing_methods as $value )
- <div class="modal fade" id="deletereminderModal{{ $value->days_to_mail }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLongTitle">Delete</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                          Are you sure you want to delete this mailing reminder?
-                        </div>
-                        <div class="modal-footer">
-                          <a type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</a>
-                           <a type="button" class="btn btn-outline-primary" href="{{route('client.service.deleteReminder',['client_service_id'=>$relation->id,'days_to_mail'=>$value->days_to_mail])}}">Delete</a>
-                   </div>
-                 </div>
-               </div>
-             </div>
-              @endforeach
-                <!--Model -->
 
 @foreach($mailing_methods as $value )
 
-        <div class="modal fade" id="editreminderModal{{ $value->days_to_mail}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header light-blue darken-3 white-text">
-                                <h5 class="modal-title" id="editModalLongTitle">Edit</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body mb-0">
-                                  <form action="{{ route('client.service.editReminder',['days_to_mail'=>$value->days_to_mail, 'client_service_id'=>$relation->id]) }}" method="POST">
-                                      @csrf
-                                       <input name="_method" type="hidden" value="PUT">
-                                          <div class="md-form form-sm" >
-                                               <i class="fa fa-tag prefix"></i>
-                                               <label for="form21">days_to_mail</label>
-                                               <input type="number" class="form-control" name="day_to_mail"  value="{{$value->days_to_mail}}" required>
-                                          <div class="text-center mt-1-half">
-                                            <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Edit</button>
-                                            <button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
-                                          </div>
-                           </div>
-                         </form>
-                       </div>
-                     </div>
-                   </div>
-                 </div>
-            @endforeach
+		@if (count($mailing_methods) > 1 )
+		<div class="modal fade" id="deletereminderModal{{ $value->days_to_mail }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+										<div class="modal-header">
+												<h5 class="modal-title" id="deleteModalLongTitle">Delete</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+										</div>
+										<div class="modal-body">
+											Are you sure you want to delete this mailing reminder?
+										</div>
+										<div class="modal-footer">
+											<a type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</a>
+												<a type="button" class="btn btn-outline-primary" href="{{route('client.service.deleteReminder',['client_service_id'=>$relation->id,'days_to_mail'=>$value->days_to_mail])}}">Delete</a>
+								</div>
+							</div>
+						</div>
+			</div>
+		@else
+				<style>
+							#deleteremindersbuttons{
+								display:none;
+							}
+				</style>
+		@endif            
+				
+				<div class="modal fade" id="editreminderModal{{ $value->days_to_mail}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header light-blue darken-3 white-text">
+													<h5 class="modal-title" id="editModalLongTitle">Edit</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body mb-0">
+														<form action="{{ route('client.service.editReminder',['days_to_mail'=>$value->days_to_mail, 'client_service_id'=>$relation->id]) }}" method="POST">
+																@csrf
+																	<input name="_method" type="hidden" value="PUT">
+																		<div class="md-form form-sm" >
+																					<i class="fa fa-tag prefix"></i>
+																					<label for="form21">Days before mail</label>
+																					<input type="number" class="form-control" name="day_to_mail"  value="{{$value->days_to_mail}}" required>
+																		<div class="text-center mt-1-half">
+																			<button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Edit</button>
+																			<button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
+																		</div>
+															</div>
+														</form>
+												</div>
+									</div>
+							</div>
+				</div>
+		@endforeach
 
 @endsection
