@@ -49,6 +49,8 @@ Route::get('clients/{client}/service/{service}/stop', 'ClientServiceController@s
 
 Route::put('client/{days_to_mail}/editReminder/{client_services_id}','ClientServiceController@editReminder')->name('client.service.editReminder');
 
+Route::put('client/addReminder/{client_services_id}','ClientServiceController@addReminder')->name('client.service.addReminder');
+
 Route::get('client/{days_to_mail}/deleteReminder/{client_services_id}','ClientServiceController@deleteReminder')->name('client.service.deleteReminder');
 
 Route::get('servicescategories/delete/{id}', 'ServiceCategoriesController@destroy');

@@ -89,13 +89,16 @@
                   <th scope="row">{{$key+1}}</th>
                   <td>{{$value->days_to_mail}}</td>
                   <td>
-                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#editreminderModal{{ $value->days_to_mail }}" style="color:blue;margin-right: 5px; border: none; background: none;">Edit</a>
-										<a id="deleteremindersbuttons" class="btn btn-outline-primary" data-toggle="modal" data-target="#deletereminderModal{{ $value->days_to_mail }}" style="color:blue;margin-left: 5px;border: none; background: none;">Delete</a>
+                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#editreminderModal{{ $value->days_to_mail }}" style="color:blue; border: none; background: none;">Edit</a>
+										<a id="deleteremindersbuttons" class="btn btn-outline-primary" data-toggle="modal" data-target="#deletereminderModal{{ $value->days_to_mail }}" style="color:blue;border: none; background: none;">Delete</a>
 									 </td>
                 </tr>
               @endforeach
             </tbody>
           </table>
+          @if (count($mailing_methods) < 10 )
+          <a id="addremindersbuttons" data-toggle="modal" data-target="#addreminderModal"  style="color:blue; cursor: pointer;">+ Add new Reminder</a>
+        @endif
     </div>
    </div>
 
@@ -228,5 +231,34 @@
 							</div>
 				</div>
 		@endforeach
+  
+      <div class="modal fade" id="addreminderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header light-blue darken-3 white-text">
+                          <h5 class="modal-title" id="editModalLongTitle">Add</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body mb-0">
+                            <form action="{{ route('client.service.addReminder',$relation->id) }}" method="POST">
+                                @csrf
+                                  <input name="_method" type="hidden" value="PUT">
+                                    <div class="md-form form-sm" >
+                                          <i class="fa fa-tag prefix"></i>
+                                          <label for="form21">Days before mail</label>
+                                          <input type="number" class="form-control" name="day_to_mail" required>
+                                    <div class="text-center mt-1-half">
+                                      <button type ="submit" class="btn btn-outline-primary"><i class="fa fa-send ml-1"></i>Add</button>
+                                      <button type ="submit" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-send ml-1"></i>Cancel</button>
+                                    </div>
+                              </div>
+                            </form>
+                        </div>
+                  </div>
+              </div>
+        </div>
+     
 
 @endsection

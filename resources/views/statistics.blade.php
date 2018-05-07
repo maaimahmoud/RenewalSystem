@@ -128,7 +128,6 @@
     <div class="carousel-item active">
       	<div class="col-md-12">
             	<div class="panel panel-default">
-
                 	<div class="panel-body">
                     {!! $clients_by_services->html() !!}
                		 </div>

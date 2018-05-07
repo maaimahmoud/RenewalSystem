@@ -15,7 +15,14 @@
         <h5>Filter by Category</h5>
         <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
         @foreach ($categories as $category)
-          <a class="dropdown-item" href="{{url('filter/service/'.$category->id)}}">{{$category->title}}</a>
+        
+        <div id="rectangle{{ $category->id}}" style="width:20px; height:20px;background:blue; margin: 7px">
+          <a  class="dropdown-item" href="{{url('filter/service/'.$category->id)}}">{{$category->title}}</a>
+        </div>
+           <script type="text/javascript">
+              categoryColor({{ $category->id }},{{ $category->id }});
+          </script>
+        
         @endforeach
       </div>
     </div>
@@ -101,4 +108,47 @@
 
  </script>
 
+  <script type="text/javascript">
+    function categoryColor(x,id){
+      var z ="rectangle"+id;
+      var elementToColor=document.getElementById(z);
+
+      x=x*x*x*x*x*x*x;
+
+      var intnumber = x - 0;
+
+      // isolate the colors - really not necessary
+      var red, green, blue;
+
+      // needed since toString does not zero fill on left
+      var template = "#000000";
+
+      // in the MS Windows world RGB colors
+      // are 0xBBGGRR because of the way Intel chips store bytes
+      red = (intnumber&0x0000ff) << 16;
+      green = intnumber&0x00ff00;
+      blue = (intnumber&0xff0000) >>> 16;
+
+      // mask out each color and reverse the order
+      intnumber = red|green|blue;
+
+      // toString converts a number to a hexstring
+      var HTMLcolor = intnumber.toString(16);
+
+      //template adds # for standard HTML #RRGGBB
+      HTMLcolor = template.substring(0,7 - HTMLcolor.length) + HTMLcolor;
+
+
+      hexString = x.toString(16);
+      hexString='#'+hexString;
+
+      elementToColor.style.background=HTMLcolor;
+      
+
+    };
+
+ </script>
+
 @endsection
+
+

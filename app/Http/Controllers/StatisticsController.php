@@ -275,7 +275,7 @@ public function getServiceCategoryChartWithTime()
                     ->dimensions(1000, 500)
                     ->responsive(false)
                     ->width(1300)
-                    ->groupByYear(5);
+                    ->groupByYear(5);            
     return($service_categories_time);
 }
 public function getServiceChartWithTime()
@@ -288,6 +288,7 @@ public function getServiceChartWithTime()
                     ->responsive(false)
                     ->width(1300)
                     ->groupByYear(5);
+                    
     return($service_time);
 }
 public function getCientChartWithTime()

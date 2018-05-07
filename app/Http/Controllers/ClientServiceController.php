@@ -479,6 +479,64 @@ public function editReminder(Request $request,$days_to_mail, $client_service_id)
 }
 
 
+public function addReminder(Request $request, $client_service_id)
+{
+
+   $this->validate($request, [
+            'day_to_mail' => 'required|numeric']);
+    //get all reminders to this services through this client
+    $mailing_methods=MailingMethodClientServices::where('client_services_id','=', $client_service_id)->orderBy('days_to_mail')->get();
+    // get their number 
+    $mailing_methods_number=$mailing_methods->count();
+    // get relation in order to be redirected 
+    $relation=ClientService::find($client_service_id);
+    //Check on input number to be positive and less than payment
+    $new_mail_reminder = $request->input('day_to_mail');
+    $payment = PaymentMethod::find($relation->payment_method);
+    if ($new_mail_reminder < 1)
+    {
+        $message=" Number of days must be a positive number ";
+        $myerrors = array($message);
+        return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+    }
+    else if ($new_mail_reminder > 30*($payment->months))
+    {
+        $message=" E-mail reminders must be in a duration less than payment method duration ";
+        $myerrors = array($message);
+        return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+    }
+
+
+    // loop on already made reminders in order to be unique
+    for ($i=0;$i<$mailing_methods_number;$i++)
+    {
+      if ($mailing_methods[$i]->days_to_mail==$request->input('day_to_mail'))
+      {
+          $message=" this reminder is already made";
+          $myerrors = array($message);
+
+          return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->withErrors($myerrors);
+      }
+    } 
+    // add new required one
+        try{
+              $new=new MailingMethodClientServices;
+              $new->client_services_id=$client_service_id;
+              $new->days_to_mail=$request->input('day_to_mail');
+              $new->last_paid_date=$mailing_methods[0]->last_paid_date;
+              $new->required_months_to_pay=$mailing_methods[0]->required_months_to_pay;
+              $new->save();
+        }
+       catch (QueryException $e)
+       {
+        $message = 'cannot connect to database';
+        $myerrors = array($message);
+        return redirect('/home')->withErrors($myerrors);
+        }
+    return redirect('/clients/'.$relation->client_id.'/service/'.$client_service_id)->with('success', 'Mailing reminder was successfully added');
+}
+
+
 
 public function deleteReminder($days_to_mail,$client_service_id)
 {
