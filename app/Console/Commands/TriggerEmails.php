@@ -75,7 +75,8 @@ class TriggerEmails extends Command
                 ->whereIn('client_services.id', $ids)
                 ->join('clients', 'client_services.client_id', '=', 'clients.id')
                 ->join('services', 'client_services.service_id', '=', 'services.id')
-                ->select('clients.name as client_name', 'clients.email as email','clients.phone_number','client_services.balance as balance','client_services.required_money as required_money','services.title as service_name')
+                ->join('mailing_method_client_services', 'client_services.id', '=', 'mailing_method_client_services.client_services_id')
+                ->select('clients.name as client_name', 'clients.email as email','clients.phone_number','client_services.balance as balance','client_services.required_money as required_money','services.title as service_name' , 'mailing_method_client_services.days_to_mail as days' , 'services.cost as cost')
                 ->get();
     }
 
@@ -85,7 +86,7 @@ class TriggerEmails extends Command
             $mail_info=((array) $data);
             //sending mail to every client
             Mail::send('mail', $mail_info, function($message) use ($mail_info) {
-                $message->to( $mail_info['email'], $mail_info['client_name'])
+                $message->to( 'abdokaseb@gmail.com', $mail_info['client_name'])
                         ->subject($mail_info['service_name']);
                 $message->from('systemrenewal@gmail.com','ismart');
             });
